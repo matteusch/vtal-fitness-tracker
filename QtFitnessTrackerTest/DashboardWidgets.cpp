@@ -2,9 +2,10 @@
 #include <QPainter>
 
 // --- Pulsing Heart ---
-PulsingHeartWidget::PulsingHeartWidget(QWidget *parent) : QWidget(parent), m_scaleFactor(1.0), m_glowOpacity(0.0) {
-    setFixedSize(140, 140); 
+PulsingHeartWidget::PulsingHeartWidget(QWidget *parent) : QWidget(parent), m_scaleFactor(1.0), m_glowOpacity(0.0), m_isDarkMode(true) {
+    setFixedSize(140, 140);
     singleBeatAnimation = new QPropertyAnimation(this, "scaleFactor", this);
+    // ... (keep the rest of the animation setup exactly the same)
     singleBeatAnimation->setDuration(300);
     singleBeatAnimation->setStartValue(1.0);
     singleBeatAnimation->setKeyValueAt(0.15, 1.15);
@@ -15,18 +16,16 @@ PulsingHeartWidget::PulsingHeartWidget(QWidget *parent) : QWidget(parent), m_sca
 
     beatTimer = new QTimer(this);
     connect(beatTimer, &QTimer::timeout, this, [this]() {
-        if (singleBeatAnimation->state() != QAbstractAnimation::Running) {
-            singleBeatAnimation->start();
-        }
+        if (singleBeatAnimation->state() != QAbstractAnimation::Running) singleBeatAnimation->start();
     });
 
     glowFadeAnimation = new QPropertyAnimation(this, "glowOpacity", this);
-    glowFadeAnimation->setDuration(600); 
-    glowFadeAnimation->setEndValue(0.0); 
+    glowFadeAnimation->setDuration(600);
+    glowFadeAnimation->setEndValue(0.0);
 }
-
 void PulsingHeartWidget::setScaleFactor(qreal scale) { m_scaleFactor = scale; update(); }
 void PulsingHeartWidget::setGlowOpacity(qreal opacity) { m_glowOpacity = opacity; update(); }
+void PulsingHeartWidget::setDarkMode(bool dark) { m_isDarkMode = dark; update(); }
 
 void PulsingHeartWidget::updateBpm(int bpm) {
     if (bpm <= 0) return;
@@ -55,7 +54,7 @@ void PulsingHeartWidget::paintEvent(QPaintEvent *event) {
     if (m_glowOpacity > 0.0) {
         painter.save();
         int baseAlpha = static_cast<int>(m_glowOpacity * 255);
-        int layers = 2 + static_cast<int>(m_glowOpacity * 4); 
+        int layers = 2 + static_cast<int>(m_glowOpacity * 4);
         qreal baseThickness = 2.0 + (m_glowOpacity * 3.0);
         for (int i = layers; i >= 1; --i) {
             QColor glowColor(255, 45, 85, baseAlpha / (i * 2));
@@ -67,7 +66,6 @@ void PulsingHeartWidget::paintEvent(QPaintEvent *event) {
         painter.drawRoundedRect(QRectF(-55, -55, 110, 110), 20, 20);
         painter.restore();
     }
-
     painter.save();
     painter.scale(m_scaleFactor, m_scaleFactor);
     QFont font = painter.font();
@@ -78,14 +76,14 @@ void PulsingHeartWidget::paintEvent(QPaintEvent *event) {
 }
 
 // --- Oxygen Circle ---
-OxygenCircleWidget::OxygenCircleWidget(QWidget *parent) : QWidget(parent), m_animatedValue(98.0) {
+OxygenCircleWidget::OxygenCircleWidget(QWidget *parent) : QWidget(parent), m_animatedValue(98.0), m_isDarkMode(true) {
     setFixedSize(140, 140);
     valueAnimation = new QPropertyAnimation(this, "animatedValue", this);
     valueAnimation->setDuration(600);
-    valueAnimation->setEasingCurve(QEasingCurve::InOutQuad); 
+    valueAnimation->setEasingCurve(QEasingCurve::InOutQuad);
 }
-
 void OxygenCircleWidget::setAnimatedValue(qreal val) { m_animatedValue = val; update(); }
+void OxygenCircleWidget::setDarkMode(bool dark) { m_isDarkMode = dark; update(); }
 
 void OxygenCircleWidget::updateSpo2(int spo2) {
     valueAnimation->stop();
@@ -102,12 +100,13 @@ void OxygenCircleWidget::paintEvent(QPaintEvent *event) {
     int radius = 55;
     QRectF rect(-radius, -radius, radius * 2, radius * 2);
 
+    // Dynamic Track Color
     painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor("#2c2c2e"));
+    painter.setBrush(m_isDarkMode ? QColor("#2c2c2e") : QColor("#d1d1d6"));
     painter.drawEllipse(rect);
 
-    qreal minSpO2 = 85.0;  
-    qreal maxSpO2 = 100.0; 
+    qreal minSpO2 = 85.0;
+    qreal maxSpO2 = 100.0;
     qreal fillRatio = (m_animatedValue - minSpO2) / (maxSpO2 - minSpO2);
     if (fillRatio < 0.0) fillRatio = 0.0;
     if (fillRatio > 1.0) fillRatio = 1.0;
@@ -116,29 +115,29 @@ void OxygenCircleWidget::paintEvent(QPaintEvent *event) {
     painter.save();
     QRectF clipRect(-radius, radius - fillHeight, radius * 2, fillHeight);
     painter.setClipRect(clipRect);
-    
-    painter.setBrush(QColor("#0a84ff")); 
+
+    painter.setBrush(QColor("#0a84ff"));
     painter.drawEllipse(rect);
 
-    painter.setBrush(QColor("#5ac8fa")); 
+    painter.setBrush(QColor("#5ac8fa"));
     painter.drawEllipse(QPointF(-20, 15), 4, 4);
     painter.drawEllipse(QPointF(15, 30), 6, 6);
     painter.drawEllipse(QPointF(8, -10), 3, 3);
     painter.drawEllipse(QPointF(-10, 35), 5, 5);
     painter.drawEllipse(QPointF(-25, -5), 4, 4);
     painter.drawEllipse(QPointF(25, 5), 3, 3);
-    painter.restore(); 
+    painter.restore();
 }
 
 // --- Activity Ring ---
-ActivityRingWidget::ActivityRingWidget(QWidget *parent) : QWidget(parent), m_animatedValue(0.0) {
+ActivityRingWidget::ActivityRingWidget(QWidget *parent) : QWidget(parent), m_animatedValue(0.0), m_isDarkMode(true) {
     setFixedSize(140, 140);
     valueAnimation = new QPropertyAnimation(this, "animatedValue", this);
     valueAnimation->setDuration(600);
-    valueAnimation->setEasingCurve(QEasingCurve::OutBack); 
+    valueAnimation->setEasingCurve(QEasingCurve::OutBack);
 }
-
 void ActivityRingWidget::setAnimatedValue(qreal val) { m_animatedValue = val; update(); }
+void ActivityRingWidget::setDarkMode(bool dark) { m_isDarkMode = dark; update(); }
 
 void ActivityRingWidget::updateValue(int val) {
     valueAnimation->stop();
@@ -155,18 +154,19 @@ void ActivityRingWidget::paintEvent(QPaintEvent *event) {
     int radius = 55;
     QRectF rect(-radius, -radius, radius * 2, radius * 2);
 
-    QPen bgPen(QColor("#2c2c2e"), 12, Qt::SolidLine, Qt::RoundCap);
+    // Dynamic Track Color
+    QPen bgPen(m_isDarkMode ? QColor("#2c2c2e") : QColor("#d1d1d6"), 12, Qt::SolidLine, Qt::RoundCap);
     painter.setPen(bgPen);
-    painter.drawArc(rect, 0, 360 * 16); 
+    painter.drawArc(rect, 0, 360 * 16);
 
     QPen fgPen(QColor("#ff9500"), 12, Qt::SolidLine, Qt::RoundCap);
     painter.setPen(fgPen);
 
     qreal goal = 10000.0;
     qreal progress = m_animatedValue / goal;
-    if (progress > 1.0) progress = 1.0; 
+    if (progress > 1.0) progress = 1.0;
 
-    int startAngle = 90 * 16; 
+    int startAngle = 90 * 16;
     int spanAngle = -static_cast<int>(progress * 360 * 16);
     painter.drawArc(rect, startAngle, spanAngle);
 
@@ -177,14 +177,14 @@ void ActivityRingWidget::paintEvent(QPaintEvent *event) {
 }
 
 // --- Calorie Ring ---
-CalorieRingWidget::CalorieRingWidget(QWidget *parent) : QWidget(parent), m_animatedValue(0.0) {
+CalorieRingWidget::CalorieRingWidget(QWidget *parent) : QWidget(parent), m_animatedValue(0.0), m_isDarkMode(true) {
     setFixedSize(140, 140);
     valueAnimation = new QPropertyAnimation(this, "animatedValue", this);
     valueAnimation->setDuration(600);
-    valueAnimation->setEasingCurve(QEasingCurve::OutBack); 
+    valueAnimation->setEasingCurve(QEasingCurve::OutBack);
 }
-
 void CalorieRingWidget::setAnimatedValue(qreal val) { m_animatedValue = val; update(); }
+void CalorieRingWidget::setDarkMode(bool dark) { m_isDarkMode = dark; update(); }
 
 void CalorieRingWidget::updateValue(int val) {
     valueAnimation->stop();
@@ -201,18 +201,19 @@ void CalorieRingWidget::paintEvent(QPaintEvent *event) {
     int radius = 55;
     QRectF rect(-radius, -radius, radius * 2, radius * 2);
 
-    QPen bgPen(QColor("#2c2c2e"), 12, Qt::SolidLine, Qt::RoundCap);
+    // Dynamic Track Color
+    QPen bgPen(m_isDarkMode ? QColor("#2c2c2e") : QColor("#d1d1d6"), 12, Qt::SolidLine, Qt::RoundCap);
     painter.setPen(bgPen);
-    painter.drawArc(rect, 0, 360 * 16); 
+    painter.drawArc(rect, 0, 360 * 16);
 
     QPen fgPen(QColor("#34c759"), 12, Qt::SolidLine, Qt::RoundCap);
     painter.setPen(fgPen);
 
-    qreal goal = 2500.0; 
+    qreal goal = 2500.0;
     qreal progress = m_animatedValue / goal;
-    if (progress > 1.0) progress = 1.0; 
+    if (progress > 1.0) progress = 1.0;
 
-    int startAngle = 90 * 16; 
+    int startAngle = 90 * 16;
     int spanAngle = -static_cast<int>(progress * 360 * 16);
     painter.drawArc(rect, startAngle, spanAngle);
 

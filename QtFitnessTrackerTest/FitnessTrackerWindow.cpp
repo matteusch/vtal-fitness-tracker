@@ -3,9 +3,9 @@
 #include <QGridLayout>
 #include <QLocale>
 
-FitnessTrackerWindow::FitnessTrackerWindow(QWidget *parent) : QWidget(parent) {
+FitnessTrackerWindow::FitnessTrackerWindow(QWidget *parent) : QWidget(parent), m_isDarkMode(true) {
     setWindowTitle("Fitness Tracker");
-    setFixedSize(640, 500); 
+    setFixedSize(640, 500);
     setStyleSheet("background-color: #1c1c1e;");
 
     stackedWidget = new QStackedWidget(this);
@@ -14,9 +14,10 @@ FitnessTrackerWindow::FitnessTrackerWindow(QWidget *parent) : QWidget(parent) {
     QWidget *startPage = new QWidget();
     QVBoxLayout *startLayout = new QVBoxLayout(startPage);
 
-    QLabel *titleLabel = new QLabel("Ready to train?", startPage);
-    titleLabel->setStyleSheet("color: white; font-size: 42px; font-weight: bold;");
-    titleLabel->setAlignment(Qt::AlignCenter);
+    // Stored in the class so we can change its color later
+    startTitleLabel = new QLabel("Ready to train?", startPage);
+    startTitleLabel->setStyleSheet("color: white; font-size: 42px; font-weight: bold;");
+    startTitleLabel->setAlignment(Qt::AlignCenter);
 
     QPushButton *startButton = new QPushButton("START WORKOUT", startPage);
     startButton->setCursor(Qt::PointingHandCursor);
@@ -28,14 +29,14 @@ FitnessTrackerWindow::FitnessTrackerWindow(QWidget *parent) : QWidget(parent) {
     );
 
     startLayout->addStretch();
-    startLayout->addWidget(titleLabel, 0, Qt::AlignCenter);
+    startLayout->addWidget(startTitleLabel, 0, Qt::AlignCenter);
     startLayout->addSpacing(40);
     startLayout->addWidget(startButton, 0, Qt::AlignCenter);
     startLayout->addStretch();
 
 
     // --- PAGE 1: DASHBOARD SCREEN ---
-    QWidget *dashboardPage = new QWidget(); 
+    QWidget *dashboardPage = new QWidget();
 
     QString labelStyle = "color: #ffffff; font-size: 32px; font-weight: bold; font-family: Arial;";
     QString subStyle = "color: #8e8e93; font-size: 14px; font-weight: bold; letter-spacing: 2px;";
@@ -84,7 +85,7 @@ FitnessTrackerWindow::FitnessTrackerWindow(QWidget *parent) : QWidget(parent) {
     stepLayout->addWidget(activitySubtitle);
     stepLayout->addWidget(activityWidget, 0, Qt::AlignCenter);
     QVBoxLayout *stepTextLayout = new QVBoxLayout();
-    stepTextLayout->setSpacing(0); 
+    stepTextLayout->setSpacing(0);
     stepTextLayout->addWidget(stepLabel);
     stepTextLayout->addWidget(distanceLabel);
     stepLayout->addLayout(stepTextLayout);
@@ -102,39 +103,79 @@ FitnessTrackerWindow::FitnessTrackerWindow(QWidget *parent) : QWidget(parent) {
     calLayout->addWidget(calorieSubtitle);
     calLayout->addWidget(calorieWidget, 0, Qt::AlignCenter);
     calLayout->addWidget(calorieLabel);
-    calLayout->addStretch(); 
+    calLayout->addStretch();
 
     QGridLayout *dashboardLayout = new QGridLayout(dashboardPage);
     dashboardLayout->setContentsMargins(40, 40, 40, 40);
     dashboardLayout->setVerticalSpacing(50);
     dashboardLayout->setHorizontalSpacing(30);
 
-    dashboardLayout->addLayout(heartLayout, 0, 0); 
-    dashboardLayout->addLayout(oxyLayout,   0, 1); 
-    dashboardLayout->addLayout(stepLayout,  1, 0); 
-    dashboardLayout->addLayout(calLayout,   1, 1); 
+    dashboardLayout->addLayout(heartLayout, 0, 0);
+    dashboardLayout->addLayout(oxyLayout,   0, 1);
+    dashboardLayout->addLayout(stepLayout,  1, 0);
+    dashboardLayout->addLayout(calLayout,   1, 1);
 
     // --- FINAL WIRING ---
     stackedWidget->addWidget(startPage);
     stackedWidget->addWidget(dashboardPage);
 
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->setContentsMargins(0, 0, 0, 0); 
+    mainLayout->setContentsMargins(0, 0, 0, 0);
     mainLayout->addWidget(stackedWidget);
 
     sensor = new MockSensor(this);
     connect(sensor, &MockSensor::bpmChanged, this, &FitnessTrackerWindow::onBpmChanged);
     connect(sensor, &MockSensor::spo2Changed, this, &FitnessTrackerWindow::onSpo2Changed);
-    connect(sensor, &MockSensor::activityChanged, this, &FitnessTrackerWindow::onActivityChanged); 
+    connect(sensor, &MockSensor::activityChanged, this, &FitnessTrackerWindow::onActivityChanged);
 
     onBpmChanged(75);
     onSpo2Changed(98);
-    onActivityChanged(0, 0.0, 0); 
+    onActivityChanged(0, 0.0, 0);
 
     connect(startButton, &QPushButton::clicked, this, [this]() {
-        stackedWidget->setCurrentIndex(1); 
-        sensor->startWorkout();            
+        stackedWidget->setCurrentIndex(1);
+        sensor->startWorkout();
     });
+
+    // --- THE FLOATING THEME BUTTON ---
+    themeButton = new QPushButton("☀️", this);
+    // Position it absolutely in the top right corner
+    themeButton->setGeometry(width() - 55, 15, 40, 40);
+    themeButton->setCursor(Qt::PointingHandCursor);
+    themeButton->setStyleSheet("border-radius: 20px; background-color: #2c2c2e; font-size: 20px;");
+    connect(themeButton, &QPushButton::clicked, this, &FitnessTrackerWindow::toggleTheme);
+}
+
+// --- NEW: Theme Toggling Logic ---
+void FitnessTrackerWindow::toggleTheme() {
+    m_isDarkMode = !m_isDarkMode;
+
+    // Determine the new colors
+    QString bgColor = m_isDarkMode ? "#1c1c1e" : "#f2f2f7";
+    QString textColor = m_isDarkMode ? "#ffffff" : "#000000";
+    QString btnBgColor = m_isDarkMode ? "#2c2c2e" : "#d1d1d6";
+
+    // Update main window background
+    setStyleSheet("background-color: " + bgColor + ";");
+
+    // Update the button appearance
+    themeButton->setText(m_isDarkMode ? "☀️" : "🌙");
+    themeButton->setStyleSheet("border-radius: 20px; background-color: " + btnBgColor + "; font-size: 20px;");
+
+    // Update text colors
+    QString labelStyle = "color: " + textColor + "; font-size: 32px; font-weight: bold; font-family: Arial;";
+    bpmLabel->setStyleSheet(labelStyle);
+    spo2Label->setStyleSheet(labelStyle);
+    stepLabel->setStyleSheet(labelStyle);
+    calorieLabel->setStyleSheet(labelStyle);
+
+    startTitleLabel->setStyleSheet("color: " + textColor + "; font-size: 42px; font-weight: bold;");
+
+    // Tell the custom widgets to repaint themselves!
+    heartWidget->setDarkMode(m_isDarkMode);
+    oxygenWidget->setDarkMode(m_isDarkMode);
+    activityWidget->setDarkMode(m_isDarkMode);
+    calorieWidget->setDarkMode(m_isDarkMode);
 }
 
 void FitnessTrackerWindow::onBpmChanged(int newBpm) {
