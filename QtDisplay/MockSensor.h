@@ -7,22 +7,36 @@ class MockSensor : public QObject {
 public:
     explicit MockSensor(QObject *parent = nullptr);
 
+    enum WorkoutType { None, Running, Cycling, Swimming };
+
+    bool isWorkoutActive() const { return m_currentWorkout != None; }
+
 public slots:
-    void startWorkout();
+    void startWorkout(WorkoutType type);
+    void pauseWorkout();
+    void resumeWorkout();
+    void stopWorkout();
 
     signals:
-        void bpmChanged(int newBpm);
-    void spo2Changed(int newSpo2);
-    void activityChanged(int newSteps, double newDistance, int newCalories);
+        void dailyDataUpdated(int bpm, int dailySteps);
+    void workoutDataUpdated(int elapsedSeconds, int bpm, int spo2, double distance, int calories);
 
 private slots:
-    void generateNewReading();
+    void generateDailyReading();
+    void generateWorkoutReading();
 
 private:
-    QTimer *timer;
+    QTimer *dailyTimer;
+    QTimer *workoutTimer;
+
+    WorkoutType m_currentWorkout;
+    bool m_isPaused;
+
     int m_currentBpm;
+    int m_dailySteps;
+
+    int m_workoutSeconds;
     int m_currentSpO2;
-    int m_currentSteps;
-    double m_currentDistance;
-    double m_currentCalories;
+    double m_workoutDistance;
+    double m_workoutCalories;
 };

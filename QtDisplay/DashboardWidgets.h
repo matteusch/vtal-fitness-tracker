@@ -13,7 +13,7 @@ public:
     void setScaleFactor(qreal scale);
     qreal glowOpacity() const { return m_glowOpacity; }
     void setGlowOpacity(qreal opacity);
-    void setDarkMode(bool dark); // NEW
+    void setDarkMode(bool dark);
 public slots:
     void updateBpm(int bpm);
 protected:
@@ -21,7 +21,7 @@ protected:
 private:
     qreal m_scaleFactor;
     qreal m_glowOpacity;
-    bool m_isDarkMode; // NEW
+    bool m_isDarkMode;
     QPropertyAnimation *singleBeatAnimation;
     QPropertyAnimation *glowFadeAnimation;
     QTimer *beatTimer;
@@ -34,14 +34,14 @@ public:
     explicit OxygenCircleWidget(QWidget *parent = nullptr);
     qreal animatedValue() const { return m_animatedValue; }
     void setAnimatedValue(qreal val);
-    void setDarkMode(bool dark); // NEW
+    void setDarkMode(bool dark);
 public slots:
     void updateSpo2(int spo2);
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:
     qreal m_animatedValue;
-    bool m_isDarkMode; // NEW
+    bool m_isDarkMode;
     QPropertyAnimation *valueAnimation;
 };
 
@@ -52,14 +52,14 @@ public:
     explicit ActivityRingWidget(QWidget *parent = nullptr);
     qreal animatedValue() const { return m_animatedValue; }
     void setAnimatedValue(qreal val);
-    void setDarkMode(bool dark); // NEW
+    void setDarkMode(bool dark);
 public slots:
     void updateValue(int val);
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:
     qreal m_animatedValue;
-    bool m_isDarkMode; // NEW
+    bool m_isDarkMode;
     QPropertyAnimation *valueAnimation;
 };
 
@@ -70,13 +70,13 @@ public:
     explicit CalorieRingWidget(QWidget *parent = nullptr);
     qreal animatedValue() const { return m_animatedValue; }
     void setAnimatedValue(qreal val);
-    void setDarkMode(bool dark); // NEW
+    void setDarkMode(bool dark);
 public slots:
     void updateValue(int val);
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:
     qreal m_animatedValue;
-    bool m_isDarkMode; // NEW
+    bool m_isDarkMode;
     QPropertyAnimation *valueAnimation;
 };

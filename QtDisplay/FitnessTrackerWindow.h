@@ -4,6 +4,7 @@
 #include <QStackedWidget>
 #include <QPushButton>
 #include <QComboBox>
+#include <QGraphicsOpacityEffect>
 #include "DashboardWidgets.h"
 #include "MockSensor.h"
 
@@ -13,49 +14,48 @@ public:
     explicit FitnessTrackerWindow(QWidget *parent = nullptr);
 
 private slots:
-    void onBpmChanged(int newBpm);
-    void onSpo2Changed(int newSpo2);
-    void onActivityChanged(int newSteps, double newDistance, int newCalories);
+    void onDailyUpdated(int bpm, int steps);
+    void onWorkoutUpdated(int seconds, int bpm, int spo2, double distance, int calories);
     void toggleTheme();
-    void changeLanguage(int index); // NEW: Handles the dropdown change
-    void updateStaticTexts();       // NEW: Refreshes all the text on the screen
+    void changeLanguage(int index);
+    void updateStaticTexts();
+    void fadeToPage(int pageIndex);
+    void formatTimeLabel(int seconds);
 
 private:
-    // Language tracking
     enum Language { EN, PL, DE };
     Language m_currentLang;
 
-    // Caching the latest sensor values so we can redraw them on language change
-    int m_lastBpm;
-    int m_lastSpo2;
-    int m_lastSteps;
-    double m_lastDistance;
-    int m_lastCalories;
-
     QStackedWidget *stackedWidget;
+    QGraphicsOpacityEffect *opacityEffect;
+
     QPushButton *themeButton;
-    QComboBox *langComboBox;  // NEW: The floating dropdown menu
+    QComboBox *langComboBox;
     bool m_isDarkMode;
+    bool m_isWorkoutPaused;
 
-    PulsingHeartWidget *heartWidget;
-    OxygenCircleWidget *oxygenWidget;
-    ActivityRingWidget *activityWidget;
-    CalorieRingWidget  *calorieWidget;
+    // --- UI Elements ---
+    PulsingHeartWidget *homeHeartWidget;
+    ActivityRingWidget *homeStepsWidget;
+    QLabel *homeBpmLabel;
+    QLabel *homeStepsLabel;
+    QPushButton *startTrainingBtn;
 
-    // Promoted labels so our update function can change their text
-    QLabel *startTitleLabel;
-    QPushButton *startButton;
+    QPushButton *runBtn, *cycleBtn, *swimBtn, *cancelSelectionBtn;
 
-    QLabel *heartSubtitle;
-    QLabel *oxygenSubtitle;
-    QLabel *activitySubtitle;
-    QLabel *calorieSubtitle;
+    QLabel *workoutTimeLabel;
+    PulsingHeartWidget *workoutHeartWidget;
+    OxygenCircleWidget *workoutSpo2Widget;
+    QLabel *workoutBpmLabel;
+    QLabel *workoutSpo2Label;
+    QLabel *workoutDistanceLabel;
+    QLabel *workoutCalorieLabel;
+    QPushButton *pauseBtn, *endBtn, *homeBtn;
 
-    QLabel *bpmLabel;
-    QLabel *spo2Label;
-    QLabel *stepLabel;
-    QLabel *distanceLabel;
-    QLabel *calorieLabel;
+    // Language references
+    QLabel *homeTitle, *homeHeartSub, *homeStepsSub;
+    QLabel *selectTitle;
+    QLabel *workTimeSub, *workHeartSub, *workSpo2Sub, *workDistSub, *workCalSub;
 
     MockSensor *sensor;
 };
