@@ -13,6 +13,7 @@
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
@@ -45,6 +46,12 @@ UART_HandleTypeDef huart2;
 uint8_t rx_max[6];
 uint8_t rx_bmp[6];
 uint8_t rx_lsm[6];
+
+// LSM6DSOX variables
+
+uint8_t step_state = 0;
+uint32_t step_count = 0;
+uint32_t last_step_time = 0;
 
 volatile uint8_t data_ready = 0;
 char uart_buf[100]; //UART buffer size
@@ -97,7 +104,7 @@ int main(void)
   HAL_I2C_Mem_Write(&hi2c1, BMP390_ADDR, BMP_REG_PWR, 1, &config_data, 1, 100);
 
   // --- 3. WAKE UP LSM6DSOX ---
-  config_data = 0x50;
+  config_data = 0x54;
   HAL_I2C_Mem_Write(&hi2c1, LSM6DSOX_ADDR, LSM_REG_CTRL1, 1, &config_data, 1, 100);
 
   /* USER CODE END 2 */
@@ -133,9 +140,40 @@ int main(void)
       int16_t accel_x = (int16_t)((rx_lsm[1] << 8) | rx_lsm[0]);
       int16_t accel_y = (int16_t)((rx_lsm[3] << 8) | rx_lsm[2]);
       int16_t accel_z = (int16_t)((rx_lsm[5] << 8) | rx_lsm[4]);
+      //Convert to g
+      float g_x = accel_x * 0.488 / 1000;
+      float g_y = accel_y * 0.488 / 1000;
+      float g_z = accel_z * 0.488 / 1000;
+      //Magnitude
+      float dynamic_movement = sqrt(g_x * g_x + g_y * g_y + g_z * g_z) - 1.0f;
+      //Cadence and step count
+      float UPPER_THRESHOLD = 1.5f;
+      float LOWER_THRESHOLD = 0.5f;
 
-      // (Red, IR, Pressure, AccelX, AccelY, AccelZ)
-      sprintf(uart_buf, "%lu,%lu,%lu,%d,%d,%d\r\n", red_led, ir_led, raw_press, accel_x, accel_y, accel_z);
+      if (step_state == 0 && dynamic_movement > UPPER_THRESHOLD) {
+    	  step_state = 1;
+    	  step_count++;
+
+    	  uint32_t current_time = HAL_GetTick();
+    	  uint32_t step_time_ms = current_time - last_step_time;
+
+    	  if (step_time_ms > 0) {
+    		  float steps_per_minute = 60000.0f / (float)step_time_ms;
+    		  char step_msg[60];
+    		  sprintf(step_msg, "STEP! Total: %lu | Cadence: %.1f SPM\r\n", step_count, steps_per_minute);
+
+    		  HAL_UART_Transmit(&huart2, (uint8_t*)step_msg, strlen(step_msg), 100);
+    	  }
+    	  last_step_time = current_time;
+      	  }
+      else if (step_state == 1 && dynamic_movement < LOWER_THRESHOLD) {
+    	  step_state = 0;
+      }
+
+
+
+      //
+      sprintf(uart_buf, "%lu,%lu,%lu,%.2f,%.2f,%.2f,%.2f\r\n", red_led, ir_led, raw_press, g_x, g_y, g_z, dynamic_movement);
 
       // Send to PC
       HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100);

@@ -60,8 +60,8 @@ all: main-build
 main-build: VTal\ Data\ Reading.elf secondary-outputs
 
 # Tool invocations
-VTal\ Data\ Reading.elf VTal\ Data\ Reading.map: $(OBJS) $(USER_OBJS) C:\Users\X\STM32CubeIDE\workspace_2.1.0\VTal\ Data\ Reading\STM32L432KCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "VTal Data Reading.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\X\STM32CubeIDE\workspace_2.1.0\VTal Data Reading\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="VTal Data Reading.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+VTal\ Data\ Reading.elf VTal\ Data\ Reading.map: $(OBJS) $(USER_OBJS) C:\Users\X\Desktop\VTal\vtal-fitness-tracker\VTal\ Data\ Reading\STM32L432KCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "VTal Data Reading.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\X\Desktop\VTal\vtal-fitness-tracker\VTal Data Reading\STM32L432KCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="VTal Data Reading.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
