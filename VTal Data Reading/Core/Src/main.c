@@ -53,6 +53,12 @@ uint8_t step_state = 0;
 uint32_t step_count = 0;
 uint32_t last_step_time = 0;
 
+// MAX30102 variables
+float dc_baseline_red = 0;
+float dc_baseline_ir = 0;
+float alpha = 0.95f;
+uint8_t filter_initialized = 0;
+
 volatile uint8_t data_ready = 0;
 char uart_buf[100]; //UART buffer size
 /* USER CODE END PV */
@@ -128,10 +134,24 @@ int main(void)
       while (data_ready == 0) {}
       data_ready = 0;
 
-      // PROCESS AND PRINT ALL DATA
+      // Process and print all data
 
+      //MAX30102
       uint32_t red_led = ((rx_max[0] << 16) | (rx_max[1] << 8) | rx_max[2]) & 0x03FFFF;
       uint32_t ir_led =  ((rx_max[3] << 16) | (rx_max[4] << 8) | rx_max[5]) & 0x03FFFF;
+      if (filter_initialized == 0) {
+    	  dc_baseline_red = (float)red_led;
+    	  dc_baseline_ir = (float)ir_led;
+    	  filter_initialized = 1;
+      }
+
+      // 1. Update the rolling baseline (The heavy background flesh/muscle)
+      dc_baseline_red = (alpha * dc_baseline_red) + ((1.0f - alpha) * (float)red_led);
+      dc_baseline_ir  = (alpha * dc_baseline_ir)  + ((1.0f - alpha) * (float)ir_led);
+
+      // 2. Subtract the baseline from the raw reading to get the AC Heartbeat!
+      float ac_red = (float)red_led - dc_baseline_red;
+      float ac_ir  = (float)ir_led  - dc_baseline_ir;
 
       // BMP390
       uint32_t raw_press = (rx_bmp[2] << 16) | (rx_bmp[1] << 8) | rx_bmp[0];
@@ -173,7 +193,7 @@ int main(void)
 
 
       //
-      sprintf(uart_buf, "%lu,%lu,%lu,%.2f,%.2f,%.2f,%.2f\r\n", red_led, ir_led, raw_press, g_x, g_y, g_z, dynamic_movement);
+      sprintf(uart_buf, "%.2f,%.2f,%lu,%.2f,%.2f,%.2f,%.2f\r\n", ac_red, ac_ir, raw_press, g_x, g_y, g_z, dynamic_movement);
 
       // Send to PC
       HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100);
