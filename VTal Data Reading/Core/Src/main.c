@@ -58,6 +58,20 @@ float dc_baseline_red = 0;
 float dc_baseline_ir = 0;
 float alpha = 0.95f;
 uint8_t filter_initialized = 0;
+uint8_t beat_state = 0;
+uint32_t beat_count = 0;
+uint32_t last_beat_time = 0;
+
+float beta = 0.90f;
+float smooth_red = 0.0f;
+float smooth_ir = 0.0f;
+float previous_smooth_ir = 0.0f;
+
+uint32_t beats_in_window = 0;
+uint32_t window_start_time = 0;
+uint8_t window_initialized = 0;
+
+float displayed_bpm = 0.0;
 
 volatile uint8_t data_ready = 0;
 char uart_buf[100]; //UART buffer size
@@ -116,90 +130,139 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-      // SENSOR 1: MAX30102
-      HAL_I2C_Mem_Read_DMA(&hi2c1, MAX30102_ADDR, MAX_REG_DATA, 1, rx_max, 6);
-      while (data_ready == 0) {} // Wait for DMA to finish
-      data_ready = 0;            // Reset flag
+    /* USER CODE BEGIN WHILE */
+    while (1)
+    {
+    	//DMA pipeline
 
-      // SENSOR 2: BMP390
-      HAL_I2C_Mem_Read_DMA(&hi2c1, BMP390_ADDR, BMP_REG_DATA, 1, rx_bmp, 6);
-      while (data_ready == 0) {}
-      data_ready = 0;
+        // SENSOR 1: MAX30102
+        HAL_I2C_Mem_Read_DMA(&hi2c1, MAX30102_ADDR, MAX_REG_DATA, 1, rx_max, 6);
+        while (data_ready == 0) {}
+        data_ready = 0;
 
-      // SENSOR 3: LSM6DSOX
-      HAL_I2C_Mem_Read_DMA(&hi2c1, LSM6DSOX_ADDR, LSM_REG_DATA, 1, rx_lsm, 6);
-      while (data_ready == 0) {}
-      data_ready = 0;
+        // SENSOR 2: BMP390
+        HAL_I2C_Mem_Read_DMA(&hi2c1, BMP390_ADDR, BMP_REG_DATA, 1, rx_bmp, 6);
+        while (data_ready == 0) {}
+        data_ready = 0;
 
-      // Process and print all data
+        // SENSOR 3: LSM6DSOX
+        HAL_I2C_Mem_Read_DMA(&hi2c1, LSM6DSOX_ADDR, LSM_REG_DATA, 1, rx_lsm, 6);
+        while (data_ready == 0) {}
+        data_ready = 0;
 
-      //MAX30102
-      uint32_t red_led = ((rx_max[0] << 16) | (rx_max[1] << 8) | rx_max[2]) & 0x03FFFF;
-      uint32_t ir_led =  ((rx_max[3] << 16) | (rx_max[4] << 8) | rx_max[5]) & 0x03FFFF;
-      if (filter_initialized == 0) {
-    	  dc_baseline_red = (float)red_led;
-    	  dc_baseline_ir = (float)ir_led;
-    	  filter_initialized = 1;
-      }
+        // Master timestamp for all sensors
+        uint32_t current_time = HAL_GetTick();
 
-      // 1. Update the rolling baseline (The heavy background flesh/muscle)
-      dc_baseline_red = (alpha * dc_baseline_red) + ((1.0f - alpha) * (float)red_led);
-      dc_baseline_ir  = (alpha * dc_baseline_ir)  + ((1.0f - alpha) * (float)ir_led);
+        // 2. MAX30102
+        uint32_t red_led = ((rx_max[0] << 16) | (rx_max[1] << 8) | rx_max[2]) & 0x03FFFF;
+        uint32_t ir_led =  ((rx_max[3] << 16) | (rx_max[4] << 8) | rx_max[5]) & 0x03FFFF;
 
-      // 2. Subtract the baseline from the raw reading to get the AC Heartbeat!
-      float ac_red = (float)red_led - dc_baseline_red;
-      float ac_ir  = (float)ir_led  - dc_baseline_ir;
+        //DC Filter (Remove baseline)
+        if (filter_initialized == 0) {
+            dc_baseline_red = (float)red_led;
+            dc_baseline_ir = (float)ir_led;
+            filter_initialized = 1;
+        }
+        dc_baseline_red = (alpha * dc_baseline_red) + ((1.0f - alpha) * (float)red_led);
+        dc_baseline_ir  = (alpha * dc_baseline_ir)  + ((1.0f - alpha) * (float)ir_led);
 
-      // BMP390
-      uint32_t raw_press = (rx_bmp[2] << 16) | (rx_bmp[1] << 8) | rx_bmp[0];
+        float ac_red = (float)red_led - dc_baseline_red;
+        float ac_ir  = (float)ir_led  - dc_baseline_ir;
 
-      // LSM6DSOX
-      int16_t accel_x = (int16_t)((rx_lsm[1] << 8) | rx_lsm[0]);
-      int16_t accel_y = (int16_t)((rx_lsm[3] << 8) | rx_lsm[2]);
-      int16_t accel_z = (int16_t)((rx_lsm[5] << 8) | rx_lsm[4]);
-      //Convert to g
-      float g_x = accel_x * 0.488 / 1000;
-      float g_y = accel_y * 0.488 / 1000;
-      float g_z = accel_z * 0.488 / 1000;
-      //Magnitude
-      float dynamic_movement = sqrt(g_x * g_x + g_y * g_y + g_z * g_z) - 1.0f;
-      //Cadence and step count
-      float UPPER_THRESHOLD = 1.5f;
-      float LOWER_THRESHOLD = 0.5f;
+        //Smoothen the data
+        smooth_red = (beta * smooth_red) + ((1.0f - beta) * ac_red);
+        smooth_ir  = (beta * smooth_ir)  + ((1.0f - beta) * ac_ir);
 
-      if (step_state == 0 && dynamic_movement > UPPER_THRESHOLD) {
-    	  step_state = 1;
-    	  step_count++;
+        float ir_delta = smooth_ir - previous_smooth_ir;
+        previous_smooth_ir = smooth_ir;
 
-    	  uint32_t current_time = HAL_GetTick();
-    	  uint32_t step_time_ms = current_time - last_step_time;
+        float UPPER_THRESHOLD_BEAT = 0.25f;
+        float LOWER_THRESHOLD_BEAT = -0.25f;
 
-    	  if (step_time_ms > 0) {
-    		  float steps_per_minute = 60000.0f / (float)step_time_ms;
-    		  char step_msg[60];
-    		  sprintf(step_msg, "STEP! Total: %lu | Cadence: %.1f SPM\r\n", step_count, steps_per_minute);
+        if (beat_state == 0 && ir_delta > UPPER_THRESHOLD_BEAT) {
+            beat_state = 1;
 
-    		  HAL_UART_Transmit(&huart2, (uint8_t*)step_msg, strlen(step_msg), 100);
-    	  }
-    	  last_step_time = current_time;
-      	  }
-      else if (step_state == 1 && dynamic_movement < LOWER_THRESHOLD) {
-    	  step_state = 0;
-      }
+            uint32_t beat_time_ms = current_time - last_beat_time;
 
+            //To avoid artifacts
+            if (beat_time_ms > 250 && beat_time_ms < 2000) {
+                beats_in_window++;
+                // printf("*\r\n"); //Uncomment to see every beat
+            }
+            last_beat_time = current_time;
+        }
+        else if (beat_state == 1 && ir_delta < LOWER_THRESHOLD_BEAT) {
+            beat_state = 0;
+        }
 
+        if (window_initialized == 0) {
+            window_start_time = current_time;
+            window_initialized = 1;
+        }
 
-      //
-      sprintf(uart_buf, "%.2f,%.2f,%lu,%.2f,%.2f,%.2f,%.2f\r\n", ac_red, ac_ir, raw_press, g_x, g_y, g_z, dynamic_movement);
+        if (current_time - window_start_time >= 10000) {
+            uint32_t final_bpm = beats_in_window * 6;
+            float raw_window_bpm = (float)final_bpm;
 
-      // Send to PC
-      HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100);
+            // Apply the Display Filter (EMA Smoothing)
+            if (displayed_bpm == 0) {
+                displayed_bpm = raw_window_bpm; // Sync on first run
+            }
+            displayed_bpm = (0.7f * displayed_bpm) + (0.3f * raw_window_bpm);
 
-      HAL_Delay(10);
-  }
+            //Send
+            char beat_msg[60];
+            sprintf(beat_msg, "--- DISPLAY BPM: %.0f ---\r\n", displayed_bpm);
+            HAL_UART_Transmit(&huart2, (uint8_t*)beat_msg, strlen(beat_msg), 100);
+
+            beats_in_window = 0;
+            window_start_time = current_time;
+        }
+
+        // 3. BMP390
+        uint32_t raw_press = (rx_bmp[2] << 16) | (rx_bmp[1] << 8) | rx_bmp[0];
+
+        // 4. LSM6DSOX
+        int16_t accel_x = (int16_t)((rx_lsm[1] << 8) | rx_lsm[0]);
+        int16_t accel_y = (int16_t)((rx_lsm[3] << 8) | rx_lsm[2]);
+        int16_t accel_z = (int16_t)((rx_lsm[5] << 8) | rx_lsm[4]);
+
+        // Convert to g
+        float g_x = accel_x * 0.488f / 1000.0f;
+        float g_y = accel_y * 0.488f / 1000.0f;
+        float g_z = accel_z * 0.488f / 1000.0f;
+
+        // Magnitude
+        float dynamic_movement = sqrt(g_x * g_x + g_y * g_y + g_z * g_z) - 1.0f;
+
+        // Cadence Peak Detector
+        float UPPER_THRESHOLD_STEP = 1.5f;
+        float LOWER_THRESHOLD_STEP = 0.5f;
+
+        if (step_state == 0 && dynamic_movement > UPPER_THRESHOLD_STEP) {
+            step_state = 1;
+            step_count++;
+
+            uint32_t step_time_ms = current_time - last_step_time;
+
+            if (step_time_ms > 0) {
+                float steps_per_minute = 60000.0f / (float)step_time_ms;
+                char step_msg[60];
+                sprintf(step_msg, "STEP! Total: %lu | Cadence: %.1f SPM\r\n", step_count, steps_per_minute);
+                HAL_UART_Transmit(&huart2, (uint8_t*)step_msg, strlen(step_msg), 100);
+            }
+            last_step_time = current_time;
+        }
+        else if (step_state == 1 && dynamic_movement < LOWER_THRESHOLD_STEP) {
+            step_state = 0;
+        }
+
+        // ==========================================
+        // LOOP TIMING
+        // ==========================================
+        HAL_Delay(10);
+    }
+    /* USER CODE END WHILE */
   /* USER CODE END 3 */
 }
 
