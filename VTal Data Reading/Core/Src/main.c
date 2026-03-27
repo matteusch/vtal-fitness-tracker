@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include "bmp3.h"
+#include "bmp3_defs.h"
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
@@ -47,6 +49,7 @@ UART_HandleTypeDef huart2;
 // DMA variables
 volatile uint8_t dma_transfer_complete = 0;
 uint8_t sensor_sequence_step = 0; // 0 = MAX30102, 1 = BMP390, 2 = LSM6DSOX
+volatile uint8_t use_dma_buffer = 0;
 
 uint8_t rx_max[6];
 uint8_t rx_bmp[6];
@@ -78,6 +81,13 @@ uint8_t window_initialized = 0;
 
 float displayed_bpm = 0.0;
 
+//BMP 390 variables
+float current_altitude = 0.0f;
+float current_temp = 0.0f;
+float initial_baseline_altitude = 0.0f;
+uint8_t altitude_calibrated = 0;
+uint8_t calibration_counter = 0;
+
 volatile uint8_t data_ready = 0;
 char uart_buf[100]; //UART buffer size
 /* USER CODE END PV */
@@ -88,7 +98,9 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_USART2_UART_Init(void);
-
+BMP3_INTF_RET_TYPE user_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr);
+BMP3_INTF_RET_TYPE user_i2c_write(uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr);
+void user_delay_us(uint32_t period, void *intf_ptr);
 /* USER CODE BEGIN 0 */
 /* USER CODE END 0 */
 
@@ -116,17 +128,37 @@ int main(void)
   config_data = 0x24;
   HAL_I2C_Mem_Write(&hi2c1, MAX30102_ADDR, REG_LED2_PA, 1, &config_data, 1, 100);
 
-  // --- 2. WAKE UP BMP390 (THE TWO-STEP METHOD) ---
+  // --- 2. WAKE UP BMP390 ---
 
-  // Step 1: Turn on the internal Pressure and Temperature sensors first (0x03)
-  config_data = 0x03;
-  HAL_I2C_Mem_Write(&hi2c1, BMP390_ADDR, BMP_REG_PWR, 1, &config_data, 1, 100);
+  struct bmp3_dev bmp;
+  struct bmp3_settings settings = {0}; // NEW: Settings is now separate!
+  uint8_t bmp_addr = BMP390_ADDR;
 
-  HAL_Delay(10); // Let the internal state machine catch up
+  // Link the wrappers to the API
+  bmp.intf = BMP3_I2C_INTF;
+  bmp.intf_ptr = &bmp_addr;
+  bmp.read = user_i2c_read;
+  bmp.write = user_i2c_write;
+  bmp.delay_us = user_delay_us;
 
-  // Step 2: Now tell it to continuously sample in Normal Mode (0x33)
-  config_data = 0x33;
-  HAL_I2C_Mem_Write(&hi2c1, BMP390_ADDR, BMP_REG_PWR, 1, &config_data, 1, 100);
+  // Initialize the sensor
+  int8_t rslt = bmp3_init(&bmp);
+
+  // Set the recommended settings
+  settings.press_en = BMP3_ENABLE;
+  settings.temp_en = BMP3_ENABLE;
+  settings.odr_filter.press_os = BMP3_OVERSAMPLING_8X;
+  settings.odr_filter.temp_os = BMP3_OVERSAMPLING_2X;
+  settings.odr_filter.iir_filter = BMP3_IIR_FILTER_COEFF_3;
+  settings.odr_filter.odr = BMP3_ODR_25_HZ;
+
+  // Apply settings
+  uint16_t settings_sel = BMP3_SEL_PRESS_EN | BMP3_SEL_TEMP_EN | BMP3_SEL_PRESS_OS | BMP3_SEL_TEMP_OS | BMP3_SEL_ODR | BMP3_SEL_IIR_FILTER;
+  rslt = bmp3_set_sensor_settings(settings_sel, &settings, &bmp);
+
+  // Set operation mode
+  settings.op_mode = BMP3_MODE_NORMAL;
+  rslt = bmp3_set_op_mode(&settings, &bmp);
 
   // --- 3. WAKE UP LSM6DSOX ---
   config_data = 0x54;
@@ -225,11 +257,33 @@ int main(void)
 
 		  else if (sensor_sequence_step == 1)
 		  {
-			  uint32_t raw_press = (rx_bmp[2] << 16) | (rx_bmp[1] << 8) | rx_bmp[0];
+			  struct bmp3_data comp_data;
+
+			  use_dma_buffer = 1;
+			  bmp3_get_sensor_data(BMP3_PRESS | BMP3_TEMP, &comp_data, &bmp);
+			  use_dma_buffer = 0;
+
+			  // Save the true temperature
+			  current_temp = (float)comp_data.temperature;
+
+			  // Calculate absolute altitude based on standard sea-level pressure
+			  float absolute_altitude = 44330.0f * (1.0f - pow((comp_data.pressure / 101325.0f), 0.190295f));
+
+			  // Check current_temp > 0 to ensure not a blank reading
+			  if (altitude_calibrated == 0) {
+				  calibration_counter++;
+
+				  // Wait for 25 samples for the IIR filter to stabilize
+				  if (calibration_counter > 25) {
+					  initial_baseline_altitude = absolute_altitude;
+					  altitude_calibrated = 1;
+				  }
+			  }
+			  else {
+				  current_altitude = absolute_altitude - initial_baseline_altitude;
+			  }
 
 			  sensor_sequence_step = 2;
-
-			  //Trigger the LSM6DSOX DMA read
 			  HAL_I2C_Mem_Read_DMA(&hi2c1, LSM6DSOX_ADDR, LSM_REG_DATA, 1, rx_lsm, 6);
 		  }
 
@@ -269,7 +323,13 @@ int main(void)
 				  step_state = 0;
 			  }
 
-			  //  Reset back to the first sensor
+			  // sprintf all data
+			  sprintf(uart_buf, "BPM: %3.0f | Temp: %2.1f C | Alt: %4.1f m | Steps: %lu\r\n",
+					  displayed_bpm, current_temp, current_altitude, step_count);
+
+			  HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100);
+
+			  // Reset back to the first sensor
 			  sensor_sequence_step = 0;
 
 			  HAL_Delay(10);
@@ -449,6 +509,42 @@ void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hi2c)
         dma_transfer_complete = 1;
     }
 }
+
+// Bosch API I2C Read Wrapper
+BMP3_INTF_RET_TYPE user_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr) {
+
+    if (use_dma_buffer == 1) {
+        if (reg_addr == BMP_REG_DATA) {
+            memcpy(reg_data, rx_bmp, len);
+            return 0;
+        }
+        if (reg_addr == 0x03) {
+            reg_data[0] = 0x60;
+            return 0;
+        }
+        memset(reg_data, 0, len);
+        return 0;
+    }
+
+    // Normal blocking I2C for initialization
+    uint8_t dev_addr = *(uint8_t*)intf_ptr;
+    if (HAL_I2C_Mem_Read(&hi2c1, dev_addr, reg_addr, 1, reg_data, len, 100) == HAL_OK) return 0;
+    return -1;
+}
+
+// Bosch API I2C Write Wrapper
+BMP3_INTF_RET_TYPE user_i2c_write(uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr) {
+    uint8_t dev_addr = *(uint8_t*)intf_ptr;
+    if (HAL_I2C_Mem_Write(&hi2c1, dev_addr, reg_addr, 1, (uint8_t*)reg_data, len, 100) == HAL_OK) return 0;
+    return -1;
+}
+
+// Bosch API Microsecond Delay Wrapper
+void user_delay_us(uint32_t period, void *intf_ptr) {
+    uint32_t delay_ms = (period / 1000) + 1;
+    HAL_Delay(delay_ms);
+}
+
 /* USER CODE END 4 */
 
 /**
