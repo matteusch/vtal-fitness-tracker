@@ -1,0 +1,140 @@
+\doxysection{VTal Data Reading/\+\+Drivers/\+\+STM32\+L4xx\+\_\+\+HAL\+\_\+\+Driver/\+\+Inc/\+stm32l4xx\+\_\+hal\+\_\+exti.h File Reference}
+\hypertarget{stm32l4xx__hal__exti_8h}{}\label{stm32l4xx__hal__exti_8h}\index{VTal Data Reading/Drivers/STM32L4xx\_HAL\_Driver/Inc/stm32l4xx\_hal\_exti.h@{VTal Data Reading/Drivers/STM32L4xx\_HAL\_Driver/Inc/stm32l4xx\_hal\_exti.h}}
+
+
+Header file of EXTI HAL module.  
+
+
+{\ttfamily \+\#include "{}stm32l4xx\+\_\+hal\+\_\+def.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em EXTI Handle structure definition. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_e_x_t_i___config_type_def}{EXTI\+\_\+\+Config\+Type\+Def}}
+\begin{DoxyCompactList}\small\item\em EXTI Configuration structure definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+MODE\+\_\+\+NONE}~0x00000000u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+MODE\+\_\+\+INTERRUPT}~0x00000001u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+MODE\+\_\+\+EVENT}~0x00000002u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+TRIGGER\+\_\+\+NONE}~0x00000000u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+TRIGGER\+\_\+\+RISING}~0x00000001u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+TRIGGER\+\_\+\+FALLING}~0x00000002u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+TRIGGER\+\_\+\+RISING\+\_\+\+FALLING}~(EXTI\+\_\+\+TRIGGER\+\_\+\+RISING \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+TRIGGER\+\_\+\+FALLING)
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOA}~0x00000000u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOB}~0x00000001u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOC}~0x00000002u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOD}~0x00000003u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOE}~0x00000004u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOF}~0x00000005u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOG}~0x00000006u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOH}~0x00000007u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIOI}~0x00000008u
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}~24u
+\begin{DoxyCompactList}\small\item\em EXTI Line property definition. \end{DoxyCompactList}\item 
+\+\#define {\bfseries EXTI\+\_\+\+DIRECT}~(0x01uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}{EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}})
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+CONFIG}~(0x02uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}{EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}})
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+GPIO}~((0x04uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}{EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}}) \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+CONFIG)
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+RESERVED}~(0x08uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}{EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}})
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+PROPERTY\+\_\+\+MASK}~(EXTI\+\_\+\+DIRECT \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+CONFIG \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+GPIO)
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+EVENT\+\_\+\+PRESENCE\+\_\+\+SHIFT}~28u
+\begin{DoxyCompactList}\small\item\em EXTI Event presence definition. \end{DoxyCompactList}\item 
+\+\#define {\bfseries EXTI\+\_\+\+EVENT}~(0x01uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_gaeafd5ba0336cfb4b095151c0797b347e}{EXTI\+\_\+\+EVENT\+\_\+\+PRESENCE\+\_\+\+SHIFT}})
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+EVENT\+\_\+\+PRESENCE\+\_\+\+MASK}~(EXTI\+\_\+\+EVENT)
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+REG\+\_\+\+SHIFT}~16u
+\begin{DoxyCompactList}\small\item\em EXTI Register and bit usage. \end{DoxyCompactList}\item 
+\+\#define {\bfseries EXTI\+\_\+\+REG1}~(0x00uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga187f8b65fedba7cc4a5662552dd0eb40}{EXTI\+\_\+\+REG\+\_\+\+SHIFT}})
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+REG2}~(0x01uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga187f8b65fedba7cc4a5662552dd0eb40}{EXTI\+\_\+\+REG\+\_\+\+SHIFT}})
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+REG\+\_\+\+MASK}~(EXTI\+\_\+\+REG1 \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+REG2)
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+PIN\+\_\+\+MASK}~0x0000001\+Fu
+\item 
+\+\#define {\bfseries EXTI\+\_\+\+MODE\+\_\+\+MASK}~(EXTI\+\_\+\+MODE\+\_\+\+EVENT \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+MODE\+\_\+\+INTERRUPT)
+\begin{DoxyCompactList}\small\item\em EXTI Mask for interrupt \& event mode. \end{DoxyCompactList}\item 
+\+\#define {\bfseries EXTI\+\_\+\+TRIGGER\+\_\+\+MASK}~(EXTI\+\_\+\+TRIGGER\+\_\+\+RISING \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+TRIGGER\+\_\+\+FALLING)
+\begin{DoxyCompactList}\small\item\em EXTI Mask for trigger possibilities. \end{DoxyCompactList}\item 
+\+\#define {\bfseries EXTI\+\_\+\+LINE\+\_\+\+NB}~41u
+\begin{DoxyCompactList}\small\item\em EXTI Line number. \end{DoxyCompactList}\item 
+\+\#define \doxymbox{\hyperlink{group___e_x_t_i___private___macros_gad1612a68c70ca4cdd0cbd3554e359af5}{IS\+\_\+\+EXTI\+\_\+\+LINE}}(\+\_\+\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+\_\+)
+\item 
+\+\#define \doxymbox{\hyperlink{group___e_x_t_i___private___macros_gaa19d2fffcd305b75bf037aaf8f071ba7}{IS\+\_\+\+EXTI\+\_\+\+MODE}}(\+\_\+\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+\_\+)
+\item 
+\+\#define \doxymbox{\hyperlink{group___e_x_t_i___private___macros_gaba684e88699639398fb59c361c13c113}{IS\+\_\+\+EXTI\+\_\+\+TRIGGER}}(\+\_\+\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+\_\+)
+\item 
+\+\#define \doxymbox{\hyperlink{group___e_x_t_i___private___macros_ga8fc9a0110e16df06c61b51d46e50eb3f}{IS\+\_\+\+EXTI\+\_\+\+PENDING\+\_\+\+EDGE}}(\+\_\+\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+\_\+)
+\item 
+\+\#define \doxymbox{\hyperlink{group___e_x_t_i___private___macros_ga1ec20cce9b1da8e1bd3de992511ccc1e}{IS\+\_\+\+EXTI\+\_\+\+CONFIG\+\_\+\+LINE}}(\+\_\+\+\_\+\+EXTI\+\_\+\+LINE\+\_\+\+\_\+)
+\item 
+\+\#define \doxymbox{\hyperlink{group___e_x_t_i___private___macros_ga82f191b2ea96948f302dc6c2108ea534}{IS\+\_\+\+EXTI\+\_\+\+GPIO\+\_\+\+PIN}}(\+\_\+\+\_\+\+PIN\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___e_x_t_i___exported___types_ga0ff36e8796a6ad3f2fc211e534c54c0e}\label{group___e_x_t_i___exported___types_ga0ff36e8796a6ad3f2fc211e534c54c0e} 
+enum {\bfseries EXTI\+\_\+\+Callback\+IDType\+Def} \{ {\bfseries HAL\+\_\+\+EXTI\+\_\+\+COMMON\+\_\+\+CB\+\_\+\+ID} = 0x00U
+, {\bfseries HAL\+\_\+\+EXTI\+\_\+\+RISING\+\_\+\+CB\+\_\+\+ID} = 0x01U
+, {\bfseries HAL\+\_\+\+EXTI\+\_\+\+FALLING\+\_\+\+CB\+\_\+\+ID} = 0x02U
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{stm32l4xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} {\bfseries HAL\+\_\+\+EXTI\+\_\+\+Set\+Config\+Line} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti, \doxymbox{\hyperlink{struct_e_x_t_i___config_type_def}{EXTI\+\_\+\+Config\+Type\+Def}} \texorpdfstring{$\ast$}{*}p\+Exti\+Config)
+\item 
+\doxymbox{\hyperlink{stm32l4xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} {\bfseries HAL\+\_\+\+EXTI\+\_\+\+Get\+Config\+Line} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti, \doxymbox{\hyperlink{struct_e_x_t_i___config_type_def}{EXTI\+\_\+\+Config\+Type\+Def}} \texorpdfstring{$\ast$}{*}p\+Exti\+Config)
+\item 
+\doxymbox{\hyperlink{stm32l4xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} {\bfseries HAL\+\_\+\+EXTI\+\_\+\+Clear\+Config\+Line} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti)
+\item 
+\doxymbox{\hyperlink{stm32l4xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} {\bfseries HAL\+\_\+\+EXTI\+\_\+\+Register\+Callback} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti, EXTI\+\_\+\+Callback\+IDType\+Def Callback\+ID, void(\texorpdfstring{$\ast$}{*}p\+Pending\+Cbfn)(void))
+\item 
+\doxymbox{\hyperlink{stm32l4xx__hal__def_8h_a63c0679d1cb8b8c684fbb0632743478f}{HAL\+\_\+\+Status\+Type\+Def}} {\bfseries HAL\+\_\+\+EXTI\+\_\+\+Get\+Handle} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti, uint32\+\_\+t Exti\+Line)
+\item 
+void {\bfseries HAL\+\_\+\+EXTI\+\_\+\+IRQHandler} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti)
+\item 
+uint32\+\_\+t {\bfseries HAL\+\_\+\+EXTI\+\_\+\+Get\+Pending} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti, uint32\+\_\+t Edge)
+\item 
+void {\bfseries HAL\+\_\+\+EXTI\+\_\+\+Clear\+Pending} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti, uint32\+\_\+t Edge)
+\item 
+void {\bfseries HAL\+\_\+\+EXTI\+\_\+\+Generate\+SWI} (\doxymbox{\hyperlink{struct_e_x_t_i___handle_type_def}{EXTI\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hexti)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file of EXTI HAL module. 
+
+\begin{DoxyAuthor}{Author}
+MCD Application Team 
+\end{DoxyAuthor}
+\begin{DoxyAttention}{Attention}
+
+\end{DoxyAttention}
+Copyright (c) 2018 STMicroelectronics. All rights reserved.
+
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 

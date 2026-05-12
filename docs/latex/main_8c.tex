@@ -1,0 +1,227 @@
+\doxysection{VTal Data Reading/\+\+Core/\+\+Src/\+main.c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{VTal Data Reading/Core/Src/main.c@{VTal Data Reading/Core/Src/main.c}}
+
+
+:\+ Main program body  
+
+
+{\ttfamily \+\#include "{}main.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$math.\+h$>$}\newline
+{\ttfamily \+\#include "{}bmp3.\+h"{}}\newline
+{\ttfamily \+\#include "{}bmp3\+\_\+defs.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{main_8c_ac4b721096cd1b12d85f3f0e135b272be}\label{main_8c_ac4b721096cd1b12d85f3f0e135b272be} 
+\+\#define {\bfseries MAX30102\+\_\+\+ADDR}~(0x57 $<$$<$ 1)
+\item 
+\Hypertarget{main_8c_accdea52b28f1bd3f4cd63d05ab12887f}\label{main_8c_accdea52b28f1bd3f4cd63d05ab12887f} 
+\+\#define {\bfseries REG\+\_\+\+MODE\+\_\+\+CONFIG}~0x09
+\item 
+\Hypertarget{main_8c_a38546015e987a72b8c9eb13228237dd0}\label{main_8c_a38546015e987a72b8c9eb13228237dd0} 
+\+\#define {\bfseries REG\+\_\+\+SPO2\+\_\+\+CONFIG}~0x0A
+\item 
+\Hypertarget{main_8c_a5f3a6641b201203d41ed3d23b638a96b}\label{main_8c_a5f3a6641b201203d41ed3d23b638a96b} 
+\+\#define {\bfseries REG\+\_\+\+LED1\+\_\+\+PA}~0x0C
+\item 
+\Hypertarget{main_8c_a7df43b0f854c9caf2fe04ccdebb18d21}\label{main_8c_a7df43b0f854c9caf2fe04ccdebb18d21} 
+\+\#define {\bfseries REG\+\_\+\+LED2\+\_\+\+PA}~0x0D
+\item 
+\Hypertarget{main_8c_a68c44a41e29b3ab35500303798cfb11c}\label{main_8c_a68c44a41e29b3ab35500303798cfb11c} 
+\+\#define {\bfseries MAX\+\_\+\+REG\+\_\+\+DATA}~0x07
+\item 
+\Hypertarget{main_8c_a4b36bc705d14cd773ebd3bfec855b222}\label{main_8c_a4b36bc705d14cd773ebd3bfec855b222} 
+\+\#define {\bfseries BMP390\+\_\+\+ADDR}~(0x77 $<$$<$ 1)
+\item 
+\Hypertarget{main_8c_a8fb2d981a4d807c9d313defb86651111}\label{main_8c_a8fb2d981a4d807c9d313defb86651111} 
+\+\#define {\bfseries BMP\+\_\+\+REG\+\_\+\+PWR}~0x1B
+\item 
+\Hypertarget{main_8c_a05da146a65c9047ff0e9709e18a2056e}\label{main_8c_a05da146a65c9047ff0e9709e18a2056e} 
+\+\#define {\bfseries BMP\+\_\+\+REG\+\_\+\+DATA}~0x04
+\item 
+\Hypertarget{main_8c_af08d6740ac4c11467eb5f5eaa1604089}\label{main_8c_af08d6740ac4c11467eb5f5eaa1604089} 
+\+\#define {\bfseries LSM6\+DSOX\+\_\+\+ADDR}~(0x6A $<$$<$ 1)
+\item 
+\Hypertarget{main_8c_a14653b72282e976cddbc8a72baf798fb}\label{main_8c_a14653b72282e976cddbc8a72baf798fb} 
+\+\#define {\bfseries LSM\+\_\+\+REG\+\_\+\+CTRL1}~0x10
+\item 
+\Hypertarget{main_8c_a16efe473dbec253d7cf51d2ab54c59b5}\label{main_8c_a16efe473dbec253d7cf51d2ab54c59b5} 
+\+\#define {\bfseries LSM\+\_\+\+REG\+\_\+\+DATA}~0x28
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{main_8c_a70af21c671abfcc773614a9a4f63d920}{System\+Clock\+\_\+\+Config}} (void)
+\begin{DoxyCompactList}\small\item\em System Clock Configuration. \end{DoxyCompactList}\item 
+\Hypertarget{main_8c_ade82c6121c9858f9413a88d0d609fc65}\label{main_8c_ade82c6121c9858f9413a88d0d609fc65} 
+\doxymbox{\hyperlink{bmp3__defs_8h_a38ad477a9b791b1375be77a954d7957f}{BMP3\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}} {\bfseries user\+\_\+i2c\+\_\+read} (uint8\+\_\+t reg\+\_\+addr, uint8\+\_\+t \texorpdfstring{$\ast$}{*}reg\+\_\+data, uint32\+\_\+t len, void \texorpdfstring{$\ast$}{*}intf\+\_\+ptr)
+\item 
+\Hypertarget{main_8c_a7a487a0f1b60d2403251302a44440739}\label{main_8c_a7a487a0f1b60d2403251302a44440739} 
+\doxymbox{\hyperlink{bmp3__defs_8h_a38ad477a9b791b1375be77a954d7957f}{BMP3\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}} {\bfseries user\+\_\+i2c\+\_\+write} (uint8\+\_\+t reg\+\_\+addr, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}reg\+\_\+data, uint32\+\_\+t len, void \texorpdfstring{$\ast$}{*}intf\+\_\+ptr)
+\item 
+\Hypertarget{main_8c_ad9bd2c178fceb2a88d4118e94edfe7f9}\label{main_8c_ad9bd2c178fceb2a88d4118e94edfe7f9} 
+void {\bfseries user\+\_\+delay\+\_\+us} (uint32\+\_\+t period, void \texorpdfstring{$\ast$}{*}intf\+\_\+ptr)
+\item 
+\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int {\bfseries main} (void)
+\item 
+void {\bfseries HAL\+\_\+\+I2\+C\+\_\+\+Mem\+Rx\+Cplt\+Callback} (I2\+C\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}hi2c)
+\item 
+void \doxymbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{Error\+\_\+\+Handler}} (void)
+\begin{DoxyCompactList}\small\item\em This function is executed in case of error occurrence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{main_8c_af7b2c26e44dadaaa798a5c3d82914ba7}\label{main_8c_af7b2c26e44dadaaa798a5c3d82914ba7} 
+I2\+C\+\_\+\+Handle\+Type\+Def {\bfseries hi2c1}
+\item 
+\Hypertarget{main_8c_a9cf31216ab15c3f167902641b70c0f38}\label{main_8c_a9cf31216ab15c3f167902641b70c0f38} 
+\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} {\bfseries hdma\+\_\+i2c1\+\_\+rx}
+\item 
+\Hypertarget{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}\label{main_8c_aa9479c261d65eecedd3d9582f7f0f89c} 
+\doxymbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} {\bfseries huart2}
+\item 
+\Hypertarget{main_8c_ae614c930088f36b508b216e06534f5ff}\label{main_8c_ae614c930088f36b508b216e06534f5ff} 
+volatile uint8\+\_\+t {\bfseries dma\+\_\+transfer\+\_\+complete} = 0
+\item 
+\Hypertarget{main_8c_a8309bf5566c896a7cf0945020aee7ab8}\label{main_8c_a8309bf5566c896a7cf0945020aee7ab8} 
+uint8\+\_\+t {\bfseries sensor\+\_\+sequence\+\_\+step} = 0
+\item 
+\Hypertarget{main_8c_ada4b70939929b7bed89bec24e187a694}\label{main_8c_ada4b70939929b7bed89bec24e187a694} 
+volatile uint8\+\_\+t {\bfseries use\+\_\+dma\+\_\+buffer} = 0
+\item 
+\Hypertarget{main_8c_a864f466c70363a3beb701b2900028402}\label{main_8c_a864f466c70363a3beb701b2900028402} 
+uint8\+\_\+t {\bfseries rx\+\_\+max} \+[6]\+
+\item 
+\Hypertarget{main_8c_a1322879ec759427cf3148407aa410eed}\label{main_8c_a1322879ec759427cf3148407aa410eed} 
+uint8\+\_\+t {\bfseries rx\+\_\+bmp} \+[6]\+
+\item 
+\Hypertarget{main_8c_a7c30f163222d3171039f9a1f80f6f518}\label{main_8c_a7c30f163222d3171039f9a1f80f6f518} 
+uint8\+\_\+t {\bfseries rx\+\_\+lsm} \+[6]\+
+\item 
+\Hypertarget{main_8c_a4711f84293a475fde1122603ce35a957}\label{main_8c_a4711f84293a475fde1122603ce35a957} 
+uint8\+\_\+t {\bfseries step\+\_\+state} = 0
+\item 
+\Hypertarget{main_8c_ab1b70a01e2cb931ccd92fd89a666edd8}\label{main_8c_ab1b70a01e2cb931ccd92fd89a666edd8} 
+uint32\+\_\+t {\bfseries step\+\_\+count} = 0
+\item 
+\Hypertarget{main_8c_a0c0b6f0ef8976a0e2873ab3d0bea4a7a}\label{main_8c_a0c0b6f0ef8976a0e2873ab3d0bea4a7a} 
+uint32\+\_\+t {\bfseries last\+\_\+step\+\_\+time} = 0
+\item 
+\Hypertarget{main_8c_a026b5400158b9cdbb463496aff0b2d50}\label{main_8c_a026b5400158b9cdbb463496aff0b2d50} 
+float {\bfseries dc\+\_\+baseline\+\_\+red} = 0
+\item 
+\Hypertarget{main_8c_aec85b684d4bdbbf20fdbb1e5e7d8fb60}\label{main_8c_aec85b684d4bdbbf20fdbb1e5e7d8fb60} 
+float {\bfseries dc\+\_\+baseline\+\_\+ir} = 0
+\item 
+\Hypertarget{main_8c_ab1551d8043c2aa4410fb7dbb1fe3be7b}\label{main_8c_ab1551d8043c2aa4410fb7dbb1fe3be7b} 
+float {\bfseries alpha} = 0.\+95f
+\item 
+\Hypertarget{main_8c_a3944659ec46ab1802872a6c110dd92b6}\label{main_8c_a3944659ec46ab1802872a6c110dd92b6} 
+uint8\+\_\+t {\bfseries filter\+\_\+initialized} = 0
+\item 
+\Hypertarget{main_8c_ac88b3f895b7640e5c51c6728fb6c721e}\label{main_8c_ac88b3f895b7640e5c51c6728fb6c721e} 
+uint8\+\_\+t {\bfseries beat\+\_\+state} = 0
+\item 
+\Hypertarget{main_8c_a9d3d0fd6f34c04617c902bed91bef398}\label{main_8c_a9d3d0fd6f34c04617c902bed91bef398} 
+uint32\+\_\+t {\bfseries beat\+\_\+count} = 0
+\item 
+\Hypertarget{main_8c_add31d345021e5894f109c3ca5f1bd651}\label{main_8c_add31d345021e5894f109c3ca5f1bd651} 
+uint32\+\_\+t {\bfseries last\+\_\+beat\+\_\+time} = 0
+\item 
+\Hypertarget{main_8c_aa773d9a6c0ccefaa0fc9ab66fec68ec1}\label{main_8c_aa773d9a6c0ccefaa0fc9ab66fec68ec1} 
+float {\bfseries beta} = 0.\+90f
+\item 
+\Hypertarget{main_8c_a5a4fe96f906e2d0d038e830a9e573ca9}\label{main_8c_a5a4fe96f906e2d0d038e830a9e573ca9} 
+float {\bfseries smooth\+\_\+red} = 0.\+0f
+\item 
+\Hypertarget{main_8c_aba113ffc6ef1595d2cc2d19a7080ebcc}\label{main_8c_aba113ffc6ef1595d2cc2d19a7080ebcc} 
+float {\bfseries smooth\+\_\+ir} = 0.\+0f
+\item 
+\Hypertarget{main_8c_a7ece694734e903639074d12e06167e29}\label{main_8c_a7ece694734e903639074d12e06167e29} 
+float {\bfseries previous\+\_\+smooth\+\_\+ir} = 0.\+0f
+\item 
+\Hypertarget{main_8c_abe709bb7075b170736e13f1b7706834f}\label{main_8c_abe709bb7075b170736e13f1b7706834f} 
+uint32\+\_\+t {\bfseries beats\+\_\+in\+\_\+window} = 0
+\item 
+\Hypertarget{main_8c_a0fcc3b1dd1e22f3105c39ff9e8237882}\label{main_8c_a0fcc3b1dd1e22f3105c39ff9e8237882} 
+uint32\+\_\+t {\bfseries window\+\_\+start\+\_\+time} = 0
+\item 
+\Hypertarget{main_8c_acb4cd2cd4ca0c4fc63f6fb0b6faec838}\label{main_8c_acb4cd2cd4ca0c4fc63f6fb0b6faec838} 
+uint8\+\_\+t {\bfseries window\+\_\+initialized} = 0
+\item 
+\Hypertarget{main_8c_a464932691a68b5b2025db9a7208bb26f}\label{main_8c_a464932691a68b5b2025db9a7208bb26f} 
+float {\bfseries displayed\+\_\+bpm} = 0.\+0
+\item 
+\Hypertarget{main_8c_a7a0438513fe4655419580f97bdbcdbb4}\label{main_8c_a7a0438513fe4655419580f97bdbcdbb4} 
+float {\bfseries current\+\_\+altitude} = 0.\+0f
+\item 
+\Hypertarget{main_8c_aa6f7bcf6274792464b78df3ddb13faa7}\label{main_8c_aa6f7bcf6274792464b78df3ddb13faa7} 
+float {\bfseries current\+\_\+temp} = 0.\+0f
+\item 
+\Hypertarget{main_8c_a459bdd1c9c401e73bc55cd59da525ff6}\label{main_8c_a459bdd1c9c401e73bc55cd59da525ff6} 
+float {\bfseries initial\+\_\+baseline\+\_\+altitude} = 0.\+0f
+\item 
+\Hypertarget{main_8c_aecaab7e297fcd1c6ca10c789e4bd0c9e}\label{main_8c_aecaab7e297fcd1c6ca10c789e4bd0c9e} 
+uint8\+\_\+t {\bfseries altitude\+\_\+calibrated} = 0
+\item 
+\Hypertarget{main_8c_a0c743f48901526eb027bb559bbb3e237}\label{main_8c_a0c743f48901526eb027bb559bbb3e237} 
+uint8\+\_\+t {\bfseries calibration\+\_\+counter} = 0
+\item 
+\Hypertarget{main_8c_a94211eb6e46fe516cad28f8740e34377}\label{main_8c_a94211eb6e46fe516cad28f8740e34377} 
+volatile uint8\+\_\+t {\bfseries data\+\_\+ready} = 0
+\item 
+\Hypertarget{main_8c_a0edcebd8e4f1f500e03291ddc4ae68e3}\label{main_8c_a0edcebd8e4f1f500e03291ddc4ae68e3} 
+char {\bfseries uart\+\_\+buf} \+[100]\+
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+:\+ Main program body 
+
+
+
+\label{main_8c_doc-func-members}
+\Hypertarget{main_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8c_a1730ffe1e560465665eb47d9264826f9}\index{main.c@{main.c}!Error\_Handler@{Error\_Handler}}
+\index{Error\_Handler@{Error\_Handler}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{Error\_Handler()}{Error\_Handler()}}
+{\footnotesize\ttfamily \label{main_8c_a1730ffe1e560465665eb47d9264826f9} 
+void Error\+\_\+\+Handler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+This function is executed in case of error occurrence. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{main_8c_a70af21c671abfcc773614a9a4f63d920}\index{main.c@{main.c}!SystemClock\_Config@{SystemClock\_Config}}
+\index{SystemClock\_Config@{SystemClock\_Config}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{SystemClock\_Config()}{SystemClock\_Config()}}
+{\footnotesize\ttfamily \label{main_8c_a70af21c671abfcc773614a9a4f63d920} 
+void System\+Clock\+\_\+\+Config (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+System Clock Configuration. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+Configure the main internal regulator output voltage
+
+Configure LSE Drive Capability
+
+Initializes the RCC Oscillators according to the specified parameters in the \doxylink{struct_r_c_c___osc_init_type_def}{RCC\+\_\+\+Osc\+Init\+Type\+Def} structure.
+
+Initializes the CPU, AHB and APB buses clocks
+
+Enable MSI Auto calibration

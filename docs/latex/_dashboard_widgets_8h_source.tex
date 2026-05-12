@@ -1,0 +1,88 @@
+\doxysection{Dashboard\+Widgets.\+h}
+\hypertarget{_dashboard_widgets_8h_source}{}\label{_dashboard_widgets_8h_source}\index{QtDisplay/DashboardWidgets.h@{QtDisplay/DashboardWidgets.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QPropertyAnimation>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QTimer>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }PulsingHeartWidget\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00008\ \ \ \ \ Q\_PROPERTY(qreal\ scaleFactor\ READ\ scaleFactor\ WRITE\ setScaleFactor)}
+\DoxyCodeLine{00009\ \ \ \ \ Q\_PROPERTY(qreal\ glowOpacity\ READ\ glowOpacity\ WRITE\ setGlowOpacity)}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{explicit}\ PulsingHeartWidget(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00012\ \ \ \ \ qreal\ scaleFactor()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_scaleFactor;\ \}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{void}\ setScaleFactor(qreal\ scale);}
+\DoxyCodeLine{00014\ \ \ \ \ qreal\ glowOpacity()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_glowOpacity;\ \}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{void}\ setGlowOpacity(qreal\ opacity);}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{void}\ setDarkMode(\textcolor{keywordtype}{bool}\ dark);}
+\DoxyCodeLine{00017\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ updateBpm(\textcolor{keywordtype}{int}\ bpm);}
+\DoxyCodeLine{00019\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ paintEvent(QPaintEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ qreal\ m\_scaleFactor;}
+\DoxyCodeLine{00023\ \ \ \ \ qreal\ m\_glowOpacity;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isDarkMode;}
+\DoxyCodeLine{00025\ \ \ \ \ QPropertyAnimation\ *singleBeatAnimation;}
+\DoxyCodeLine{00026\ \ \ \ \ QPropertyAnimation\ *glowFadeAnimation;}
+\DoxyCodeLine{00027\ \ \ \ \ QTimer\ *beatTimer;}
+\DoxyCodeLine{00028\ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }OxygenCircleWidget\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00032\ \ \ \ \ Q\_PROPERTY(qreal\ animatedValue\ READ\ animatedValue\ WRITE\ setAnimatedValue)}
+\DoxyCodeLine{00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keyword}{explicit}\ OxygenCircleWidget(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00035\ \ \ \ \ qreal\ animatedValue()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_animatedValue;\ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{void}\ setAnimatedValue(qreal\ val);}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ setDarkMode(\textcolor{keywordtype}{bool}\ dark);}
+\DoxyCodeLine{00038\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{void}\ updateSpo2(\textcolor{keywordtype}{int}\ spo2);}
+\DoxyCodeLine{00040\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{void}\ paintEvent(QPaintEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00042\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \ \ qreal\ m\_animatedValue;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isDarkMode;}
+\DoxyCodeLine{00045\ \ \ \ \ QPropertyAnimation\ *valueAnimation;}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{class\ }ActivityRingWidget\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00050\ \ \ \ \ Q\_PROPERTY(qreal\ animatedValue\ READ\ animatedValue\ WRITE\ setAnimatedValue)}
+\DoxyCodeLine{00051\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{explicit}\ ActivityRingWidget(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00053\ \ \ \ \ qreal\ animatedValue()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_animatedValue;\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ setAnimatedValue(qreal\ val);}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ setDarkMode(\textcolor{keywordtype}{bool}\ dark);}
+\DoxyCodeLine{00056\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ updateValue(\textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00058\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ paintEvent(QPaintEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00061\ \ \ \ \ qreal\ m\_animatedValue;}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isDarkMode;}
+\DoxyCodeLine{00063\ \ \ \ \ QPropertyAnimation\ *valueAnimation;}
+\DoxyCodeLine{00064\ \};}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{class\ }CalorieRingWidget\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00068\ \ \ \ \ Q\_PROPERTY(qreal\ animatedValue\ READ\ animatedValue\ WRITE\ setAnimatedValue)}
+\DoxyCodeLine{00069\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{explicit}\ CalorieRingWidget(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00071\ \ \ \ \ qreal\ animatedValue()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ m\_animatedValue;\ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{void}\ setAnimatedValue(qreal\ val);}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ setDarkMode(\textcolor{keywordtype}{bool}\ dark);}
+\DoxyCodeLine{00074\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ updateValue(\textcolor{keywordtype}{int}\ val);}
+\DoxyCodeLine{00076\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ paintEvent(QPaintEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00078\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00079\ \ \ \ \ qreal\ m\_animatedValue;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isDarkMode;}
+\DoxyCodeLine{00081\ \ \ \ \ QPropertyAnimation\ *valueAnimation;}
+\DoxyCodeLine{00082\ \};}
+
+\end{DoxyCode}

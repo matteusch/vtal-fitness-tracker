@@ -1,0 +1,67 @@
+\doxysection{Fitness\+Tracker\+Window.\+h}
+\hypertarget{_fitness_tracker_window_8h_source}{}\label{_fitness_tracker_window_8h_source}\index{QtDisplay/FitnessTrackerWindow.h@{QtDisplay/FitnessTrackerWindow.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <QLabel>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QStackedWidget>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QPushButton>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QComboBox>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QGraphicsOpacityEffect>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}DashboardWidgets.h"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}MockSensor.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }FitnessTrackerWindow\ :\ \textcolor{keyword}{public}\ QWidget\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00013\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{explicit}\ FitnessTrackerWindow(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ onDailyUpdated(\textcolor{keywordtype}{int}\ bpm,\ \textcolor{keywordtype}{int}\ steps);}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{void}\ onWorkoutUpdated(\textcolor{keywordtype}{int}\ seconds,\ \textcolor{keywordtype}{int}\ bpm,\ \textcolor{keywordtype}{int}\ spo2,\ \textcolor{keywordtype}{double}\ distance,\ \textcolor{keywordtype}{int}\ calories);}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{void}\ toggleTheme();}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{void}\ changeLanguage(\textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ updateStaticTexts();}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ fadeToPage(\textcolor{keywordtype}{int}\ pageIndex);}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{void}\ formatTimeLabel(\textcolor{keywordtype}{int}\ seconds);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{enum}\ Language\ \{\ EN,\ PL,\ DE\ \};}
+\DoxyCodeLine{00027\ \ \ \ \ Language\ m\_currentLang;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ QStackedWidget\ *stackedWidget;}
+\DoxyCodeLine{00030\ \ \ \ \ QGraphicsOpacityEffect\ *opacityEffect;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ QPushButton\ *themeButton;}
+\DoxyCodeLine{00033\ \ \ \ \ QComboBox\ *langComboBox;}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isDarkMode;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{bool}\ m\_isWorkoutPaused;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ UI\ Elements\ -\/-\/-\/}}
+\DoxyCodeLine{00038\ \ \ \ \ \doxymbox{\hyperlink{class_pulsing_heart_widget}{PulsingHeartWidget}}\ *homeHeartWidget;}
+\DoxyCodeLine{00039\ \ \ \ \ \doxymbox{\hyperlink{class_activity_ring_widget}{ActivityRingWidget}}\ *homeStepsWidget;}
+\DoxyCodeLine{00040\ \ \ \ \ QLabel\ *homeBpmLabel;}
+\DoxyCodeLine{00041\ \ \ \ \ QLabel\ *homeStepsLabel;}
+\DoxyCodeLine{00042\ \ \ \ \ QPushButton\ *startTrainingBtn;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ QPushButton\ *runBtn,\ *cycleBtn,\ *swimBtn,\ *cancelSelectionBtn;}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ QLabel\ *workoutTimeLabel;}
+\DoxyCodeLine{00047\ \ \ \ \ \doxymbox{\hyperlink{class_pulsing_heart_widget}{PulsingHeartWidget}}\ *workoutHeartWidget;}
+\DoxyCodeLine{00048\ \ \ \ \ \doxymbox{\hyperlink{class_oxygen_circle_widget}{OxygenCircleWidget}}\ *workoutSpo2Widget;}
+\DoxyCodeLine{00049\ \ \ \ \ QLabel\ *workoutBpmLabel;}
+\DoxyCodeLine{00050\ \ \ \ \ QLabel\ *workoutSpo2Label;}
+\DoxyCodeLine{00051\ \ \ \ \ QLabel\ *workoutDistanceLabel;}
+\DoxyCodeLine{00052\ \ \ \ \ QLabel\ *workoutCalorieLabel;}
+\DoxyCodeLine{00053\ \ \ \ \ QPushButton\ *pauseBtn,\ *endBtn,\ *homeBtn;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ Language\ references}}
+\DoxyCodeLine{00056\ \ \ \ \ QLabel\ *homeTitle,\ *homeHeartSub,\ *homeStepsSub;}
+\DoxyCodeLine{00057\ \ \ \ \ QLabel\ *selectTitle;}
+\DoxyCodeLine{00058\ \ \ \ \ QLabel\ *workTimeSub,\ *workHeartSub,\ *workSpo2Sub,\ *workDistSub,\ *workCalSub;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \doxymbox{\hyperlink{class_mock_sensor}{MockSensor}}\ *sensor;}
+\DoxyCodeLine{00061\ \};}
+
+\end{DoxyCode}

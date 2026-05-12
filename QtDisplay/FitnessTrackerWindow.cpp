@@ -1,3 +1,10 @@
+/**
+* @file FitnessTrackerWindow.cpp
+ * @brief Logika głównego okna aplikacji Qt.
+ * Odpowiada za zarządzanie widokami, aktualizację metryk na żywo oraz obsługę motywów i języków.
+ */
+
+
 #include "FitnessTrackerWindow.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>

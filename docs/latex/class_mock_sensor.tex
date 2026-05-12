@@ -1,0 +1,58 @@
+\doxysection{Mock\+Sensor Class Reference}
+\hypertarget{class_mock_sensor}{}\label{class_mock_sensor}\index{MockSensor@{MockSensor}}
+Inheritance diagram for Mock\+Sensor:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_mock_sensor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841}\label{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841} 
+enum {\bfseries Workout\+Type} \{ {\bfseries None}
+, {\bfseries Running}
+, {\bfseries Cycling}
+, {\bfseries Swimming}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_mock_sensor_ac2a28a04f57ff5184f8e2efe6166675f}\label{class_mock_sensor_ac2a28a04f57ff5184f8e2efe6166675f} 
+void {\bfseries start\+Workout} (Workout\+Type type)
+\item 
+\Hypertarget{class_mock_sensor_a39a1901cd04974c33f28df45d54f86c7}\label{class_mock_sensor_a39a1901cd04974c33f28df45d54f86c7} 
+void {\bfseries pause\+Workout} ()
+\item 
+\Hypertarget{class_mock_sensor_a56afeb387a29737b37bb4ba1e703ad60}\label{class_mock_sensor_a56afeb387a29737b37bb4ba1e703ad60} 
+void {\bfseries resume\+Workout} ()
+\item 
+\Hypertarget{class_mock_sensor_a009c4899ee33d98ca1fd7229f83c4e44}\label{class_mock_sensor_a009c4899ee33d98ca1fd7229f83c4e44} 
+void {\bfseries stop\+Workout} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_mock_sensor_a9e2cd860912e6f247fe80ffc1ce5cc64}\label{class_mock_sensor_a9e2cd860912e6f247fe80ffc1ce5cc64} 
+void {\bfseries daily\+Data\+Updated} (int bpm, int daily\+Steps)
+\item 
+\Hypertarget{class_mock_sensor_ad3c4d1a4550b8bc29e46e38c9d8aea2c}\label{class_mock_sensor_ad3c4d1a4550b8bc29e46e38c9d8aea2c} 
+void {\bfseries workout\+Data\+Updated} (int elapsed\+Seconds, int bpm, int spo2, double distance, int calories)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_mock_sensor_a3024e1d974e59dcce0fd732d245c05df}\label{class_mock_sensor_a3024e1d974e59dcce0fd732d245c05df} 
+{\bfseries Mock\+Sensor} (QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\item 
+\Hypertarget{class_mock_sensor_a28ce64fdacc09e5936edb709f4bb9e25}\label{class_mock_sensor_a28ce64fdacc09e5936edb709f4bb9e25} 
+bool {\bfseries is\+Workout\+Active} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Qt\+Display/\+Mock\+Sensor.\+h\item 
+Qt\+Display/\+cmake-\/build-\/debug-\/qt-\/mingw-\/64/\+\+Fitness\+Tracker\+\_\+autogen/\+\+EWIEGA46\+WW/\+moc\+\_\+\+Mock\+Sensor.\+cpp\item 
+Qt\+Display/\+\doxymbox{\hyperlink{_mock_sensor_8cpp}{Mock\+Sensor.\+cpp}}\end{DoxyCompactItemize}

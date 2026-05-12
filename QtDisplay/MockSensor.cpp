@@ -1,3 +1,10 @@
+/**
+* @file MockSensor.cpp
+ * @brief Symulator czujnika dla aplikacji Qt.
+ * Generuje sztuczne, losowe dane w czasie rzeczywistym na potrzeby testowania i prezentacji interfejsu graficznego.
+ */
+
+
 #include "MockSensor.h"
 #include <QRandomGenerator>
 

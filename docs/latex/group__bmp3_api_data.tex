@@ -1,0 +1,54 @@
+\doxysubsection{Sensor Data }
+\hypertarget{group__bmp3_api_data}{}\label{group__bmp3_api_data}\index{Sensor Data@{Sensor Data}}
+
+
+Get Sensor data.  
+
+
+Get Sensor data. 
+
+\hypertarget{bmp3_api_bmp3_get_sensor_data}{}\doxysubsubsection{bmp3\+\_\+get\+\_\+sensor\+\_\+data}\label{bmp3_api_bmp3_get_sensor_data}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ \doxymbox{\hyperlink{bmp3_8h_a0001a45009ef925a34f434cf0245ec8b}{bmp3\_get\_sensor\_data}}(uint8\_t\ sensor\_comp,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__data}{bmp3\_data}}\ *data,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__dev}{bmp3\_dev}}\ *dev);}
+
+\end{DoxyCode}
+
+
+This API reads the pressure, temperature or both data from the sensor, compensates the data and store it in the \doxylink{structbmp3__data}{bmp3\+\_\+data} structure instance passed by the user.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em sensor\+\_\+comp} & :\+ Variable which selects which data to be read from the sensor.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}* sensor_comp |   Macros
+* ------------|-------------------
+*     1       | BMP3_PRESS
+*     2       | BMP3_TEMP
+*     3       | BMP3_ALL
+*\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{out}}  & {\em data} & :\+ Structure instance of \doxylink{structbmp3__data}{bmp3\+\_\+data}. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em dev} & :\+ Structure instance of \doxylink{structbmp3__dev}{bmp3\+\_\+dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+:\+ For fixed point the compensated temperature and pressure has a multiplication factor of 100. Units are degree celsius and Pascal respectively. ie. If temperature is 2426 then temperature is 24.\+26 deg C If press is 9528709, then pressure is 95287.\+09 Pascal.
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+Result of API execution status 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/\texorpdfstring{$>$}{>} Success \\
+\hline
+{\em $>$0} & -\/\texorpdfstring{$>$}{>} Warning \\
+\hline
+{\em $<$0} & -\/\texorpdfstring{$>$}{>} Error \\
+\hline
+\end{DoxyRetVals}

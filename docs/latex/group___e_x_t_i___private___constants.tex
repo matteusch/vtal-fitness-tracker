@@ -1,0 +1,59 @@
+\doxysubsubsection{EXTI Private Constants }
+\hypertarget{group___e_x_t_i___private___constants}{}\label{group___e_x_t_i___private___constants}\index{EXTI Private Constants@{EXTI Private Constants}}
+\doxysubsubsubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}\label{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec} 
+\+\#define {\bfseries EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}~24u
+\begin{DoxyCompactList}\small\item\em EXTI Line property definition. \end{DoxyCompactList}\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga6a646555edd627e1e7b43aa4e87b4aa7}\label{group___e_x_t_i___private___constants_ga6a646555edd627e1e7b43aa4e87b4aa7} 
+\+\#define {\bfseries EXTI\+\_\+\+DIRECT}~(0x01uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}{EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}})
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga6f245ca02e17c1798fe43a66ea5b7fa4}\label{group___e_x_t_i___private___constants_ga6f245ca02e17c1798fe43a66ea5b7fa4} 
+\+\#define {\bfseries EXTI\+\_\+\+CONFIG}~(0x02uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}{EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}})
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_gacfa322960fc87db022536119cabb4d2a}\label{group___e_x_t_i___private___constants_gacfa322960fc87db022536119cabb4d2a} 
+\+\#define {\bfseries EXTI\+\_\+\+GPIO}~((0x04uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}{EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}}) \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+CONFIG)
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_gac15c8e004a79171f659e6cba49e8a57a}\label{group___e_x_t_i___private___constants_gac15c8e004a79171f659e6cba49e8a57a} 
+\+\#define {\bfseries EXTI\+\_\+\+RESERVED}~(0x08uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga508bbe670f4f32775988b55e6914b6ec}{EXTI\+\_\+\+PROPERTY\+\_\+\+SHIFT}})
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga6aa8e044ea8987b6839f419123734e4b}\label{group___e_x_t_i___private___constants_ga6aa8e044ea8987b6839f419123734e4b} 
+\+\#define {\bfseries EXTI\+\_\+\+PROPERTY\+\_\+\+MASK}~(EXTI\+\_\+\+DIRECT \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+CONFIG \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+GPIO)
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_gaeafd5ba0336cfb4b095151c0797b347e}\label{group___e_x_t_i___private___constants_gaeafd5ba0336cfb4b095151c0797b347e} 
+\+\#define {\bfseries EXTI\+\_\+\+EVENT\+\_\+\+PRESENCE\+\_\+\+SHIFT}~28u
+\begin{DoxyCompactList}\small\item\em EXTI Event presence definition. \end{DoxyCompactList}\item 
+\Hypertarget{group___e_x_t_i___private___constants_gaa3c3d1a80e41861baaa300532bc2ccc8}\label{group___e_x_t_i___private___constants_gaa3c3d1a80e41861baaa300532bc2ccc8} 
+\+\#define {\bfseries EXTI\+\_\+\+EVENT}~(0x01uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_gaeafd5ba0336cfb4b095151c0797b347e}{EXTI\+\_\+\+EVENT\+\_\+\+PRESENCE\+\_\+\+SHIFT}})
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga34a030aa06cdf8b312993663d910a4b3}\label{group___e_x_t_i___private___constants_ga34a030aa06cdf8b312993663d910a4b3} 
+\+\#define {\bfseries EXTI\+\_\+\+EVENT\+\_\+\+PRESENCE\+\_\+\+MASK}~(EXTI\+\_\+\+EVENT)
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga187f8b65fedba7cc4a5662552dd0eb40}\label{group___e_x_t_i___private___constants_ga187f8b65fedba7cc4a5662552dd0eb40} 
+\+\#define {\bfseries EXTI\+\_\+\+REG\+\_\+\+SHIFT}~16u
+\begin{DoxyCompactList}\small\item\em EXTI Register and bit usage. \end{DoxyCompactList}\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga091fa19d9bb51b0b09be614b0857265e}\label{group___e_x_t_i___private___constants_ga091fa19d9bb51b0b09be614b0857265e} 
+\+\#define {\bfseries EXTI\+\_\+\+REG1}~(0x00uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga187f8b65fedba7cc4a5662552dd0eb40}{EXTI\+\_\+\+REG\+\_\+\+SHIFT}})
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_gae6c7c1bc326dac76cae7eee9d499ed68}\label{group___e_x_t_i___private___constants_gae6c7c1bc326dac76cae7eee9d499ed68} 
+\+\#define {\bfseries EXTI\+\_\+\+REG2}~(0x01uL $<$$<$ \doxymbox{\hyperlink{group___e_x_t_i___private___constants_ga187f8b65fedba7cc4a5662552dd0eb40}{EXTI\+\_\+\+REG\+\_\+\+SHIFT}})
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga1aa525d078e0b4ba049f08d9f06f4012}\label{group___e_x_t_i___private___constants_ga1aa525d078e0b4ba049f08d9f06f4012} 
+\+\#define {\bfseries EXTI\+\_\+\+REG\+\_\+\+MASK}~(EXTI\+\_\+\+REG1 \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+REG2)
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c}\label{group___e_x_t_i___private___constants_ga755405defae45017e19a17fd0279869c} 
+\+\#define {\bfseries EXTI\+\_\+\+PIN\+\_\+\+MASK}~0x0000001\+Fu
+\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga657f081646b552ee10bdfc7af94b5cdf}\label{group___e_x_t_i___private___constants_ga657f081646b552ee10bdfc7af94b5cdf} 
+\+\#define {\bfseries EXTI\+\_\+\+MODE\+\_\+\+MASK}~(EXTI\+\_\+\+MODE\+\_\+\+EVENT \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+MODE\+\_\+\+INTERRUPT)
+\begin{DoxyCompactList}\small\item\em EXTI Mask for interrupt \& event mode. \end{DoxyCompactList}\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga3e14df666414849fd5a3907a96a2a892}\label{group___e_x_t_i___private___constants_ga3e14df666414849fd5a3907a96a2a892} 
+\+\#define {\bfseries EXTI\+\_\+\+TRIGGER\+\_\+\+MASK}~(EXTI\+\_\+\+TRIGGER\+\_\+\+RISING \texorpdfstring{$\vert$}{|} EXTI\+\_\+\+TRIGGER\+\_\+\+FALLING)
+\begin{DoxyCompactList}\small\item\em EXTI Mask for trigger possibilities. \end{DoxyCompactList}\item 
+\Hypertarget{group___e_x_t_i___private___constants_ga577c4d3186ba6dd303761b23510595ef}\label{group___e_x_t_i___private___constants_ga577c4d3186ba6dd303761b23510595ef} 
+\+\#define {\bfseries EXTI\+\_\+\+LINE\+\_\+\+NB}~41u
+\begin{DoxyCompactList}\small\item\em EXTI Line number. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsubsubsection{Detailed Description}

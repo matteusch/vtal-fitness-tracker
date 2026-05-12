@@ -1,0 +1,91 @@
+\doxysubsection{Sensor settings }
+\hypertarget{group__bmp3_api_sensor_s}{}\label{group__bmp3_api_sensor_s}\index{Sensor settings@{Sensor settings}}
+
+
+Get /\+ Set sensor settings.  
+
+
+Get /\+ Set sensor settings. 
+
+\hypertarget{bmp3_api_bmp3_set_sensor_settings}{}\doxysubsubsection{bmp3\+\_\+set\+\_\+sensor\+\_\+settings}\label{bmp3_api_bmp3_set_sensor_settings}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ \doxymbox{\hyperlink{bmp3_8h_a0a53f320e8c5a13d452bc24dfc7de58a}{bmp3\_set\_sensor\_settings}}(uint32\_t\ desired\_settings,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__settings}{bmp3\_settings}}\ *settings,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__dev}{bmp3\_dev}}\ *dev);}
+
+\end{DoxyCode}
+
+
+This API sets the power control(pressure enable and   temperature enable), over sampling, odr and filter settings in the sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em desired\+\_\+settings} & :\+ Variable used to select the settings which are to be set in the sensor. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em settings} & :\+ Structure instance of \doxylink{structbmp3__settings}{bmp3\+\_\+settings} \\
+\hline
+\doxymbox{\texttt{in}}  & {\em dev} & :\+ Structure instance of \doxylink{structbmp3__dev}{bmp3\+\_\+dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+:\+ Below are the macros to be used by the user for selecting the desired settings. User can do OR operation of these macros for configuring multiple settings.
+\end{DoxyNote}
+\begin{DoxyVerb}* ---------------------|----------------------------------------------
+* desired_settings     |   Functionality
+* ---------------------|----------------------------------------------
+* BMP3_SEL_PRESS_EN    |   Enable/Disable pressure.
+* BMP3_SEL_TEMP_EN     |   Enable/Disable temperature.
+* BMP3_SEL_PRESS_OS    |   Set pressure oversampling.
+* BMP3_SEL_TEMP_OS     |   Set temperature oversampling.
+* BMP3_SEL_IIR_FILTER  |   Set IIR filter.
+* BMP3_SEL_ODR         |   Set ODR.
+* BMP3_SEL_OUTPUT_MODE |   Set either open drain or push pull
+* BMP3_SEL_LEVEL       |   Set interrupt pad to be active high or low
+* BMP3_SEL_LATCH       |   Set interrupt pad to be latched or nonlatched.
+* BMP3_SEL_DRDY_EN     |   Map/Unmap the drdy interrupt to interrupt pad.
+* BMP3_SEL_I2C_WDT_EN  |   Enable/Disable I2C internal watch dog.
+* BMP3_SEL_I2C_WDT     |   Set I2C watch dog timeout delay.
+* ---------------------|----------------------------------------------
+*\end{DoxyVerb}
+
+
+\begin{DoxyReturn}{Returns}
+Result of API execution status 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/\texorpdfstring{$>$}{>} Success \\
+\hline
+{\em $>$0} & -\/\texorpdfstring{$>$}{>} Warning \\
+\hline
+{\em $<$0} & -\/\texorpdfstring{$>$}{>} Error \\
+\hline
+\end{DoxyRetVals}
+\hypertarget{bmp3_api_bmp3_get_sensor_settings}{}\doxysubsubsection{bmp3\+\_\+get\+\_\+sensor\+\_\+settings}\label{bmp3_api_bmp3_get_sensor_settings}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ \doxymbox{\hyperlink{bmp3_8h_ae7bbd9da06309195baa80bdc5d8579fe}{bmp3\_get\_sensor\_settings}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__settings}{bmp3\_settings}}\ *settings,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__dev}{bmp3\_dev}}\ *dev);}
+
+\end{DoxyCode}
+
+
+This API gets the power control(power mode, pressure enable and temperature enable), over sampling, odr, filter, interrupt control and advance settings from the sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{out}}  & {\em settings} & :\+ Structure instance of \doxylink{structbmp3__settings}{bmp3\+\_\+settings} \\
+\hline
+\doxymbox{\texttt{in}}  & {\em dev} & :\+ Structure instance of \doxylink{structbmp3__dev}{bmp3\+\_\+dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of API execution status 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/\texorpdfstring{$>$}{>} Success \\
+\hline
+{\em $>$0} & -\/\texorpdfstring{$>$}{>} Warning \\
+\hline
+{\em $<$0} & -\/\texorpdfstring{$>$}{>} Error \\
+\hline
+\end{DoxyRetVals}
