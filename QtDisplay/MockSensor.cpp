@@ -12,7 +12,7 @@ MockSensor::MockSensor(QObject *parent) : QObject(parent),
     m_currentWorkout(None), m_isPaused(false), m_currentBpm(75), m_dailySteps(8432),
     m_workoutSeconds(0), m_currentSpO2(98), m_workoutDistance(0.0), m_workoutCalories(0.0) {
 
-    // Daily tracking
+    // Daily steps
     dailyTimer = new QTimer(this);
     connect(dailyTimer, &QTimer::timeout, this, &MockSensor::generateDailyReading);
     dailyTimer->start(2000);
@@ -52,7 +52,7 @@ void MockSensor::generateWorkoutReading() {
 
     m_workoutSeconds++;
 
-    // SpO2 logic (only relevant during workouts for this app)
+    // SpO2
     m_currentSpO2 += QRandomGenerator::global()->bounded(-1, 2);
     if (m_currentSpO2 < 90) m_currentSpO2 = 90;
     if (m_currentSpO2 > 100) m_currentSpO2 = 100;

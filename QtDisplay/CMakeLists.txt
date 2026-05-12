@@ -15,6 +15,7 @@ qt_add_executable(FitnessTracker WIN32
         MockSensor.cpp
         DashboardWidgets.cpp
         FitnessTrackerWindow.cpp
+        main.cpp
 )
 
 target_link_libraries(FitnessTracker PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
