@@ -1,0 +1,75 @@
+\doxysubsection{Registers }
+\hypertarget{group__bmp3_api_regs}{}\label{group__bmp3_api_regs}\index{Registers@{Registers}}
+
+
+Read /\+ Write data to the given register address.  
+
+
+Read /\+ Write data to the given register address. 
+
+\hypertarget{bmp3_api_bmp3_set_regs}{}\doxysubsubsection{bmp3\+\_\+set\+\_\+regs}\label{bmp3_api_bmp3_set_regs}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ \doxymbox{\hyperlink{bmp3_8h_ad02d16a9569a75f9df070348eb7cb1fe}{bmp3\_set\_regs}}(uint8\_t\ *reg\_addr,\ \textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ uint8\_t\ len,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__dev}{bmp3\_dev}}\ *dev);}
+
+\end{DoxyCode}
+
+
+This API writes the given data to the register address of the sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em reg\+\_\+addr} & :\+ Register address to where the data to be written. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em reg\+\_\+data} & :\+ Pointer to data buffer which is to be written in the sensor. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em len} & :\+ No. of bytes of data to write. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em dev} & :\+ Structure instance of \doxylink{structbmp3__dev}{bmp3\+\_\+dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of API execution status 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/\texorpdfstring{$>$}{>} Success \\
+\hline
+{\em $>$0} & -\/\texorpdfstring{$>$}{>} Warning \\
+\hline
+{\em $<$0} & -\/\texorpdfstring{$>$}{>} Error \\
+\hline
+\end{DoxyRetVals}
+\hypertarget{bmp3_api_bmp3_get_regs}{}\doxysubsubsection{bmp3\+\_\+get\+\_\+regs}\label{bmp3_api_bmp3_get_regs}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ \doxymbox{\hyperlink{bmp3_8h_a9e0c2cdecfdac8aa6ed4e35940f7ade7}{bmp3\_get\_regs}}(uint8\_t\ reg\_addr,\ uint8\_t\ *reg\_data,\ uint16\_t\ length,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__dev}{bmp3\_dev}}\ *dev);}
+
+\end{DoxyCode}
+
+
+This API reads the data from the given register address of the sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em reg\+\_\+addr} & :\+ Register address from where the data to be read \\
+\hline
+\doxymbox{\texttt{out}}  & {\em reg\+\_\+data} & :\+ Pointer to data buffer to store the read data. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em len} & :\+ No. of bytes of data to be read. \\
+\hline
+\doxymbox{\texttt{in}}  & {\em dev} & :\+ Structure instance of \doxylink{structbmp3__dev}{bmp3\+\_\+dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of API execution status 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/\texorpdfstring{$>$}{>} Success \\
+\hline
+{\em $>$0} & -\/\texorpdfstring{$>$}{>} Warning \\
+\hline
+{\em $<$0} & -\/\texorpdfstring{$>$}{>} Error \\
+\hline
+\end{DoxyRetVals}

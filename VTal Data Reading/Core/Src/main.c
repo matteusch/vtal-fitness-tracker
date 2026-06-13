@@ -42,7 +42,8 @@
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
 DMA_HandleTypeDef hdma_i2c1_rx;
-UART_HandleTypeDef huart2;
+UART_HandleTypeDef huart1; // Added for HC-05 Bluetooth
+UART_HandleTypeDef huart2; // Kept for PC USB debugging
 
 /* USER CODE BEGIN PV */
 
@@ -97,6 +98,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_USART1_UART_Init(void); // Prototype for Bluetooth
 static void MX_USART2_UART_Init(void);
 BMP3_INTF_RET_TYPE user_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr);
 BMP3_INTF_RET_TYPE user_i2c_write(uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr);
@@ -111,7 +113,8 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_I2C1_Init();
-  MX_USART2_UART_Init();
+  MX_USART1_UART_Init(); // Initialize HC-05 Bluetooth UART (9600 Baud)
+  MX_USART2_UART_Init(); // Initialize PC USB UART (115200 Baud)
 
   /* USER CODE BEGIN 2 */
   uint8_t config_data;
@@ -240,19 +243,20 @@ int main(void)
 				  }
 				  displayed_bpm = (0.7f * displayed_bpm) + (0.3f * raw_window_bpm);
 
-				  //Send
+				  //Send Heart Rate
 				  char beat_msg[60];
 				  sprintf(beat_msg, "--- DISPLAY BPM: %.0f ---\r\n", displayed_bpm);
-				  HAL_UART_Transmit(&huart2, (uint8_t*)beat_msg, strlen(beat_msg), 100);
+				  HAL_UART_Transmit(&huart2, (uint8_t*)beat_msg, strlen(beat_msg), 100); // PC
+				  HAL_UART_Transmit(&huart1, (uint8_t*)beat_msg, strlen(beat_msg), 100); // Bluetooth
 
 				  beats_in_window = 0;
 				  window_start_time = current_time;
-			  	  }
+			  }
 
-			  	  sensor_sequence_step = 1;
+			  sensor_sequence_step = 1;
 
-			  	  //Trigger the BMP390 DMA read
-			  	  HAL_I2C_Mem_Read_DMA(&hi2c1, BMP390_ADDR, BMP_REG_DATA, 1, rx_bmp, 6);
+			  //Trigger the BMP390 DMA read
+			  HAL_I2C_Mem_Read_DMA(&hi2c1, BMP390_ADDR, BMP_REG_DATA, 1, rx_bmp, 6);
 		  }
 
 		  else if (sensor_sequence_step == 1)
@@ -315,7 +319,8 @@ int main(void)
 					  float steps_per_minute = 60000.0f / (float)step_time_ms;
 					  char step_msg[60];
 					  sprintf(step_msg, "STEP! Total: %lu | Cadence: %.1f SPM\r\n", step_count, steps_per_minute);
-					  HAL_UART_Transmit(&huart2, (uint8_t*)step_msg, strlen(step_msg), 100);
+					  HAL_UART_Transmit(&huart2, (uint8_t*)step_msg, strlen(step_msg), 100); // PC
+					  HAL_UART_Transmit(&huart1, (uint8_t*)step_msg, strlen(step_msg), 100); // Bluetooth
 				  }
 				  last_step_time = current_time;
 			  }
@@ -327,7 +332,8 @@ int main(void)
 			  sprintf(uart_buf, "BPM: %3.0f | Temp: %2.1f C | Alt: %4.1f m | Steps: %lu\r\n",
 					  displayed_bpm, current_temp, current_altitude, step_count);
 
-			  HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100);
+			  HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100); // PC
+			  HAL_UART_Transmit(&huart1, (uint8_t*)uart_buf, strlen(uart_buf), 100); // Bluetooth
 
 			  // Reset back to the first sensor
 			  sensor_sequence_step = 0;
@@ -440,7 +446,43 @@ static void MX_I2C1_Init(void)
 }
 
 /**
-  * @brief USART2 Initialization Function
+  * @brief USART1 Initialization Function (ADDED FOR HC-05 BLUETOOTH)
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+  // Manually configuring the GPIO pins so you do not need to use the .ioc file.
+  // PA9 = TX (D1), PA10 = RX (D0)
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  __HAL_RCC_USART1_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 38400; // HC-05 Factory Default
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/**
+  * @brief USART2 Initialization Function (PC USB)
   * @param None
   * @retval None
   */

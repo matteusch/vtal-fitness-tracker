@@ -1,0 +1,723 @@
+\doxysection{stm32l4xx\+\_\+ll\+\_\+dmamux.\+h}
+\hypertarget{stm32l4xx__ll__dmamux_8h_source}{}\label{stm32l4xx__ll__dmamux_8h_source}\index{VTal Data Reading/Drivers/STM32L4xx\_HAL\_Driver/Inc/stm32l4xx\_ll\_dmamux.h@{VTal Data Reading/Drivers/STM32L4xx\_HAL\_Driver/Inc/stm32l4xx\_ll\_dmamux.h}}
+\doxymbox{\hyperlink{stm32l4xx__ll__dmamux_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{/*\ Define\ to\ prevent\ recursive\ inclusion\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ STM32L4xx\_LL\_DMAMUX\_H}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ STM32L4xx\_LL\_DMAMUX\_H}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00024\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{stm32l4xx_8h}{stm32l4xx.h}}"{}}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#if\ defined\ (DMAMUX1)}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*\ Private\ types\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00041\ \textcolor{comment}{/*\ Private\ variables\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00042\ \textcolor{comment}{/*\ Private\ constants\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00046\ \textcolor{comment}{/*\ Define\ used\ to\ get\ DMAMUX\ CCR\ register\ size\ */}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ DMAMUX\_CCR\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000004UL}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ Define\ used\ to\ get\ DMAMUX\ RGCR\ register\ size\ */}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ DMAMUX\_RGCR\_SIZE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000004UL}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ Private\ macros\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00056\ \textcolor{comment}{/*\ Exported\ types\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ Exported\ constants\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF0\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF1\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF2\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF3\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF4\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF5\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF6\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF7\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF8\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF9\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF10\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF10\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF11\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF11\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF12\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF12\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CFR\_CSOF13\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CFR\_CSOF13\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGCFR\_RGCOF0\ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGCFR\_COF0\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGCFR\_RGCOF1\ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGCFR\_COF1\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGCFR\_RGCOF2\ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGCFR\_COF2\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGCFR\_RGCOF3\ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGCFR\_COF3\ \ \ \ \ \ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF0\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF1\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF2\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF3\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF4\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF5\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF6\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF7\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF8\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF9\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF10\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF10\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF11\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF11\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF12\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF12\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CSR\_SOF13\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CSR\_SOF13\ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGSR\_RGOF0\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGSR\_OF0\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGSR\_RGOF1\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGSR\_OF1\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGSR\_RGOF2\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGSR\_OF2\ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGSR\_RGOF3\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGSR\_OF3\ \ \ \ \ \ \ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CCR\_SOIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_CxCR\_SOIE\ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_RGCR\_RGOIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGxCR\_OIE\ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_MEM2MEM\ \ \ \ \ \ \ \ \ \ 0U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GENERATOR0\ \ \ \ \ \ \ 1U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GENERATOR1\ \ \ \ \ \ \ 2U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GENERATOR2\ \ \ \ \ \ \ 3U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GENERATOR3\ \ \ \ \ \ \ 4U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_ADC1\ \ \ \ \ \ \ \ \ \ \ \ \ 5U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#if\ defined\ (STM32L4P5xx)\ ||\ defined\ (STM32L4Q5xx)}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_ADC2\ \ \ \ \ \ \ \ \ \ \ \ \ 6U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT\ \ \ \ \ \ \ 1U}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT\ \ \ \ \ \ \ 0U}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_DAC1\_CH1\ \ \ \ \ \ \ \ (\ 6U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_DAC1\_CH2\ \ \ \ \ \ \ \ (\ 7U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM6\_UP\ \ \ \ \ \ \ \ \ (\ 8U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM7\_UP\ \ \ \ \ \ \ \ \ (\ 9U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SPI1\_RX\ \ \ \ \ \ \ \ \ (10U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SPI1\_TX\ \ \ \ \ \ \ \ \ (11U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SPI2\_RX\ \ \ \ \ \ \ \ \ (12U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SPI2\_TX\ \ \ \ \ \ \ \ \ (13U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SPI3\_RX\ \ \ \ \ \ \ \ \ (14U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SPI3\_TX\ \ \ \ \ \ \ \ \ (15U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_I2C1\_RX\ \ \ \ \ \ \ \ \ (16U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_I2C1\_TX\ \ \ \ \ \ \ \ \ (17U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_I2C2\_RX\ \ \ \ \ \ \ \ \ (18U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_I2C2\_TX\ \ \ \ \ \ \ \ \ (19U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_I2C3\_RX\ \ \ \ \ \ \ \ \ (20U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_I2C3\_TX\ \ \ \ \ \ \ \ \ (21U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_I2C4\_RX\ \ \ \ \ \ \ \ \ (22U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_I2C4\_TX\ \ \ \ \ \ \ \ \ (23U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_USART1\_RX\ \ \ \ \ \ \ (24U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_USART1\_TX\ \ \ \ \ \ \ (25U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_USART2\_RX\ \ \ \ \ \ \ (26U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_USART2\_TX\ \ \ \ \ \ \ (27U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_USART3\_RX\ \ \ \ \ \ \ (28U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_USART3\_TX\ \ \ \ \ \ \ (29U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_UART4\_RX\ \ \ \ \ \ \ \ (30U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_UART4\_TX\ \ \ \ \ \ \ \ (31U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_UART5\_RX\ \ \ \ \ \ \ \ (32U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_UART5\_TX\ \ \ \ \ \ \ \ (33U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_LPUART1\_RX\ \ \ \ \ \ (34U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_LPUART1\_TX\ \ \ \ \ \ (35U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SAI1\_A\ \ \ \ \ \ \ \ \ \ (36U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SAI1\_B\ \ \ \ \ \ \ \ \ \ (37U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SAI2\_A\ \ \ \ \ \ \ \ \ \ (38U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_SAI2\_B\ \ \ \ \ \ \ \ \ \ (39U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_OSPI1\ \ \ \ \ \ \ \ \ \ \ (40U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_OSPI2\ \ \ \ \ \ \ \ \ \ \ (41U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM1\_CH1\ \ \ \ \ \ \ \ (42U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM1\_CH2\ \ \ \ \ \ \ \ (43U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM1\_CH3\ \ \ \ \ \ \ \ (44U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM1\_CH4\ \ \ \ \ \ \ \ (45U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM1\_UP\ \ \ \ \ \ \ \ \ (46U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM1\_TRIG\ \ \ \ \ \ \ (47U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM1\_COM\ \ \ \ \ \ \ \ (48U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM8\_CH1\ \ \ \ \ \ \ \ (49U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM8\_CH2\ \ \ \ \ \ \ \ (50U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM8\_CH3\ \ \ \ \ \ \ \ (51U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM8\_CH4\ \ \ \ \ \ \ \ (52U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM8\_UP\ \ \ \ \ \ \ \ \ (53U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM8\_TRIG\ \ \ \ \ \ \ (54U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM8\_COM\ \ \ \ \ \ \ \ (55U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM2\_CH1\ \ \ \ \ \ \ \ (56U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM2\_CH2\ \ \ \ \ \ \ \ (57U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM2\_CH3\ \ \ \ \ \ \ \ (58U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM2\_CH4\ \ \ \ \ \ \ \ (59U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM2\_UP\ \ \ \ \ \ \ \ \ (60U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM3\_CH1\ \ \ \ \ \ \ \ (61U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM3\_CH2\ \ \ \ \ \ \ \ (62U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM3\_CH3\ \ \ \ \ \ \ \ (63U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM3\_CH4\ \ \ \ \ \ \ \ (64U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM3\_UP\ \ \ \ \ \ \ \ \ (65U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM3\_TRIG\ \ \ \ \ \ \ (66U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM4\_CH1\ \ \ \ \ \ \ \ (67U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM4\_CH2\ \ \ \ \ \ \ \ (68U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM4\_CH3\ \ \ \ \ \ \ \ (69U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM4\_CH4\ \ \ \ \ \ \ \ (70U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM4\_UP\ \ \ \ \ \ \ \ \ (71U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM5\_CH1\ \ \ \ \ \ \ \ (72U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM5\_CH2\ \ \ \ \ \ \ \ (73U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM5\_CH3\ \ \ \ \ \ \ \ (74U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM5\_CH4\ \ \ \ \ \ \ \ (75U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM5\_UP\ \ \ \ \ \ \ \ \ (76U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM5\_TRIG\ \ \ \ \ \ \ (77U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM15\_CH1\ \ \ \ \ \ \ (78U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM15\_UP\ \ \ \ \ \ \ \ (79U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM15\_TRIG\ \ \ \ \ \ (80U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM15\_COM\ \ \ \ \ \ \ (81U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM16\_CH1\ \ \ \ \ \ \ (82U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM16\_UP\ \ \ \ \ \ \ \ (83U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM17\_CH1\ \ \ \ \ \ \ (84U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_TIM17\_UP\ \ \ \ \ \ \ \ (85U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_DFSDM1\_FLT0\ \ \ \ \ (86U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_DFSDM1\_FLT1\ \ \ \ \ (87U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_DFSDM1\_FLT2\ \ \ \ \ (88U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_DFSDM1\_FLT3\ \ \ \ \ (89U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_DCMI\ \ \ \ \ \ \ \ \ \ \ \ (90U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#if\ defined(PSSI)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_DCMI\_PSSI\ \ \ \ \ \ \ (90U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_AES\_IN\ \ \ \ \ \ \ \ \ \ (91U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_AES\_OUT\ \ \ \ \ \ \ \ \ (92U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_HASH\_IN\ \ \ \ \ \ \ \ \ (93U\ +\ LL\_DMAMUX\_REQ\_ADC2\_SHIFT)\ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_MAX\_REQ\ \ \ \ \ \ \ \ \ \ \ \ \ LL\_DMAMUX\_REQ\_HASH\_IN}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{comment}{/*\ Legacy\ alias\ */}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#if\ defined(PSSI)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_PSSI\ \ \ \ \ \ \ \ \ \ \ \ LL\_DMAMUX\_REQ\_DCMI\_PSSI}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\#endif}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000000U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000001U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000002U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000003U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000004U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000005U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000006U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_7\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000007U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000008U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_9\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000009U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_10\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0000000AU\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_11\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0000000BU\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_12\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0000000CU\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_CHANNEL\_13\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x0000000DU\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_NO\_EVENT\ \ \ \ \ \ \ \ \ \ \ \ 0x00000000U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_POL\_RISING\ \ \ \ \ \ \ \ \ \ DMAMUX\_CxCR\_SPOL\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_POL\_FALLING\ \ \ \ \ \ \ \ \ DMAMUX\_CxCR\_SPOL\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_POL\_RISING\_FALLING\ \ (DMAMUX\_CxCR\_SPOL\_0\ |\ DMAMUX\_CxCR\_SPOL\_1)\ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE0\ \ \ \ \ \ \ \ \ 0x00000000U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE1\ \ \ \ \ \ \ \ \ DMAMUX\_CxCR\_SYNC\_ID\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE2\ \ \ \ \ \ \ \ \ DMAMUX\_CxCR\_SYNC\_ID\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE3\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_1\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE4\ \ \ \ \ \ \ \ \ DMAMUX\_CxCR\_SYNC\_ID\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE5\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE6\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE7\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE8\ \ \ \ \ \ \ \ \ DMAMUX\_CxCR\_SYNC\_ID\_3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE9\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_3\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE10\ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_3\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE11\ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_3\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE12\ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_3\ |\ DMAMUX\_CxCR\_SYNC\_ID\_2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE13\ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_3\ |\ DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE14\ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_3\ |\ DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_EXTI\_LINE15\ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_3\ |\ DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_DMAMUX\_CH0\ \ \ \ \ \ \ \ \ DMAMUX\_CxCR\_SYNC\_ID\_4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_DMAMUX\_CH1\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_DMAMUX\_CH2\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_DMAMUX\_CH3\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_LPTIM1\_OUT\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_LPTIM2\_OUT\ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_DSI\_TE\ \ \ \ \ \ \ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_DSI\_REFRESH\_END\ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_2\ |\ DMAMUX\_CxCR\_SYNC\_ID\_1\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_DMA2D\_TX\_END\ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_3)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_SYNC\_LTDC\_LINE\_IT\ \ \ \ \ \ \ (DMAMUX\_CxCR\_SYNC\_ID\_4\ |\ DMAMUX\_CxCR\_SYNC\_ID\_3\ |\ DMAMUX\_CxCR\_SYNC\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000000U}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000001U}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000002U}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000003U}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00339\ }
+\DoxyCodeLine{00343\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_NO\_EVENT\ \ \ \ \ \ \ \ \ \ \ \ \ 0x00000000U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00344\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_POL\_RISING\ \ \ \ \ \ \ \ \ \ \ DMAMUX\_RGxCR\_GPOL\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00345\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_POL\_FALLING\ \ \ \ \ \ \ \ \ \ DMAMUX\_RGxCR\_GPOL\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00346\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_POL\_RISING\_FALLING\ \ \ (DMAMUX\_RGxCR\_GPOL\_0\ |\ DMAMUX\_RGxCR\_GPOL\_1)\ \ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE0\ \ \ \ \ \ 0x00000000U\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00355\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE1\ \ \ \ \ \ DMAMUX\_RGxCR\_SIG\_ID\_0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE2\ \ \ \ \ \ DMAMUX\_RGxCR\_SIG\_ID\_1\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE3\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_1\ |DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE4\ \ \ \ \ \ DMAMUX\_RGxCR\_SIG\_ID\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE5\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_2\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00360\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE6\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_2\ |\ DMAMUX\_RGxCR\_SIG\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE7\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_2\ |\ DMAMUX\_RGxCR\_SIG\_ID\_1\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE8\ \ \ \ \ \ DMAMUX\_RGxCR\_SIG\_ID\_3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE9\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_3\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE10\ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_3\ |\ DMAMUX\_RGxCR\_SIG\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE11\ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_3\ |\ DMAMUX\_RGxCR\_SIG\_ID\_1\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE12\ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_3\ |\ DMAMUX\_RGxCR\_SIG\_ID\_2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE13\ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_3\ |\ DMAMUX\_RGxCR\_SIG\_ID\_2\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE14\ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_3\ |\ DMAMUX\_RGxCR\_SIG\_ID\_2\ |\ DMAMUX\_RGxCR\_SIG\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_EXTI\_LINE15\ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_3\ |\ DMAMUX\_RGxCR\_SIG\_ID\_2\ |\ DMAMUX\_RGxCR\_SIG\_ID\_1\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_DMAMUX\_CH0\ \ \ \ \ \ DMAMUX\_RGxCR\_SIG\_ID\_4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_DMAMUX\_CH1\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_DMAMUX\_CH2\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_DMAMUX\_CH3\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_1\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_LPTIM1\_OUT\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_2)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_LPTIM2\_OUT\ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_2\ \ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_DSI\_TE\ \ \ \ \ \ \ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_2\ \ |\ DMAMUX\_RGxCR\_SIG\_ID\_1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00377\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_DSI\_REFRESH\_END\ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_2\ \ |\ DMAMUX\_RGxCR\_SIG\_ID\_1\ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_DMA2D\_TX\_END\ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_3)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_REQ\_GEN\_LTDC\_LINE\_IT\ \ \ \ (DMAMUX\_RGxCR\_SIG\_ID\_4\ |\ DMAMUX\_RGxCR\_SIG\_ID\_3\ \ |\ DMAMUX\_RGxCR\_SIG\_ID\_0)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{comment}{/*\ Exported\ macro\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_WriteReg(\_\_INSTANCE\_\_,\ \_\_REG\_\_,\ \_\_VALUE\_\_)\ WRITE\_REG(\_\_INSTANCE\_\_-\/>\_\_REG\_\_,\ (\_\_VALUE\_\_))}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00411\ \textcolor{preprocessor}{\#define\ LL\_DMAMUX\_ReadReg(\_\_INSTANCE\_\_,\ \_\_REG\_\_)\ READ\_REG(\_\_INSTANCE\_\_-\/>\_\_REG\_\_)}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \textcolor{comment}{/*\ Exported\ functions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00548\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_SetRequestID(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel,\ uint32\_t\ Request)}
+\DoxyCodeLine{00549\ \{}
+\DoxyCodeLine{00550\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00551\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_DMAREQ\_ID,\ Request);}
+\DoxyCodeLine{00552\ \}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00673\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_GetRequestID(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00674\ \{}
+\DoxyCodeLine{00675\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00676\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_DMAREQ\_ID));}
+\DoxyCodeLine{00677\ \}}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00703\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_SetSyncRequestNb(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel,\ uint32\_t\ RequestNb)}
+\DoxyCodeLine{00704\ \{}
+\DoxyCodeLine{00705\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00706\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_NBREQ,\ ((RequestNb\ -\/\ 1U)\ <<\ DMAMUX\_CxCR\_NBREQ\_Pos));}
+\DoxyCodeLine{00707\ \}}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00732\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_GetSyncRequestNb(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00733\ \{}
+\DoxyCodeLine{00734\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00735\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_NBREQ))\ >>\ DMAMUX\_CxCR\_NBREQ\_Pos)\ +\ 1U);}
+\DoxyCodeLine{00736\ \}}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00766\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_SetSyncPolarity(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel,\ uint32\_t\ Polarity)}
+\DoxyCodeLine{00767\ \{}
+\DoxyCodeLine{00768\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00769\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SPOL,\ Polarity);}
+\DoxyCodeLine{00770\ \}}
+\DoxyCodeLine{00771\ }
+\DoxyCodeLine{00799\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_GetSyncPolarity(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00800\ \{}
+\DoxyCodeLine{00801\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00802\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SPOL));}
+\DoxyCodeLine{00803\ \}}
+\DoxyCodeLine{00804\ }
+\DoxyCodeLine{00828\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_EnableEventGeneration(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00829\ \{}
+\DoxyCodeLine{00830\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00831\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_EGE);}
+\DoxyCodeLine{00832\ \}}
+\DoxyCodeLine{00833\ }
+\DoxyCodeLine{00857\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_DisableEventGeneration(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00858\ \{}
+\DoxyCodeLine{00859\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00860\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_EGE);}
+\DoxyCodeLine{00861\ \}}
+\DoxyCodeLine{00862\ }
+\DoxyCodeLine{00886\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsEnabledEventGeneration(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00887\ \{}
+\DoxyCodeLine{00888\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00889\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_EGE)\ ==\ (DMAMUX\_CxCR\_EGE))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{00890\ \}}
+\DoxyCodeLine{00891\ }
+\DoxyCodeLine{00915\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_EnableSync(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00916\ \{}
+\DoxyCodeLine{00917\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00918\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SE);}
+\DoxyCodeLine{00919\ \}}
+\DoxyCodeLine{00920\ }
+\DoxyCodeLine{00944\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_DisableSync(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00945\ \{}
+\DoxyCodeLine{00946\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00947\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SE);}
+\DoxyCodeLine{00948\ \}}
+\DoxyCodeLine{00949\ }
+\DoxyCodeLine{00973\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsEnabledSync(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{00974\ \{}
+\DoxyCodeLine{00975\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{00976\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SE)\ ==\ (DMAMUX\_CxCR\_SE))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{00977\ \}}
+\DoxyCodeLine{00978\ }
+\DoxyCodeLine{01029\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_SetSyncID(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel,\ uint32\_t\ SyncID)}
+\DoxyCodeLine{01030\ \{}
+\DoxyCodeLine{01031\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01032\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SYNC\_ID,\ SyncID);}
+\DoxyCodeLine{01033\ \}}
+\DoxyCodeLine{01034\ }
+\DoxyCodeLine{01084\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_GetSyncID(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{01085\ \{}
+\DoxyCodeLine{01086\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01087\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SYNC\_ID));}
+\DoxyCodeLine{01088\ \}}
+\DoxyCodeLine{01089\ }
+\DoxyCodeLine{01101\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_EnableRequestGen(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01102\ \{}
+\DoxyCodeLine{01103\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01104\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +\ (DMAMUX\_RGCR\_SIZE\ *}
+\DoxyCodeLine{01105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_GE);}
+\DoxyCodeLine{01106\ \}}
+\DoxyCodeLine{01107\ }
+\DoxyCodeLine{01119\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_DisableRequestGen(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01120\ \{}
+\DoxyCodeLine{01121\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01122\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +\ (DMAMUX\_RGCR\_SIZE\ *}
+\DoxyCodeLine{01123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_GE);}
+\DoxyCodeLine{01124\ \}}
+\DoxyCodeLine{01125\ }
+\DoxyCodeLine{01137\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsEnabledRequestGen(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01138\ \{}
+\DoxyCodeLine{01139\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01140\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +\ (DMAMUX\_RGCR\_SIZE\ *}
+\DoxyCodeLine{01141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_GE)\ ==\ (DMAMUX\_RGxCR\_GE))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01142\ \}}
+\DoxyCodeLine{01143\ }
+\DoxyCodeLine{01160\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_SetRequestGenPolarity(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel,}
+\DoxyCodeLine{01161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ Polarity)}
+\DoxyCodeLine{01162\ \{}
+\DoxyCodeLine{01163\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01164\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +\ (DMAMUX\_RGCR\_SIZE\ *}
+\DoxyCodeLine{01165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_GPOL,\ Polarity);}
+\DoxyCodeLine{01166\ \}}
+\DoxyCodeLine{01167\ }
+\DoxyCodeLine{01183\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_GetRequestGenPolarity(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01184\ \{}
+\DoxyCodeLine{01185\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01186\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (DMAMUX\_RGCR\_SIZE\ *\ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_GPOL));}
+\DoxyCodeLine{01188\ \}}
+\DoxyCodeLine{01189\ }
+\DoxyCodeLine{01203\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_SetGenRequestNb(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel,}
+\DoxyCodeLine{01204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ RequestNb)}
+\DoxyCodeLine{01205\ \{}
+\DoxyCodeLine{01206\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01207\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +\ (DMAMUX\_RGCR\_SIZE\ *}
+\DoxyCodeLine{01208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_GNBREQ,\ (RequestNb\ -\/\ 1U)\ <<\ DMAMUX\_RGxCR\_GNBREQ\_Pos);}
+\DoxyCodeLine{01209\ \}}
+\DoxyCodeLine{01210\ }
+\DoxyCodeLine{01222\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_GetGenRequestNb(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01223\ \{}
+\DoxyCodeLine{01224\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01225\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +}
+\DoxyCodeLine{01226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (DMAMUX\_RGCR\_SIZE\ *\ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_GNBREQ)\ >>\ DMAMUX\_RGxCR\_GNBREQ\_Pos)\ +\ 1U);}
+\DoxyCodeLine{01227\ \}}
+\DoxyCodeLine{01228\ }
+\DoxyCodeLine{01267\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_SetRequestSignalID(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel,}
+\DoxyCodeLine{01268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ RequestSignalID)}
+\DoxyCodeLine{01269\ \{}
+\DoxyCodeLine{01270\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01271\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga6553c99f510c3bab8cc0a91602053247}{MODIFY\_REG}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +\ (DMAMUX\_RGCR\_SIZE\ *}
+\DoxyCodeLine{01272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_SIG\_ID,\ RequestSignalID);}
+\DoxyCodeLine{01273\ \}}
+\DoxyCodeLine{01274\ }
+\DoxyCodeLine{01312\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_GetRequestSignalID(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01313\ \{}
+\DoxyCodeLine{01314\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01315\ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(((DMAMUX\_RequestGen\_TypeDef\ *)((uint32\_t)((uint32\_t)DMAMUX1\_RequestGenerator0\ +}
+\DoxyCodeLine{01316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (DMAMUX\_RGCR\_SIZE\ *\ (RequestGenChannel)))))-\/>RGCR,\ DMAMUX\_RGxCR\_SIG\_ID));}
+\DoxyCodeLine{01317\ \}}
+\DoxyCodeLine{01318\ }
+\DoxyCodeLine{01322\ }
+\DoxyCodeLine{01326\ }
+\DoxyCodeLine{01333\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO0(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01334\ \{}
+\DoxyCodeLine{01335\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01336\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF0)\ ==\ (DMAMUX\_CSR\_SOF0))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01337\ \}}
+\DoxyCodeLine{01338\ }
+\DoxyCodeLine{01345\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO1(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01346\ \{}
+\DoxyCodeLine{01347\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01348\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF1)\ ==\ (DMAMUX\_CSR\_SOF1))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01349\ \}}
+\DoxyCodeLine{01350\ }
+\DoxyCodeLine{01357\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO2(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01358\ \{}
+\DoxyCodeLine{01359\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01360\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF2)\ ==\ (DMAMUX\_CSR\_SOF2))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01361\ \}}
+\DoxyCodeLine{01362\ }
+\DoxyCodeLine{01369\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO3(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01370\ \{}
+\DoxyCodeLine{01371\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01372\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF3)\ ==\ (DMAMUX\_CSR\_SOF3))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01373\ \}}
+\DoxyCodeLine{01374\ }
+\DoxyCodeLine{01381\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO4(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01382\ \{}
+\DoxyCodeLine{01383\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01384\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF4)\ ==\ (DMAMUX\_CSR\_SOF4))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01385\ \}}
+\DoxyCodeLine{01386\ }
+\DoxyCodeLine{01393\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO5(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01394\ \{}
+\DoxyCodeLine{01395\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01396\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF5)\ ==\ (DMAMUX\_CSR\_SOF5))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01397\ \}}
+\DoxyCodeLine{01398\ }
+\DoxyCodeLine{01405\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO6(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01406\ \{}
+\DoxyCodeLine{01407\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01408\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF6)\ ==\ (DMAMUX\_CSR\_SOF6))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01409\ \}}
+\DoxyCodeLine{01410\ }
+\DoxyCodeLine{01417\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO7(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01418\ \{}
+\DoxyCodeLine{01419\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01420\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF7)\ ==\ (DMAMUX\_CSR\_SOF7))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01421\ \}}
+\DoxyCodeLine{01422\ }
+\DoxyCodeLine{01429\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO8(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01430\ \{}
+\DoxyCodeLine{01431\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01432\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF8)\ ==\ (DMAMUX\_CSR\_SOF8))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01433\ \}}
+\DoxyCodeLine{01434\ }
+\DoxyCodeLine{01441\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO9(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01442\ \{}
+\DoxyCodeLine{01443\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01444\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF9)\ ==\ (DMAMUX\_CSR\_SOF9))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01445\ \}}
+\DoxyCodeLine{01446\ }
+\DoxyCodeLine{01453\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO10(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01454\ \{}
+\DoxyCodeLine{01455\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01456\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF10)\ ==\ (DMAMUX\_CSR\_SOF10))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01457\ \}}
+\DoxyCodeLine{01458\ }
+\DoxyCodeLine{01465\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO11(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01466\ \{}
+\DoxyCodeLine{01467\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01468\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF11)\ ==\ (DMAMUX\_CSR\_SOF11))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01469\ \}}
+\DoxyCodeLine{01470\ }
+\DoxyCodeLine{01477\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO12(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01478\ \{}
+\DoxyCodeLine{01479\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01480\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF12)\ ==\ (DMAMUX\_CSR\_SOF12))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01481\ \}}
+\DoxyCodeLine{01482\ }
+\DoxyCodeLine{01489\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_SO13(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01490\ \{}
+\DoxyCodeLine{01491\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01492\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_ChannelStatus-\/>CSR,\ DMAMUX\_CSR\_SOF13)\ ==\ (DMAMUX\_CSR\_SOF13))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01493\ \}}
+\DoxyCodeLine{01494\ }
+\DoxyCodeLine{01501\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_RGO0(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01502\ \{}
+\DoxyCodeLine{01503\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01504\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_RequestGenStatus-\/>RGSR,\ DMAMUX\_RGSR\_OF0)\ ==\ (DMAMUX\_RGSR\_OF0))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01505\ \}}
+\DoxyCodeLine{01506\ }
+\DoxyCodeLine{01513\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_RGO1(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01514\ \{}
+\DoxyCodeLine{01515\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01516\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_RequestGenStatus-\/>RGSR,\ DMAMUX\_RGSR\_OF1)\ ==\ (DMAMUX\_RGSR\_OF1))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01517\ \}}
+\DoxyCodeLine{01518\ }
+\DoxyCodeLine{01525\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_RGO2(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01526\ \{}
+\DoxyCodeLine{01527\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01528\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_RequestGenStatus-\/>RGSR,\ DMAMUX\_RGSR\_OF2)\ ==\ (DMAMUX\_RGSR\_OF2))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01529\ \}}
+\DoxyCodeLine{01530\ }
+\DoxyCodeLine{01537\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsActiveFlag\_RGO3(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01538\ \{}
+\DoxyCodeLine{01539\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01540\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}(DMAMUX1\_RequestGenStatus-\/>RGSR,\ DMAMUX\_RGSR\_OF3)\ ==\ (DMAMUX\_RGSR\_OF3))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01541\ \}}
+\DoxyCodeLine{01542\ }
+\DoxyCodeLine{01549\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO0(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01550\ \{}
+\DoxyCodeLine{01551\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01552\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF0);}
+\DoxyCodeLine{01553\ \}}
+\DoxyCodeLine{01554\ }
+\DoxyCodeLine{01561\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO1(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01562\ \{}
+\DoxyCodeLine{01563\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01564\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF1);}
+\DoxyCodeLine{01565\ \}}
+\DoxyCodeLine{01566\ }
+\DoxyCodeLine{01573\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO2(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01574\ \{}
+\DoxyCodeLine{01575\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01576\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF2);}
+\DoxyCodeLine{01577\ \}}
+\DoxyCodeLine{01578\ }
+\DoxyCodeLine{01585\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO3(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01586\ \{}
+\DoxyCodeLine{01587\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01588\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF3);}
+\DoxyCodeLine{01589\ \}}
+\DoxyCodeLine{01590\ }
+\DoxyCodeLine{01597\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO4(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01598\ \{}
+\DoxyCodeLine{01599\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01600\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF4);}
+\DoxyCodeLine{01601\ \}}
+\DoxyCodeLine{01602\ }
+\DoxyCodeLine{01609\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO5(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01610\ \{}
+\DoxyCodeLine{01611\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01612\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF5);}
+\DoxyCodeLine{01613\ \}}
+\DoxyCodeLine{01614\ }
+\DoxyCodeLine{01621\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO6(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01622\ \{}
+\DoxyCodeLine{01623\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01624\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF6);}
+\DoxyCodeLine{01625\ \}}
+\DoxyCodeLine{01626\ }
+\DoxyCodeLine{01633\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO7(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01634\ \{}
+\DoxyCodeLine{01635\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01636\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF7);}
+\DoxyCodeLine{01637\ \}}
+\DoxyCodeLine{01638\ }
+\DoxyCodeLine{01645\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO8(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01646\ \{}
+\DoxyCodeLine{01647\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01648\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF8);}
+\DoxyCodeLine{01649\ \}}
+\DoxyCodeLine{01650\ }
+\DoxyCodeLine{01657\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO9(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01658\ \{}
+\DoxyCodeLine{01659\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01660\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF9);}
+\DoxyCodeLine{01661\ \}}
+\DoxyCodeLine{01662\ }
+\DoxyCodeLine{01669\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO10(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01670\ \{}
+\DoxyCodeLine{01671\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01672\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF10);}
+\DoxyCodeLine{01673\ \}}
+\DoxyCodeLine{01674\ }
+\DoxyCodeLine{01681\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO11(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01682\ \{}
+\DoxyCodeLine{01683\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01684\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF11);}
+\DoxyCodeLine{01685\ \}}
+\DoxyCodeLine{01686\ }
+\DoxyCodeLine{01693\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO12(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01694\ \{}
+\DoxyCodeLine{01695\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01696\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF12);}
+\DoxyCodeLine{01697\ \}}
+\DoxyCodeLine{01698\ }
+\DoxyCodeLine{01705\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_SO13(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01706\ \{}
+\DoxyCodeLine{01707\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01708\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_ChannelStatus-\/>CFR,\ DMAMUX\_CFR\_CSOF13);}
+\DoxyCodeLine{01709\ \}}
+\DoxyCodeLine{01710\ }
+\DoxyCodeLine{01717\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_RGO0(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01718\ \{}
+\DoxyCodeLine{01719\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01720\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_RequestGenStatus-\/>RGCFR,\ DMAMUX\_RGCFR\_COF0);}
+\DoxyCodeLine{01721\ \}}
+\DoxyCodeLine{01722\ }
+\DoxyCodeLine{01729\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_RGO1(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01730\ \{}
+\DoxyCodeLine{01731\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01732\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_RequestGenStatus-\/>RGCFR,\ DMAMUX\_RGCFR\_COF1);}
+\DoxyCodeLine{01733\ \}}
+\DoxyCodeLine{01734\ }
+\DoxyCodeLine{01741\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_RGO2(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01742\ \{}
+\DoxyCodeLine{01743\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01744\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_RequestGenStatus-\/>RGCFR,\ DMAMUX\_RGCFR\_COF2);}
+\DoxyCodeLine{01745\ \}}
+\DoxyCodeLine{01746\ }
+\DoxyCodeLine{01753\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_ClearFlag\_RGO3(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx)}
+\DoxyCodeLine{01754\ \{}
+\DoxyCodeLine{01755\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01756\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}(DMAMUX1\_RequestGenStatus-\/>RGCFR,\ DMAMUX\_RGCFR\_COF3);}
+\DoxyCodeLine{01757\ \}}
+\DoxyCodeLine{01758\ }
+\DoxyCodeLine{01762\ }
+\DoxyCodeLine{01766\ }
+\DoxyCodeLine{01790\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_EnableIT\_SO(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{01791\ \{}
+\DoxyCodeLine{01792\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01793\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SOIE);}
+\DoxyCodeLine{01794\ \}}
+\DoxyCodeLine{01795\ }
+\DoxyCodeLine{01819\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_DisableIT\_SO(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{01820\ \{}
+\DoxyCodeLine{01821\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01822\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SOIE);}
+\DoxyCodeLine{01823\ \}}
+\DoxyCodeLine{01824\ }
+\DoxyCodeLine{01848\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsEnabledIT\_SO(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ Channel)}
+\DoxyCodeLine{01849\ \{}
+\DoxyCodeLine{01850\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01851\ \ \ \textcolor{keywordflow}{return}\ (((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}((DMAMUX1\_Channel0\ +\ Channel)-\/>CCR,\ DMAMUX\_CxCR\_SOIE))\ ==\ (DMAMUX\_CxCR\_SOIE))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01852\ \}}
+\DoxyCodeLine{01853\ }
+\DoxyCodeLine{01865\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_EnableIT\_RGO(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01866\ \{}
+\DoxyCodeLine{01867\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01868\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga26474f43799fbade9cf300e21dd3a91a}{SET\_BIT}}((DMAMUX1\_RequestGenerator0\ +\ RequestGenChannel)-\/>RGCR,\ DMAMUX\_RGxCR\_OIE);}
+\DoxyCodeLine{01869\ \}}
+\DoxyCodeLine{01870\ }
+\DoxyCodeLine{01882\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ \textcolor{keywordtype}{void}\ LL\_DMAMUX\_DisableIT\_RGO(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01883\ \{}
+\DoxyCodeLine{01884\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01885\ \ \ \doxymbox{\hyperlink{group___exported__macros_ga133aae6fc0d41bffab39ab223a7001de}{CLEAR\_BIT}}((DMAMUX1\_RequestGenerator0\ +\ RequestGenChannel)-\/>RGCR,\ DMAMUX\_RGxCR\_OIE);}
+\DoxyCodeLine{01886\ \}}
+\DoxyCodeLine{01887\ }
+\DoxyCodeLine{01899\ \doxymbox{\hyperlink{cmsis__armcc_8h_aba87361bfad2ae52cfe2f40c1a1dbf9c}{\_\_STATIC\_INLINE}}\ uint32\_t\ LL\_DMAMUX\_IsEnabledIT\_RGO(\textcolor{keyword}{const}\ DMAMUX\_Channel\_TypeDef\ *DMAMUXx,\ uint32\_t\ RequestGenChannel)}
+\DoxyCodeLine{01900\ \{}
+\DoxyCodeLine{01901\ \ \ (void)(DMAMUXx);}
+\DoxyCodeLine{01902\ \ \ \textcolor{keywordflow}{return}\ ((\doxymbox{\hyperlink{group___exported__macros_ga822bb1bb9710d5f2fa6396b84e583c33}{READ\_BIT}}((DMAMUX1\_RequestGenerator0\ +\ RequestGenChannel)-\/>RGCR,\ DMAMUX\_RGxCR\_OIE)\ ==\ (DMAMUX\_RGxCR\_OIE))\ ?\ 1UL\ :\ 0UL);}
+\DoxyCodeLine{01903\ \}}
+\DoxyCodeLine{01904\ }
+\DoxyCodeLine{01908\ }
+\DoxyCodeLine{01912\ }
+\DoxyCodeLine{01916\ }
+\DoxyCodeLine{01917\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ DMAMUX1\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01918\ }
+\DoxyCodeLine{01922\ }
+\DoxyCodeLine{01923\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{01924\ \}}
+\DoxyCodeLine{01925\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01926\ }
+\DoxyCodeLine{01927\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ STM32L4xx\_LL\_DMAMUX\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01928\ }
+
+\end{DoxyCode}

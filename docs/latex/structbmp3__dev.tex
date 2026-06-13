@@ -1,0 +1,99 @@
+\doxysection{bmp3\+\_\+dev Struct Reference}
+\hypertarget{structbmp3__dev}{}\label{structbmp3__dev}\index{bmp3\_dev@{bmp3\_dev}}
+
+
+bmp3 device structure  
+
+
+
+
+{\ttfamily \+\#include $<$bmp3\+\_\+defs.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structbmp3__dev_a924194c1526c9cf6b846ac66c62f8ced}{chip\+\_\+id}}
+\item 
+void \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{structbmp3__dev_adc997a5a7af63e7e518892c4188e9e6f}{intf\+\_\+ptr}}
+\item 
+enum \doxymbox{\hyperlink{bmp3__defs_8h_a3d202063e29772e3470b2338644ab05d}{bmp3\+\_\+intf}} \doxymbox{\hyperlink{structbmp3__dev_a9ab34ce30f0d4078d0ca93417702ff1d}{intf}}
+\item 
+\doxymbox{\hyperlink{bmp3__defs_8h_a38ad477a9b791b1375be77a954d7957f}{BMP3\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}} \doxymbox{\hyperlink{structbmp3__dev_a306b45e3ed7c2069e1e3366a594cfe01}{intf\+\_\+rslt}}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structbmp3__dev_acbd5975a457d69886cf7fb64dec50e72}{dummy\+\_\+byte}}
+\item 
+\doxymbox{\hyperlink{bmp3__defs_8h_ad602d85f4b48e18c08a4166d591abd6d}{bmp3\+\_\+read\+\_\+fptr\+\_\+t}} \doxymbox{\hyperlink{structbmp3__dev_a056343ee3b4ab8ae54a2ebc844c46199}{read}}
+\item 
+\doxymbox{\hyperlink{bmp3__defs_8h_a089b060920958c2fe49d4550247a3b8d}{bmp3\+\_\+write\+\_\+fptr\+\_\+t}} \doxymbox{\hyperlink{structbmp3__dev_a5ffd9caba25c47dc58dcfc8937a310e7}{write}}
+\item 
+\doxymbox{\hyperlink{bmp3__defs_8h_a903881cd822544f1f4016b4a286c5f76}{bmp3\+\_\+delay\+\_\+us\+\_\+fptr\+\_\+t}} \doxymbox{\hyperlink{structbmp3__dev_aaa2b96147cfca18db010d5a1844ede1a}{delay\+\_\+us}}
+\item 
+struct \doxymbox{\hyperlink{structbmp3__calib__data}{bmp3\+\_\+calib\+\_\+data}} \doxymbox{\hyperlink{structbmp3__dev_aa0c2c57cc91b5783cf7398d2b7633232}{calib\+\_\+data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+bmp3 device structure 
+
+\label{doc-variable-members}
+\Hypertarget{structbmp3__dev_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structbmp3__dev_aa0c2c57cc91b5783cf7398d2b7633232}\index{bmp3\_dev@{bmp3\_dev}!calib\_data@{calib\_data}}
+\index{calib\_data@{calib\_data}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{calib\_data}{calib\_data}}
+{\footnotesize\ttfamily \label{structbmp3__dev_aa0c2c57cc91b5783cf7398d2b7633232} 
+struct \doxymbox{\hyperlink{structbmp3__calib__data}{bmp3\+\_\+calib\+\_\+data}} bmp3\+\_\+dev::\+calib\+\_\+data}
+
+Trim data \Hypertarget{structbmp3__dev_a924194c1526c9cf6b846ac66c62f8ced}\index{bmp3\_dev@{bmp3\_dev}!chip\_id@{chip\_id}}
+\index{chip\_id@{chip\_id}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{chip\_id}{chip\_id}}
+{\footnotesize\ttfamily \label{structbmp3__dev_a924194c1526c9cf6b846ac66c62f8ced} 
+uint8\+\_\+t bmp3\+\_\+dev::\+chip\+\_\+id}
+
+Chip Id \Hypertarget{structbmp3__dev_aaa2b96147cfca18db010d5a1844ede1a}\index{bmp3\_dev@{bmp3\_dev}!delay\_us@{delay\_us}}
+\index{delay\_us@{delay\_us}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{delay\_us}{delay\_us}}
+{\footnotesize\ttfamily \label{structbmp3__dev_aaa2b96147cfca18db010d5a1844ede1a} 
+\doxymbox{\hyperlink{bmp3__defs_8h_a903881cd822544f1f4016b4a286c5f76}{bmp3\+\_\+delay\+\_\+us\+\_\+fptr\+\_\+t}} bmp3\+\_\+dev::\+delay\+\_\+us}
+
+Delay function pointer \Hypertarget{structbmp3__dev_acbd5975a457d69886cf7fb64dec50e72}\index{bmp3\_dev@{bmp3\_dev}!dummy\_byte@{dummy\_byte}}
+\index{dummy\_byte@{dummy\_byte}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{dummy\_byte}{dummy\_byte}}
+{\footnotesize\ttfamily \label{structbmp3__dev_acbd5975a457d69886cf7fb64dec50e72} 
+uint8\+\_\+t bmp3\+\_\+dev::\+dummy\+\_\+byte}
+
+Decide SPI or I2C read mechanism \Hypertarget{structbmp3__dev_a9ab34ce30f0d4078d0ca93417702ff1d}\index{bmp3\_dev@{bmp3\_dev}!intf@{intf}}
+\index{intf@{intf}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{intf}{intf}}
+{\footnotesize\ttfamily \label{structbmp3__dev_a9ab34ce30f0d4078d0ca93417702ff1d} 
+enum \doxymbox{\hyperlink{bmp3__defs_8h_a3d202063e29772e3470b2338644ab05d}{bmp3\+\_\+intf}} bmp3\+\_\+dev::\+intf}
+
+Interface Selection For SPI, interface = BMP3\+\_\+\+SPI\+\_\+\+INTF For I2C, interface = BMP3\+\_\+\+I2\+C\+\_\+\+INTF \Hypertarget{structbmp3__dev_adc997a5a7af63e7e518892c4188e9e6f}\index{bmp3\_dev@{bmp3\_dev}!intf\_ptr@{intf\_ptr}}
+\index{intf\_ptr@{intf\_ptr}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{intf\_ptr}{intf\_ptr}}
+{\footnotesize\ttfamily \label{structbmp3__dev_adc997a5a7af63e7e518892c4188e9e6f} 
+void\texorpdfstring{$\ast$}{*} bmp3\+\_\+dev::\+intf\+\_\+ptr}
+
+The interface pointer is used to enable the user to link their interface descriptors for reference during the implementation of the read and write interfaces to the hardware. \Hypertarget{structbmp3__dev_a306b45e3ed7c2069e1e3366a594cfe01}\index{bmp3\_dev@{bmp3\_dev}!intf\_rslt@{intf\_rslt}}
+\index{intf\_rslt@{intf\_rslt}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{intf\_rslt}{intf\_rslt}}
+{\footnotesize\ttfamily \label{structbmp3__dev_a306b45e3ed7c2069e1e3366a594cfe01} 
+\doxymbox{\hyperlink{bmp3__defs_8h_a38ad477a9b791b1375be77a954d7957f}{BMP3\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}} bmp3\+\_\+dev::\+intf\+\_\+rslt}
+
+To store interface pointer error \Hypertarget{structbmp3__dev_a056343ee3b4ab8ae54a2ebc844c46199}\index{bmp3\_dev@{bmp3\_dev}!read@{read}}
+\index{read@{read}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{read}{read}}
+{\footnotesize\ttfamily \label{structbmp3__dev_a056343ee3b4ab8ae54a2ebc844c46199} 
+\doxymbox{\hyperlink{bmp3__defs_8h_ad602d85f4b48e18c08a4166d591abd6d}{bmp3\+\_\+read\+\_\+fptr\+\_\+t}} bmp3\+\_\+dev::\+read}
+
+Read function pointer \Hypertarget{structbmp3__dev_a5ffd9caba25c47dc58dcfc8937a310e7}\index{bmp3\_dev@{bmp3\_dev}!write@{write}}
+\index{write@{write}!bmp3\_dev@{bmp3\_dev}}
+\doxysubsubsection{\texorpdfstring{write}{write}}
+{\footnotesize\ttfamily \label{structbmp3__dev_a5ffd9caba25c47dc58dcfc8937a310e7} 
+\doxymbox{\hyperlink{bmp3__defs_8h_a089b060920958c2fe49d4550247a3b8d}{bmp3\+\_\+write\+\_\+fptr\+\_\+t}} bmp3\+\_\+dev::\+write}
+
+Write function pointer 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+VTal Data Reading/\+\+Core/\+\+Inc/\+\doxymbox{\hyperlink{bmp3__defs_8h}{bmp3\+\_\+defs.\+h}}\end{DoxyCompactItemize}

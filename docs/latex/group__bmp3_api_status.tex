@@ -1,0 +1,36 @@
+\doxysubsection{Sensor Status }
+\hypertarget{group__bmp3_api_status}{}\label{group__bmp3_api_status}\index{Sensor Status@{Sensor Status}}
+
+
+Read status of the sensor.  
+
+
+Read status of the sensor. 
+
+\hypertarget{bmp3_api_bmp3_get_status}{}\doxysubsubsection{bmp3\+\_\+get\+\_\+status}\label{bmp3_api_bmp3_get_status}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ \doxymbox{\hyperlink{bmp3_8h_a61fadb14757875e006860607719e47f0}{bmp3\_get\_status}}(\textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__status}{bmp3\_status}}\ *status,\ \textcolor{keyword}{struct}\ \doxymbox{\hyperlink{structbmp3__dev}{bmp3\_dev}}\ *dev);}
+
+\end{DoxyCode}
+
+
+This API gets the command ready, data ready for pressure and temperature and interrupt (fifo watermark, fifo full, data ready) and error status from the sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{out}}  & {\em status} & :\+ Structure instance of \doxylink{structbmp3__status}{bmp3\+\_\+status} \\
+\hline
+\doxymbox{\texttt{in}}  & {\em dev} & :\+ Structure instance of \doxylink{structbmp3__dev}{bmp3\+\_\+dev}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of API execution status. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/\texorpdfstring{$>$}{>} Success \\
+\hline
+{\em $<$0} & -\/\texorpdfstring{$>$}{>} Error \\
+\hline
+\end{DoxyRetVals}

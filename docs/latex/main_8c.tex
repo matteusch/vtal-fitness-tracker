@@ -1,0 +1,486 @@
+\doxysection{VTal Data Reading/\+\+Core/\+\+Src/\+main.c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{VTal Data Reading/Core/Src/main.c@{VTal Data Reading/Core/Src/main.c}}
+
+
+:\+ Main program body  
+
+
+{\ttfamily \+\#include "{}main.\+h"{}}\newline
+{\ttfamily \+\#include $<$stdio.\+h$>$}\newline
+{\ttfamily \+\#include $<$string.\+h$>$}\newline
+{\ttfamily \+\#include $<$math.\+h$>$}\newline
+{\ttfamily \+\#include "{}bmp3.\+h"{}}\newline
+{\ttfamily \+\#include "{}bmp3\+\_\+defs.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_ac4b721096cd1b12d85f3f0e135b272be}{MAX30102\+\_\+\+ADDR}}~(0x57 $<$$<$ 1)
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_accdea52b28f1bd3f4cd63d05ab12887f}{REG\+\_\+\+MODE\+\_\+\+CONFIG}}~0x09
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a38546015e987a72b8c9eb13228237dd0}{REG\+\_\+\+SPO2\+\_\+\+CONFIG}}~0x0A
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a5f3a6641b201203d41ed3d23b638a96b}{REG\+\_\+\+LED1\+\_\+\+PA}}~0x0C
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a7df43b0f854c9caf2fe04ccdebb18d21}{REG\+\_\+\+LED2\+\_\+\+PA}}~0x0D
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a68c44a41e29b3ab35500303798cfb11c}{MAX\+\_\+\+REG\+\_\+\+DATA}}~0x07
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a4b36bc705d14cd773ebd3bfec855b222}{BMP390\+\_\+\+ADDR}}~(0x77 $<$$<$ 1)
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a8fb2d981a4d807c9d313defb86651111}{BMP\+\_\+\+REG\+\_\+\+PWR}}~0x1B
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a05da146a65c9047ff0e9709e18a2056e}{BMP\+\_\+\+REG\+\_\+\+DATA}}~0x04
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_af08d6740ac4c11467eb5f5eaa1604089}{LSM6\+DSOX\+\_\+\+ADDR}}~(0x6A $<$$<$ 1)
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a14653b72282e976cddbc8a72baf798fb}{LSM\+\_\+\+REG\+\_\+\+CTRL1}}~0x10
+\item 
+\+\#define \doxymbox{\hyperlink{main_8c_a16efe473dbec253d7cf51d2ab54c59b5}{LSM\+\_\+\+REG\+\_\+\+DATA}}~0x28
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{main_8c_a70af21c671abfcc773614a9a4f63d920}{System\+Clock\+\_\+\+Config}} (void)
+\begin{DoxyCompactList}\small\item\em System Clock Configuration. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{bmp3__defs_8h_a38ad477a9b791b1375be77a954d7957f}{BMP3\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}} \doxymbox{\hyperlink{main_8c_ade82c6121c9858f9413a88d0d609fc65}{user\+\_\+i2c\+\_\+read}} (uint8\+\_\+t reg\+\_\+addr, uint8\+\_\+t \texorpdfstring{$\ast$}{*}reg\+\_\+data, uint32\+\_\+t len, void \texorpdfstring{$\ast$}{*}intf\+\_\+ptr)
+\item 
+\doxymbox{\hyperlink{bmp3__defs_8h_a38ad477a9b791b1375be77a954d7957f}{BMP3\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}} \doxymbox{\hyperlink{main_8c_a7a487a0f1b60d2403251302a44440739}{user\+\_\+i2c\+\_\+write}} (uint8\+\_\+t reg\+\_\+addr, const uint8\+\_\+t \texorpdfstring{$\ast$}{*}reg\+\_\+data, uint32\+\_\+t len, void \texorpdfstring{$\ast$}{*}intf\+\_\+ptr)
+\item 
+void \doxymbox{\hyperlink{main_8c_ad9bd2c178fceb2a88d4118e94edfe7f9}{user\+\_\+delay\+\_\+us}} (uint32\+\_\+t period, void \texorpdfstring{$\ast$}{*}intf\+\_\+ptr)
+\item 
+int \doxymbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\item 
+void \doxymbox{\hyperlink{group___i2_c___i_r_q___handler__and___callbacks_gac16a95413b35f05c5ce725fefd8531a5}{HAL\+\_\+\+I2\+C\+\_\+\+Mem\+Rx\+Cplt\+Callback}} (\doxymbox{\hyperlink{group___i2_c__handle___structure__definition_ga31b88eb31a4622a50e34f02a1c3d516b}{I2\+C\+\_\+\+Handle\+Type\+Def}} \texorpdfstring{$\ast$}{*}hi2c)
+\item 
+void \doxymbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{Error\+\_\+\+Handler}} (void)
+\begin{DoxyCompactList}\small\item\em This function is executed in case of error occurrence. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{group___i2_c__handle___structure__definition_ga31b88eb31a4622a50e34f02a1c3d516b}{I2\+C\+\_\+\+Handle\+Type\+Def}} \doxymbox{\hyperlink{main_8c_af7b2c26e44dadaaa798a5c3d82914ba7}{hi2c1}}
+\item 
+\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} \doxymbox{\hyperlink{main_8c_a9cf31216ab15c3f167902641b70c0f38}{hdma\+\_\+i2c1\+\_\+rx}}
+\item 
+\doxymbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} \doxymbox{\hyperlink{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}{huart2}}
+\item 
+volatile uint8\+\_\+t \doxymbox{\hyperlink{main_8c_ae614c930088f36b508b216e06534f5ff}{dma\+\_\+transfer\+\_\+complete}} = 0
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_a8309bf5566c896a7cf0945020aee7ab8}{sensor\+\_\+sequence\+\_\+step}} = 0
+\item 
+volatile uint8\+\_\+t \doxymbox{\hyperlink{main_8c_ada4b70939929b7bed89bec24e187a694}{use\+\_\+dma\+\_\+buffer}} = 0
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_a864f466c70363a3beb701b2900028402}{rx\+\_\+max}} \+[6]\+
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_a1322879ec759427cf3148407aa410eed}{rx\+\_\+bmp}} \+[6]\+
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_a7c30f163222d3171039f9a1f80f6f518}{rx\+\_\+lsm}} \+[6]\+
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_a4711f84293a475fde1122603ce35a957}{step\+\_\+state}} = 0
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{main_8c_ab1b70a01e2cb931ccd92fd89a666edd8}{step\+\_\+count}} = 0
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{main_8c_a0c0b6f0ef8976a0e2873ab3d0bea4a7a}{last\+\_\+step\+\_\+time}} = 0
+\item 
+float \doxymbox{\hyperlink{main_8c_a026b5400158b9cdbb463496aff0b2d50}{dc\+\_\+baseline\+\_\+red}} = 0
+\item 
+float \doxymbox{\hyperlink{main_8c_aec85b684d4bdbbf20fdbb1e5e7d8fb60}{dc\+\_\+baseline\+\_\+ir}} = 0
+\item 
+float \doxymbox{\hyperlink{main_8c_ab1551d8043c2aa4410fb7dbb1fe3be7b}{alpha}} = 0.\+95f
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_a3944659ec46ab1802872a6c110dd92b6}{filter\+\_\+initialized}} = 0
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_ac88b3f895b7640e5c51c6728fb6c721e}{beat\+\_\+state}} = 0
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{main_8c_a9d3d0fd6f34c04617c902bed91bef398}{beat\+\_\+count}} = 0
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{main_8c_add31d345021e5894f109c3ca5f1bd651}{last\+\_\+beat\+\_\+time}} = 0
+\item 
+float \doxymbox{\hyperlink{main_8c_aa773d9a6c0ccefaa0fc9ab66fec68ec1}{beta}} = 0.\+90f
+\item 
+float \doxymbox{\hyperlink{main_8c_a5a4fe96f906e2d0d038e830a9e573ca9}{smooth\+\_\+red}} = 0.\+0f
+\item 
+float \doxymbox{\hyperlink{main_8c_aba113ffc6ef1595d2cc2d19a7080ebcc}{smooth\+\_\+ir}} = 0.\+0f
+\item 
+float \doxymbox{\hyperlink{main_8c_a7ece694734e903639074d12e06167e29}{previous\+\_\+smooth\+\_\+ir}} = 0.\+0f
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{main_8c_abe709bb7075b170736e13f1b7706834f}{beats\+\_\+in\+\_\+window}} = 0
+\item 
+uint32\+\_\+t \doxymbox{\hyperlink{main_8c_a0fcc3b1dd1e22f3105c39ff9e8237882}{window\+\_\+start\+\_\+time}} = 0
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_acb4cd2cd4ca0c4fc63f6fb0b6faec838}{window\+\_\+initialized}} = 0
+\item 
+float \doxymbox{\hyperlink{main_8c_a464932691a68b5b2025db9a7208bb26f}{displayed\+\_\+bpm}} = 0.\+0
+\item 
+float \doxymbox{\hyperlink{main_8c_a7a0438513fe4655419580f97bdbcdbb4}{current\+\_\+altitude}} = 0.\+0f
+\item 
+float \doxymbox{\hyperlink{main_8c_aa6f7bcf6274792464b78df3ddb13faa7}{current\+\_\+temp}} = 0.\+0f
+\item 
+float \doxymbox{\hyperlink{main_8c_a459bdd1c9c401e73bc55cd59da525ff6}{initial\+\_\+baseline\+\_\+altitude}} = 0.\+0f
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_aecaab7e297fcd1c6ca10c789e4bd0c9e}{altitude\+\_\+calibrated}} = 0
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{main_8c_a0c743f48901526eb027bb559bbb3e237}{calibration\+\_\+counter}} = 0
+\item 
+volatile uint8\+\_\+t \doxymbox{\hyperlink{main_8c_a94211eb6e46fe516cad28f8740e34377}{data\+\_\+ready}} = 0
+\item 
+char \doxymbox{\hyperlink{main_8c_a0edcebd8e4f1f500e03291ddc4ae68e3}{uart\+\_\+buf}} \+[100]\+
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+:\+ Main program body 
+
+
+
+\label{doc-define-members}
+\Hypertarget{main_8c_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{main_8c_a4b36bc705d14cd773ebd3bfec855b222}\index{main.c@{main.c}!BMP390\_ADDR@{BMP390\_ADDR}}
+\index{BMP390\_ADDR@{BMP390\_ADDR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{BMP390\_ADDR}{BMP390\_ADDR}}
+{\footnotesize\ttfamily \label{main_8c_a4b36bc705d14cd773ebd3bfec855b222} 
+\+\#define BMP390\+\_\+\+ADDR~(0x77 $<$$<$ 1)}
+
+\Hypertarget{main_8c_a05da146a65c9047ff0e9709e18a2056e}\index{main.c@{main.c}!BMP\_REG\_DATA@{BMP\_REG\_DATA}}
+\index{BMP\_REG\_DATA@{BMP\_REG\_DATA}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{BMP\_REG\_DATA}{BMP\_REG\_DATA}}
+{\footnotesize\ttfamily \label{main_8c_a05da146a65c9047ff0e9709e18a2056e} 
+\+\#define BMP\+\_\+\+REG\+\_\+\+DATA~0x04}
+
+\Hypertarget{main_8c_a8fb2d981a4d807c9d313defb86651111}\index{main.c@{main.c}!BMP\_REG\_PWR@{BMP\_REG\_PWR}}
+\index{BMP\_REG\_PWR@{BMP\_REG\_PWR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{BMP\_REG\_PWR}{BMP\_REG\_PWR}}
+{\footnotesize\ttfamily \label{main_8c_a8fb2d981a4d807c9d313defb86651111} 
+\+\#define BMP\+\_\+\+REG\+\_\+\+PWR~0x1B}
+
+\Hypertarget{main_8c_af08d6740ac4c11467eb5f5eaa1604089}\index{main.c@{main.c}!LSM6DSOX\_ADDR@{LSM6DSOX\_ADDR}}
+\index{LSM6DSOX\_ADDR@{LSM6DSOX\_ADDR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{LSM6DSOX\_ADDR}{LSM6DSOX\_ADDR}}
+{\footnotesize\ttfamily \label{main_8c_af08d6740ac4c11467eb5f5eaa1604089} 
+\+\#define LSM6\+DSOX\+\_\+\+ADDR~(0x6A $<$$<$ 1)}
+
+\Hypertarget{main_8c_a14653b72282e976cddbc8a72baf798fb}\index{main.c@{main.c}!LSM\_REG\_CTRL1@{LSM\_REG\_CTRL1}}
+\index{LSM\_REG\_CTRL1@{LSM\_REG\_CTRL1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{LSM\_REG\_CTRL1}{LSM\_REG\_CTRL1}}
+{\footnotesize\ttfamily \label{main_8c_a14653b72282e976cddbc8a72baf798fb} 
+\+\#define LSM\+\_\+\+REG\+\_\+\+CTRL1~0x10}
+
+\Hypertarget{main_8c_a16efe473dbec253d7cf51d2ab54c59b5}\index{main.c@{main.c}!LSM\_REG\_DATA@{LSM\_REG\_DATA}}
+\index{LSM\_REG\_DATA@{LSM\_REG\_DATA}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{LSM\_REG\_DATA}{LSM\_REG\_DATA}}
+{\footnotesize\ttfamily \label{main_8c_a16efe473dbec253d7cf51d2ab54c59b5} 
+\+\#define LSM\+\_\+\+REG\+\_\+\+DATA~0x28}
+
+\Hypertarget{main_8c_ac4b721096cd1b12d85f3f0e135b272be}\index{main.c@{main.c}!MAX30102\_ADDR@{MAX30102\_ADDR}}
+\index{MAX30102\_ADDR@{MAX30102\_ADDR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{MAX30102\_ADDR}{MAX30102\_ADDR}}
+{\footnotesize\ttfamily \label{main_8c_ac4b721096cd1b12d85f3f0e135b272be} 
+\+\#define MAX30102\+\_\+\+ADDR~(0x57 $<$$<$ 1)}
+
+\Hypertarget{main_8c_a68c44a41e29b3ab35500303798cfb11c}\index{main.c@{main.c}!MAX\_REG\_DATA@{MAX\_REG\_DATA}}
+\index{MAX\_REG\_DATA@{MAX\_REG\_DATA}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{MAX\_REG\_DATA}{MAX\_REG\_DATA}}
+{\footnotesize\ttfamily \label{main_8c_a68c44a41e29b3ab35500303798cfb11c} 
+\+\#define MAX\+\_\+\+REG\+\_\+\+DATA~0x07}
+
+\Hypertarget{main_8c_a5f3a6641b201203d41ed3d23b638a96b}\index{main.c@{main.c}!REG\_LED1\_PA@{REG\_LED1\_PA}}
+\index{REG\_LED1\_PA@{REG\_LED1\_PA}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{REG\_LED1\_PA}{REG\_LED1\_PA}}
+{\footnotesize\ttfamily \label{main_8c_a5f3a6641b201203d41ed3d23b638a96b} 
+\+\#define REG\+\_\+\+LED1\+\_\+\+PA~0x0C}
+
+\Hypertarget{main_8c_a7df43b0f854c9caf2fe04ccdebb18d21}\index{main.c@{main.c}!REG\_LED2\_PA@{REG\_LED2\_PA}}
+\index{REG\_LED2\_PA@{REG\_LED2\_PA}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{REG\_LED2\_PA}{REG\_LED2\_PA}}
+{\footnotesize\ttfamily \label{main_8c_a7df43b0f854c9caf2fe04ccdebb18d21} 
+\+\#define REG\+\_\+\+LED2\+\_\+\+PA~0x0D}
+
+\Hypertarget{main_8c_accdea52b28f1bd3f4cd63d05ab12887f}\index{main.c@{main.c}!REG\_MODE\_CONFIG@{REG\_MODE\_CONFIG}}
+\index{REG\_MODE\_CONFIG@{REG\_MODE\_CONFIG}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{REG\_MODE\_CONFIG}{REG\_MODE\_CONFIG}}
+{\footnotesize\ttfamily \label{main_8c_accdea52b28f1bd3f4cd63d05ab12887f} 
+\+\#define REG\+\_\+\+MODE\+\_\+\+CONFIG~0x09}
+
+\Hypertarget{main_8c_a38546015e987a72b8c9eb13228237dd0}\index{main.c@{main.c}!REG\_SPO2\_CONFIG@{REG\_SPO2\_CONFIG}}
+\index{REG\_SPO2\_CONFIG@{REG\_SPO2\_CONFIG}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{REG\_SPO2\_CONFIG}{REG\_SPO2\_CONFIG}}
+{\footnotesize\ttfamily \label{main_8c_a38546015e987a72b8c9eb13228237dd0} 
+\+\#define REG\+\_\+\+SPO2\+\_\+\+CONFIG~0x0A}
+
+
+
+\label{doc-func-members}
+\Hypertarget{main_8c_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8c_a1730ffe1e560465665eb47d9264826f9}\index{main.c@{main.c}!Error\_Handler@{Error\_Handler}}
+\index{Error\_Handler@{Error\_Handler}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{Error\_Handler()}{Error\_Handler()}}
+{\footnotesize\ttfamily \label{main_8c_a1730ffe1e560465665eb47d9264826f9} 
+void Error\+\_\+\+Handler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+This function is executed in case of error occurrence. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{main_8c_a70af21c671abfcc773614a9a4f63d920}\index{main.c@{main.c}!SystemClock\_Config@{SystemClock\_Config}}
+\index{SystemClock\_Config@{SystemClock\_Config}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{SystemClock\_Config()}{SystemClock\_Config()}}
+{\footnotesize\ttfamily \label{main_8c_a70af21c671abfcc773614a9a4f63d920} 
+void System\+Clock\+\_\+\+Config (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+System Clock Configuration. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+Configure the main internal regulator output voltage
+
+Configure LSE Drive Capability
+
+Initializes the RCC Oscillators according to the specified parameters in the \doxylink{struct_r_c_c___osc_init_type_def}{RCC\+\_\+\+Osc\+Init\+Type\+Def} structure.
+
+Initializes the CPU, AHB and APB buses clocks
+
+Enable MSI Auto calibration\Hypertarget{main_8c_ad9bd2c178fceb2a88d4118e94edfe7f9}\index{main.c@{main.c}!user\_delay\_us@{user\_delay\_us}}
+\index{user\_delay\_us@{user\_delay\_us}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{user\_delay\_us()}{user\_delay\_us()}}
+{\footnotesize\ttfamily \label{main_8c_ad9bd2c178fceb2a88d4118e94edfe7f9} 
+void user\+\_\+delay\+\_\+us (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{period}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{intf\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{main_8c_ade82c6121c9858f9413a88d0d609fc65}\index{main.c@{main.c}!user\_i2c\_read@{user\_i2c\_read}}
+\index{user\_i2c\_read@{user\_i2c\_read}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{user\_i2c\_read()}{user\_i2c\_read()}}
+{\footnotesize\ttfamily \label{main_8c_ade82c6121c9858f9413a88d0d609fc65} 
+\doxymbox{\hyperlink{bmp3__defs_8h_a38ad477a9b791b1375be77a954d7957f}{BMP3\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}} user\+\_\+i2c\+\_\+read (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+\_\+addr}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{reg\+\_\+data}{, }\item[{uint32\+\_\+t}]{len}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{intf\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+\Hypertarget{main_8c_a7a487a0f1b60d2403251302a44440739}\index{main.c@{main.c}!user\_i2c\_write@{user\_i2c\_write}}
+\index{user\_i2c\_write@{user\_i2c\_write}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{user\_i2c\_write()}{user\_i2c\_write()}}
+{\footnotesize\ttfamily \label{main_8c_a7a487a0f1b60d2403251302a44440739} 
+\doxymbox{\hyperlink{bmp3__defs_8h_a38ad477a9b791b1375be77a954d7957f}{BMP3\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}} user\+\_\+i2c\+\_\+write (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+\_\+addr}{, }\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{reg\+\_\+data}{, }\item[{uint32\+\_\+t}]{len}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{intf\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-var-members}
+\Hypertarget{main_8c_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{main_8c_ab1551d8043c2aa4410fb7dbb1fe3be7b}\index{main.c@{main.c}!alpha@{alpha}}
+\index{alpha@{alpha}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{alpha}{alpha}}
+{\footnotesize\ttfamily \label{main_8c_ab1551d8043c2aa4410fb7dbb1fe3be7b} 
+float alpha = 0.\+95f}
+
+\Hypertarget{main_8c_aecaab7e297fcd1c6ca10c789e4bd0c9e}\index{main.c@{main.c}!altitude\_calibrated@{altitude\_calibrated}}
+\index{altitude\_calibrated@{altitude\_calibrated}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{altitude\_calibrated}{altitude\_calibrated}}
+{\footnotesize\ttfamily \label{main_8c_aecaab7e297fcd1c6ca10c789e4bd0c9e} 
+uint8\+\_\+t altitude\+\_\+calibrated = 0}
+
+\Hypertarget{main_8c_a9d3d0fd6f34c04617c902bed91bef398}\index{main.c@{main.c}!beat\_count@{beat\_count}}
+\index{beat\_count@{beat\_count}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{beat\_count}{beat\_count}}
+{\footnotesize\ttfamily \label{main_8c_a9d3d0fd6f34c04617c902bed91bef398} 
+uint32\+\_\+t beat\+\_\+count = 0}
+
+\Hypertarget{main_8c_ac88b3f895b7640e5c51c6728fb6c721e}\index{main.c@{main.c}!beat\_state@{beat\_state}}
+\index{beat\_state@{beat\_state}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{beat\_state}{beat\_state}}
+{\footnotesize\ttfamily \label{main_8c_ac88b3f895b7640e5c51c6728fb6c721e} 
+uint8\+\_\+t beat\+\_\+state = 0}
+
+\Hypertarget{main_8c_abe709bb7075b170736e13f1b7706834f}\index{main.c@{main.c}!beats\_in\_window@{beats\_in\_window}}
+\index{beats\_in\_window@{beats\_in\_window}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{beats\_in\_window}{beats\_in\_window}}
+{\footnotesize\ttfamily \label{main_8c_abe709bb7075b170736e13f1b7706834f} 
+uint32\+\_\+t beats\+\_\+in\+\_\+window = 0}
+
+\Hypertarget{main_8c_aa773d9a6c0ccefaa0fc9ab66fec68ec1}\index{main.c@{main.c}!beta@{beta}}
+\index{beta@{beta}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{beta}{beta}}
+{\footnotesize\ttfamily \label{main_8c_aa773d9a6c0ccefaa0fc9ab66fec68ec1} 
+float beta = 0.\+90f}
+
+\Hypertarget{main_8c_a0c743f48901526eb027bb559bbb3e237}\index{main.c@{main.c}!calibration\_counter@{calibration\_counter}}
+\index{calibration\_counter@{calibration\_counter}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{calibration\_counter}{calibration\_counter}}
+{\footnotesize\ttfamily \label{main_8c_a0c743f48901526eb027bb559bbb3e237} 
+uint8\+\_\+t calibration\+\_\+counter = 0}
+
+\Hypertarget{main_8c_a7a0438513fe4655419580f97bdbcdbb4}\index{main.c@{main.c}!current\_altitude@{current\_altitude}}
+\index{current\_altitude@{current\_altitude}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{current\_altitude}{current\_altitude}}
+{\footnotesize\ttfamily \label{main_8c_a7a0438513fe4655419580f97bdbcdbb4} 
+float current\+\_\+altitude = 0.\+0f}
+
+\Hypertarget{main_8c_aa6f7bcf6274792464b78df3ddb13faa7}\index{main.c@{main.c}!current\_temp@{current\_temp}}
+\index{current\_temp@{current\_temp}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{current\_temp}{current\_temp}}
+{\footnotesize\ttfamily \label{main_8c_aa6f7bcf6274792464b78df3ddb13faa7} 
+float current\+\_\+temp = 0.\+0f}
+
+\Hypertarget{main_8c_a94211eb6e46fe516cad28f8740e34377}\index{main.c@{main.c}!data\_ready@{data\_ready}}
+\index{data\_ready@{data\_ready}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{data\_ready}{data\_ready}}
+{\footnotesize\ttfamily \label{main_8c_a94211eb6e46fe516cad28f8740e34377} 
+volatile uint8\+\_\+t data\+\_\+ready = 0}
+
+\Hypertarget{main_8c_aec85b684d4bdbbf20fdbb1e5e7d8fb60}\index{main.c@{main.c}!dc\_baseline\_ir@{dc\_baseline\_ir}}
+\index{dc\_baseline\_ir@{dc\_baseline\_ir}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{dc\_baseline\_ir}{dc\_baseline\_ir}}
+{\footnotesize\ttfamily \label{main_8c_aec85b684d4bdbbf20fdbb1e5e7d8fb60} 
+float dc\+\_\+baseline\+\_\+ir = 0}
+
+\Hypertarget{main_8c_a026b5400158b9cdbb463496aff0b2d50}\index{main.c@{main.c}!dc\_baseline\_red@{dc\_baseline\_red}}
+\index{dc\_baseline\_red@{dc\_baseline\_red}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{dc\_baseline\_red}{dc\_baseline\_red}}
+{\footnotesize\ttfamily \label{main_8c_a026b5400158b9cdbb463496aff0b2d50} 
+float dc\+\_\+baseline\+\_\+red = 0}
+
+\Hypertarget{main_8c_a464932691a68b5b2025db9a7208bb26f}\index{main.c@{main.c}!displayed\_bpm@{displayed\_bpm}}
+\index{displayed\_bpm@{displayed\_bpm}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{displayed\_bpm}{displayed\_bpm}}
+{\footnotesize\ttfamily \label{main_8c_a464932691a68b5b2025db9a7208bb26f} 
+float displayed\+\_\+bpm = 0.\+0}
+
+\Hypertarget{main_8c_ae614c930088f36b508b216e06534f5ff}\index{main.c@{main.c}!dma\_transfer\_complete@{dma\_transfer\_complete}}
+\index{dma\_transfer\_complete@{dma\_transfer\_complete}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{dma\_transfer\_complete}{dma\_transfer\_complete}}
+{\footnotesize\ttfamily \label{main_8c_ae614c930088f36b508b216e06534f5ff} 
+volatile uint8\+\_\+t dma\+\_\+transfer\+\_\+complete = 0}
+
+\Hypertarget{main_8c_a3944659ec46ab1802872a6c110dd92b6}\index{main.c@{main.c}!filter\_initialized@{filter\_initialized}}
+\index{filter\_initialized@{filter\_initialized}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{filter\_initialized}{filter\_initialized}}
+{\footnotesize\ttfamily \label{main_8c_a3944659ec46ab1802872a6c110dd92b6} 
+uint8\+\_\+t filter\+\_\+initialized = 0}
+
+\Hypertarget{main_8c_a9cf31216ab15c3f167902641b70c0f38}\index{main.c@{main.c}!hdma\_i2c1\_rx@{hdma\_i2c1\_rx}}
+\index{hdma\_i2c1\_rx@{hdma\_i2c1\_rx}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{hdma\_i2c1\_rx}{hdma\_i2c1\_rx}}
+{\footnotesize\ttfamily \label{main_8c_a9cf31216ab15c3f167902641b70c0f38} 
+\doxymbox{\hyperlink{group___d_m_a___exported___types_ga41b754a906b86bce54dc79938970138b}{DMA\+\_\+\+Handle\+Type\+Def}} hdma\+\_\+i2c1\+\_\+rx}
+
+\Hypertarget{main_8c_af7b2c26e44dadaaa798a5c3d82914ba7}\index{main.c@{main.c}!hi2c1@{hi2c1}}
+\index{hi2c1@{hi2c1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{hi2c1}{hi2c1}}
+{\footnotesize\ttfamily \label{main_8c_af7b2c26e44dadaaa798a5c3d82914ba7} 
+\doxymbox{\hyperlink{group___i2_c__handle___structure__definition_ga31b88eb31a4622a50e34f02a1c3d516b}{I2\+C\+\_\+\+Handle\+Type\+Def}} hi2c1}
+
+\Hypertarget{main_8c_aa9479c261d65eecedd3d9582f7f0f89c}\index{main.c@{main.c}!huart2@{huart2}}
+\index{huart2@{huart2}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{huart2}{huart2}}
+{\footnotesize\ttfamily \label{main_8c_aa9479c261d65eecedd3d9582f7f0f89c} 
+\doxymbox{\hyperlink{group___u_a_r_t___exported___types_ga5de4a49eb132735325e706f406c69d6e}{UART\+\_\+\+Handle\+Type\+Def}} huart2}
+
+\Hypertarget{main_8c_a459bdd1c9c401e73bc55cd59da525ff6}\index{main.c@{main.c}!initial\_baseline\_altitude@{initial\_baseline\_altitude}}
+\index{initial\_baseline\_altitude@{initial\_baseline\_altitude}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{initial\_baseline\_altitude}{initial\_baseline\_altitude}}
+{\footnotesize\ttfamily \label{main_8c_a459bdd1c9c401e73bc55cd59da525ff6} 
+float initial\+\_\+baseline\+\_\+altitude = 0.\+0f}
+
+\Hypertarget{main_8c_add31d345021e5894f109c3ca5f1bd651}\index{main.c@{main.c}!last\_beat\_time@{last\_beat\_time}}
+\index{last\_beat\_time@{last\_beat\_time}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{last\_beat\_time}{last\_beat\_time}}
+{\footnotesize\ttfamily \label{main_8c_add31d345021e5894f109c3ca5f1bd651} 
+uint32\+\_\+t last\+\_\+beat\+\_\+time = 0}
+
+\Hypertarget{main_8c_a0c0b6f0ef8976a0e2873ab3d0bea4a7a}\index{main.c@{main.c}!last\_step\_time@{last\_step\_time}}
+\index{last\_step\_time@{last\_step\_time}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{last\_step\_time}{last\_step\_time}}
+{\footnotesize\ttfamily \label{main_8c_a0c0b6f0ef8976a0e2873ab3d0bea4a7a} 
+uint32\+\_\+t last\+\_\+step\+\_\+time = 0}
+
+\Hypertarget{main_8c_a7ece694734e903639074d12e06167e29}\index{main.c@{main.c}!previous\_smooth\_ir@{previous\_smooth\_ir}}
+\index{previous\_smooth\_ir@{previous\_smooth\_ir}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{previous\_smooth\_ir}{previous\_smooth\_ir}}
+{\footnotesize\ttfamily \label{main_8c_a7ece694734e903639074d12e06167e29} 
+float previous\+\_\+smooth\+\_\+ir = 0.\+0f}
+
+\Hypertarget{main_8c_a1322879ec759427cf3148407aa410eed}\index{main.c@{main.c}!rx\_bmp@{rx\_bmp}}
+\index{rx\_bmp@{rx\_bmp}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{rx\_bmp}{rx\_bmp}}
+{\footnotesize\ttfamily \label{main_8c_a1322879ec759427cf3148407aa410eed} 
+uint8\+\_\+t rx\+\_\+bmp\+[6]\+}
+
+\Hypertarget{main_8c_a7c30f163222d3171039f9a1f80f6f518}\index{main.c@{main.c}!rx\_lsm@{rx\_lsm}}
+\index{rx\_lsm@{rx\_lsm}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{rx\_lsm}{rx\_lsm}}
+{\footnotesize\ttfamily \label{main_8c_a7c30f163222d3171039f9a1f80f6f518} 
+uint8\+\_\+t rx\+\_\+lsm\+[6]\+}
+
+\Hypertarget{main_8c_a864f466c70363a3beb701b2900028402}\index{main.c@{main.c}!rx\_max@{rx\_max}}
+\index{rx\_max@{rx\_max}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{rx\_max}{rx\_max}}
+{\footnotesize\ttfamily \label{main_8c_a864f466c70363a3beb701b2900028402} 
+uint8\+\_\+t rx\+\_\+max\+[6]\+}
+
+\Hypertarget{main_8c_a8309bf5566c896a7cf0945020aee7ab8}\index{main.c@{main.c}!sensor\_sequence\_step@{sensor\_sequence\_step}}
+\index{sensor\_sequence\_step@{sensor\_sequence\_step}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{sensor\_sequence\_step}{sensor\_sequence\_step}}
+{\footnotesize\ttfamily \label{main_8c_a8309bf5566c896a7cf0945020aee7ab8} 
+uint8\+\_\+t sensor\+\_\+sequence\+\_\+step = 0}
+
+\Hypertarget{main_8c_aba113ffc6ef1595d2cc2d19a7080ebcc}\index{main.c@{main.c}!smooth\_ir@{smooth\_ir}}
+\index{smooth\_ir@{smooth\_ir}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{smooth\_ir}{smooth\_ir}}
+{\footnotesize\ttfamily \label{main_8c_aba113ffc6ef1595d2cc2d19a7080ebcc} 
+float smooth\+\_\+ir = 0.\+0f}
+
+\Hypertarget{main_8c_a5a4fe96f906e2d0d038e830a9e573ca9}\index{main.c@{main.c}!smooth\_red@{smooth\_red}}
+\index{smooth\_red@{smooth\_red}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{smooth\_red}{smooth\_red}}
+{\footnotesize\ttfamily \label{main_8c_a5a4fe96f906e2d0d038e830a9e573ca9} 
+float smooth\+\_\+red = 0.\+0f}
+
+\Hypertarget{main_8c_ab1b70a01e2cb931ccd92fd89a666edd8}\index{main.c@{main.c}!step\_count@{step\_count}}
+\index{step\_count@{step\_count}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{step\_count}{step\_count}}
+{\footnotesize\ttfamily \label{main_8c_ab1b70a01e2cb931ccd92fd89a666edd8} 
+uint32\+\_\+t step\+\_\+count = 0}
+
+\Hypertarget{main_8c_a4711f84293a475fde1122603ce35a957}\index{main.c@{main.c}!step\_state@{step\_state}}
+\index{step\_state@{step\_state}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{step\_state}{step\_state}}
+{\footnotesize\ttfamily \label{main_8c_a4711f84293a475fde1122603ce35a957} 
+uint8\+\_\+t step\+\_\+state = 0}
+
+\Hypertarget{main_8c_a0edcebd8e4f1f500e03291ddc4ae68e3}\index{main.c@{main.c}!uart\_buf@{uart\_buf}}
+\index{uart\_buf@{uart\_buf}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{uart\_buf}{uart\_buf}}
+{\footnotesize\ttfamily \label{main_8c_a0edcebd8e4f1f500e03291ddc4ae68e3} 
+char uart\+\_\+buf\+[100]\+}
+
+\Hypertarget{main_8c_ada4b70939929b7bed89bec24e187a694}\index{main.c@{main.c}!use\_dma\_buffer@{use\_dma\_buffer}}
+\index{use\_dma\_buffer@{use\_dma\_buffer}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{use\_dma\_buffer}{use\_dma\_buffer}}
+{\footnotesize\ttfamily \label{main_8c_ada4b70939929b7bed89bec24e187a694} 
+volatile uint8\+\_\+t use\+\_\+dma\+\_\+buffer = 0}
+
+\Hypertarget{main_8c_acb4cd2cd4ca0c4fc63f6fb0b6faec838}\index{main.c@{main.c}!window\_initialized@{window\_initialized}}
+\index{window\_initialized@{window\_initialized}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{window\_initialized}{window\_initialized}}
+{\footnotesize\ttfamily \label{main_8c_acb4cd2cd4ca0c4fc63f6fb0b6faec838} 
+uint8\+\_\+t window\+\_\+initialized = 0}
+
+\Hypertarget{main_8c_a0fcc3b1dd1e22f3105c39ff9e8237882}\index{main.c@{main.c}!window\_start\_time@{window\_start\_time}}
+\index{window\_start\_time@{window\_start\_time}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{window\_start\_time}{window\_start\_time}}
+{\footnotesize\ttfamily \label{main_8c_a0fcc3b1dd1e22f3105c39ff9e8237882} 
+uint32\+\_\+t window\+\_\+start\+\_\+time = 0}
+

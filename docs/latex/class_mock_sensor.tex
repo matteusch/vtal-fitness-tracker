@@ -1,0 +1,255 @@
+\doxysection{Mock\+Sensor Class Reference}
+\hypertarget{class_mock_sensor}{}\label{class_mock_sensor}\index{MockSensor@{MockSensor}}
+
+
+{\ttfamily \+\#include $<$Mock\+Sensor.\+h$>$}
+
+Inheritance diagram for Mock\+Sensor:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_mock_sensor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841}{Workout\+Type}} \{ \doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a7bcb3f5ca11465233f407e58886bb4e5}{None}}
+, \doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a21fb9b892da367777f88088d12bfc182}{Running}}
+, \doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841aebae70d0ed5b349926ec0ef44a010c5d}{Cycling}}
+, \doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a46adea3a9711587457db43cbcf8a54e5}{Swimming}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_mock_sensor_ac2a28a04f57ff5184f8e2efe6166675f}{start\+Workout}} (\doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841}{Workout\+Type}} type)
+\item 
+void \doxymbox{\hyperlink{class_mock_sensor_a39a1901cd04974c33f28df45d54f86c7}{pause\+Workout}} ()
+\item 
+void \doxymbox{\hyperlink{class_mock_sensor_a56afeb387a29737b37bb4ba1e703ad60}{resume\+Workout}} ()
+\item 
+void \doxymbox{\hyperlink{class_mock_sensor_a009c4899ee33d98ca1fd7229f83c4e44}{stop\+Workout}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_mock_sensor_a9e2cd860912e6f247fe80ffc1ce5cc64}{daily\+Data\+Updated}} (int bpm, int daily\+Steps)
+\item 
+void \doxymbox{\hyperlink{class_mock_sensor_ad3c4d1a4550b8bc29e46e38c9d8aea2c}{workout\+Data\+Updated}} (int elapsed\+Seconds, int bpm, int spo2, double distance, int calories)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_mock_sensor_a3024e1d974e59dcce0fd732d245c05df}{Mock\+Sensor}} (QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\item 
+bool \doxymbox{\hyperlink{class_mock_sensor_a28ce64fdacc09e5936edb709f4bb9e25}{is\+Workout\+Active}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_mock_sensor_a8f08b5b23a1943bc922ad660a87fbc59}{generate\+Daily\+Reading}} ()
+\item 
+void \doxymbox{\hyperlink{class_mock_sensor_a129e430410d592b4e500c073c0dbecce}{generate\+Workout\+Reading}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QTimer \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_mock_sensor_aa4e9ccf73af206ce18ee3f79d03de1cf}{daily\+Timer}}
+\item 
+QTimer \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_mock_sensor_af07ee4317125408b2065dc099896b529}{workout\+Timer}}
+\item 
+\doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841}{Workout\+Type}} \doxymbox{\hyperlink{class_mock_sensor_a6e42d3ac6c4d015483058723e63d4992}{m\+\_\+current\+Workout}}
+\item 
+bool \doxymbox{\hyperlink{class_mock_sensor_a9d6b8d8607922396a2af9cac342a7398}{m\+\_\+is\+Paused}}
+\item 
+int \doxymbox{\hyperlink{class_mock_sensor_a75e6ef8e4d3c22b07291668b03d0fab3}{m\+\_\+current\+Bpm}}
+\item 
+int \doxymbox{\hyperlink{class_mock_sensor_a72a3cc96f238d4775c07cba31eaca34d}{m\+\_\+daily\+Steps}}
+\item 
+int \doxymbox{\hyperlink{class_mock_sensor_a504e9f385894cd3ae47626ff5801f42a}{m\+\_\+workout\+Seconds}}
+\item 
+int \doxymbox{\hyperlink{class_mock_sensor_a69db2a812c0ab04d266c0aa53d78ac49}{m\+\_\+current\+Sp\+O2}}
+\item 
+double \doxymbox{\hyperlink{class_mock_sensor_a21352cf94125b7ef4e9776af76e6f151}{m\+\_\+workout\+Distance}}
+\item 
+double \doxymbox{\hyperlink{class_mock_sensor_af658a3e2ac0508d8b28d5c5bdcbe2aba}{m\+\_\+workout\+Calories}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{class_mock_sensor_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841}\index{MockSensor@{MockSensor}!WorkoutType@{WorkoutType}}
+\index{WorkoutType@{WorkoutType}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{WorkoutType}{WorkoutType}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841} 
+enum \doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841}{Mock\+Sensor::\+\+Workout\+Type}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{None@{None}!MockSensor@{MockSensor}}
+\index{MockSensor@{MockSensor}!None@{None}}
+}\Hypertarget{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a7bcb3f5ca11465233f407e58886bb4e5}\label{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a7bcb3f5ca11465233f407e58886bb4e5} 
+None&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Running@{Running}!MockSensor@{MockSensor}}
+\index{MockSensor@{MockSensor}!Running@{Running}}
+}\Hypertarget{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a21fb9b892da367777f88088d12bfc182}\label{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a21fb9b892da367777f88088d12bfc182} 
+Running&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Cycling@{Cycling}!MockSensor@{MockSensor}}
+\index{MockSensor@{MockSensor}!Cycling@{Cycling}}
+}\Hypertarget{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841aebae70d0ed5b349926ec0ef44a010c5d}\label{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841aebae70d0ed5b349926ec0ef44a010c5d} 
+Cycling&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Swimming@{Swimming}!MockSensor@{MockSensor}}
+\index{MockSensor@{MockSensor}!Swimming@{Swimming}}
+}\Hypertarget{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a46adea3a9711587457db43cbcf8a54e5}\label{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841a46adea3a9711587457db43cbcf8a54e5} 
+Swimming&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-constructors}
+\Hypertarget{class_mock_sensor_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_mock_sensor_a3024e1d974e59dcce0fd732d245c05df}\index{MockSensor@{MockSensor}!MockSensor@{MockSensor}}
+\index{MockSensor@{MockSensor}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{MockSensor()}{MockSensor()}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a3024e1d974e59dcce0fd732d245c05df} 
+Mock\+Sensor::\+\+Mock\+Sensor (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_mock_sensor_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_mock_sensor_a9e2cd860912e6f247fe80ffc1ce5cc64}\index{MockSensor@{MockSensor}!dailyDataUpdated@{dailyDataUpdated}}
+\index{dailyDataUpdated@{dailyDataUpdated}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{dailyDataUpdated}{dailyDataUpdated}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a9e2cd860912e6f247fe80ffc1ce5cc64} 
+void Mock\+Sensor::\+daily\+Data\+Updated (\begin{DoxyParamCaption}\item[{int}]{bpm}{, }\item[{int}]{daily\+Steps}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\Hypertarget{class_mock_sensor_a8f08b5b23a1943bc922ad660a87fbc59}\index{MockSensor@{MockSensor}!generateDailyReading@{generateDailyReading}}
+\index{generateDailyReading@{generateDailyReading}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{generateDailyReading}{generateDailyReading}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a8f08b5b23a1943bc922ad660a87fbc59} 
+void Mock\+Sensor::\+generate\+Daily\+Reading (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+\Hypertarget{class_mock_sensor_a129e430410d592b4e500c073c0dbecce}\index{MockSensor@{MockSensor}!generateWorkoutReading@{generateWorkoutReading}}
+\index{generateWorkoutReading@{generateWorkoutReading}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{generateWorkoutReading}{generateWorkoutReading}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a129e430410d592b4e500c073c0dbecce} 
+void Mock\+Sensor::\+generate\+Workout\+Reading (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [slot]}}
+
+\Hypertarget{class_mock_sensor_a28ce64fdacc09e5936edb709f4bb9e25}\index{MockSensor@{MockSensor}!isWorkoutActive@{isWorkoutActive}}
+\index{isWorkoutActive@{isWorkoutActive}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{isWorkoutActive()}{isWorkoutActive()}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a28ce64fdacc09e5936edb709f4bb9e25} 
+bool Mock\+Sensor::\+is\+Workout\+Active (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_mock_sensor_a39a1901cd04974c33f28df45d54f86c7}\index{MockSensor@{MockSensor}!pauseWorkout@{pauseWorkout}}
+\index{pauseWorkout@{pauseWorkout}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{pauseWorkout}{pauseWorkout}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a39a1901cd04974c33f28df45d54f86c7} 
+void Mock\+Sensor::\+pause\+Workout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\Hypertarget{class_mock_sensor_a56afeb387a29737b37bb4ba1e703ad60}\index{MockSensor@{MockSensor}!resumeWorkout@{resumeWorkout}}
+\index{resumeWorkout@{resumeWorkout}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{resumeWorkout}{resumeWorkout}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a56afeb387a29737b37bb4ba1e703ad60} 
+void Mock\+Sensor::\+resume\+Workout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\Hypertarget{class_mock_sensor_ac2a28a04f57ff5184f8e2efe6166675f}\index{MockSensor@{MockSensor}!startWorkout@{startWorkout}}
+\index{startWorkout@{startWorkout}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{startWorkout}{startWorkout}}
+{\footnotesize\ttfamily \label{class_mock_sensor_ac2a28a04f57ff5184f8e2efe6166675f} 
+void Mock\+Sensor::\+start\+Workout (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841}{Workout\+Type}}}]{type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\Hypertarget{class_mock_sensor_a009c4899ee33d98ca1fd7229f83c4e44}\index{MockSensor@{MockSensor}!stopWorkout@{stopWorkout}}
+\index{stopWorkout@{stopWorkout}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{stopWorkout}{stopWorkout}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a009c4899ee33d98ca1fd7229f83c4e44} 
+void Mock\+Sensor::\+stop\+Workout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\Hypertarget{class_mock_sensor_ad3c4d1a4550b8bc29e46e38c9d8aea2c}\index{MockSensor@{MockSensor}!workoutDataUpdated@{workoutDataUpdated}}
+\index{workoutDataUpdated@{workoutDataUpdated}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{workoutDataUpdated}{workoutDataUpdated}}
+{\footnotesize\ttfamily \label{class_mock_sensor_ad3c4d1a4550b8bc29e46e38c9d8aea2c} 
+void Mock\+Sensor::\+workout\+Data\+Updated (\begin{DoxyParamCaption}\item[{int}]{elapsed\+Seconds}{, }\item[{int}]{bpm}{, }\item[{int}]{spo2}{, }\item[{double}]{distance}{, }\item[{int}]{calories}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_mock_sensor_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_mock_sensor_aa4e9ccf73af206ce18ee3f79d03de1cf}\index{MockSensor@{MockSensor}!dailyTimer@{dailyTimer}}
+\index{dailyTimer@{dailyTimer}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{dailyTimer}{dailyTimer}}
+{\footnotesize\ttfamily \label{class_mock_sensor_aa4e9ccf73af206ce18ee3f79d03de1cf} 
+QTimer\texorpdfstring{$\ast$}{*} Mock\+Sensor::\+daily\+Timer\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_a75e6ef8e4d3c22b07291668b03d0fab3}\index{MockSensor@{MockSensor}!m\_currentBpm@{m\_currentBpm}}
+\index{m\_currentBpm@{m\_currentBpm}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{m\_currentBpm}{m\_currentBpm}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a75e6ef8e4d3c22b07291668b03d0fab3} 
+int Mock\+Sensor::\+m\+\_\+current\+Bpm\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_a69db2a812c0ab04d266c0aa53d78ac49}\index{MockSensor@{MockSensor}!m\_currentSpO2@{m\_currentSpO2}}
+\index{m\_currentSpO2@{m\_currentSpO2}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{m\_currentSpO2}{m\_currentSpO2}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a69db2a812c0ab04d266c0aa53d78ac49} 
+int Mock\+Sensor::\+m\+\_\+current\+Sp\+O2\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_a6e42d3ac6c4d015483058723e63d4992}\index{MockSensor@{MockSensor}!m\_currentWorkout@{m\_currentWorkout}}
+\index{m\_currentWorkout@{m\_currentWorkout}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{m\_currentWorkout}{m\_currentWorkout}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a6e42d3ac6c4d015483058723e63d4992} 
+\doxymbox{\hyperlink{class_mock_sensor_a121785e5f9d9326b1483b27a1e5da841}{Workout\+Type}} Mock\+Sensor::\+m\+\_\+current\+Workout\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_a72a3cc96f238d4775c07cba31eaca34d}\index{MockSensor@{MockSensor}!m\_dailySteps@{m\_dailySteps}}
+\index{m\_dailySteps@{m\_dailySteps}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{m\_dailySteps}{m\_dailySteps}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a72a3cc96f238d4775c07cba31eaca34d} 
+int Mock\+Sensor::\+m\+\_\+daily\+Steps\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_a9d6b8d8607922396a2af9cac342a7398}\index{MockSensor@{MockSensor}!m\_isPaused@{m\_isPaused}}
+\index{m\_isPaused@{m\_isPaused}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{m\_isPaused}{m\_isPaused}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a9d6b8d8607922396a2af9cac342a7398} 
+bool Mock\+Sensor::\+m\+\_\+is\+Paused\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_af658a3e2ac0508d8b28d5c5bdcbe2aba}\index{MockSensor@{MockSensor}!m\_workoutCalories@{m\_workoutCalories}}
+\index{m\_workoutCalories@{m\_workoutCalories}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{m\_workoutCalories}{m\_workoutCalories}}
+{\footnotesize\ttfamily \label{class_mock_sensor_af658a3e2ac0508d8b28d5c5bdcbe2aba} 
+double Mock\+Sensor::\+m\+\_\+workout\+Calories\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_a21352cf94125b7ef4e9776af76e6f151}\index{MockSensor@{MockSensor}!m\_workoutDistance@{m\_workoutDistance}}
+\index{m\_workoutDistance@{m\_workoutDistance}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{m\_workoutDistance}{m\_workoutDistance}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a21352cf94125b7ef4e9776af76e6f151} 
+double Mock\+Sensor::\+m\+\_\+workout\+Distance\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_a504e9f385894cd3ae47626ff5801f42a}\index{MockSensor@{MockSensor}!m\_workoutSeconds@{m\_workoutSeconds}}
+\index{m\_workoutSeconds@{m\_workoutSeconds}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{m\_workoutSeconds}{m\_workoutSeconds}}
+{\footnotesize\ttfamily \label{class_mock_sensor_a504e9f385894cd3ae47626ff5801f42a} 
+int Mock\+Sensor::\+m\+\_\+workout\+Seconds\hspace{0.3cm}{\ttfamily [private]}}
+
+\Hypertarget{class_mock_sensor_af07ee4317125408b2065dc099896b529}\index{MockSensor@{MockSensor}!workoutTimer@{workoutTimer}}
+\index{workoutTimer@{workoutTimer}!MockSensor@{MockSensor}}
+\doxysubsubsection{\texorpdfstring{workoutTimer}{workoutTimer}}
+{\footnotesize\ttfamily \label{class_mock_sensor_af07ee4317125408b2065dc099896b529} 
+QTimer\texorpdfstring{$\ast$}{*} Mock\+Sensor::\+workout\+Timer\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+Qt\+Display/\+\doxymbox{\hyperlink{_mock_sensor_8h}{Mock\+Sensor.\+h}}\item 
+Qt\+Display/\+cmake-\/build-\/debug/\+\+Fitness\+Tracker\+\_\+autogen/\+\+EWIEGA46\+WW/\+\doxymbox{\hyperlink{moc___mock_sensor_8cpp}{moc\+\_\+\+Mock\+Sensor.\+cpp}}\item 
+Qt\+Display/\+\doxymbox{\hyperlink{_mock_sensor_8cpp}{Mock\+Sensor.\+cpp}}\end{DoxyCompactItemize}

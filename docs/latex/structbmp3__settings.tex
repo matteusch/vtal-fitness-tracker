@@ -1,0 +1,75 @@
+\doxysection{bmp3\+\_\+settings Struct Reference}
+\hypertarget{structbmp3__settings}{}\label{structbmp3__settings}\index{bmp3\_settings@{bmp3\_settings}}
+
+
+bmp3 device settings  
+
+
+
+
+{\ttfamily \+\#include $<$bmp3\+\_\+defs.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structbmp3__settings_a083f16f7e5ef228ada7957a14320a66b}{op\+\_\+mode}}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structbmp3__settings_aa888cbb311564264dd408a7c957bf004}{press\+\_\+en}}
+\item 
+uint8\+\_\+t \doxymbox{\hyperlink{structbmp3__settings_a10e2a083d00b1ba60c6f96bfc0ffee23}{temp\+\_\+en}}
+\item 
+struct \doxymbox{\hyperlink{structbmp3__odr__filter__settings}{bmp3\+\_\+odr\+\_\+filter\+\_\+settings}} \doxymbox{\hyperlink{structbmp3__settings_ad5a0340fef9bb40b6129385ce843e56c}{odr\+\_\+filter}}
+\item 
+struct \doxymbox{\hyperlink{structbmp3__int__ctrl__settings}{bmp3\+\_\+int\+\_\+ctrl\+\_\+settings}} \doxymbox{\hyperlink{structbmp3__settings_aa89d8f327de480729ab6a128e7701165}{int\+\_\+settings}}
+\item 
+struct \doxymbox{\hyperlink{structbmp3__adv__settings}{bmp3\+\_\+adv\+\_\+settings}} \doxymbox{\hyperlink{structbmp3__settings_aca1162abd81172d91afb475fc92795c1}{adv\+\_\+settings}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+bmp3 device settings 
+
+\label{doc-variable-members}
+\Hypertarget{structbmp3__settings_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structbmp3__settings_aca1162abd81172d91afb475fc92795c1}\index{bmp3\_settings@{bmp3\_settings}!adv\_settings@{adv\_settings}}
+\index{adv\_settings@{adv\_settings}!bmp3\_settings@{bmp3\_settings}}
+\doxysubsubsection{\texorpdfstring{adv\_settings}{adv\_settings}}
+{\footnotesize\ttfamily \label{structbmp3__settings_aca1162abd81172d91afb475fc92795c1} 
+struct \doxymbox{\hyperlink{structbmp3__adv__settings}{bmp3\+\_\+adv\+\_\+settings}} bmp3\+\_\+settings::\+adv\+\_\+settings}
+
+Advance settings \Hypertarget{structbmp3__settings_aa89d8f327de480729ab6a128e7701165}\index{bmp3\_settings@{bmp3\_settings}!int\_settings@{int\_settings}}
+\index{int\_settings@{int\_settings}!bmp3\_settings@{bmp3\_settings}}
+\doxysubsubsection{\texorpdfstring{int\_settings}{int\_settings}}
+{\footnotesize\ttfamily \label{structbmp3__settings_aa89d8f327de480729ab6a128e7701165} 
+struct \doxymbox{\hyperlink{structbmp3__int__ctrl__settings}{bmp3\+\_\+int\+\_\+ctrl\+\_\+settings}} bmp3\+\_\+settings::\+int\+\_\+settings}
+
+Interrupt configuration \Hypertarget{structbmp3__settings_ad5a0340fef9bb40b6129385ce843e56c}\index{bmp3\_settings@{bmp3\_settings}!odr\_filter@{odr\_filter}}
+\index{odr\_filter@{odr\_filter}!bmp3\_settings@{bmp3\_settings}}
+\doxysubsubsection{\texorpdfstring{odr\_filter}{odr\_filter}}
+{\footnotesize\ttfamily \label{structbmp3__settings_ad5a0340fef9bb40b6129385ce843e56c} 
+struct \doxymbox{\hyperlink{structbmp3__odr__filter__settings}{bmp3\+\_\+odr\+\_\+filter\+\_\+settings}} bmp3\+\_\+settings::\+odr\+\_\+filter}
+
+ODR and filter configuration \Hypertarget{structbmp3__settings_a083f16f7e5ef228ada7957a14320a66b}\index{bmp3\_settings@{bmp3\_settings}!op\_mode@{op\_mode}}
+\index{op\_mode@{op\_mode}!bmp3\_settings@{bmp3\_settings}}
+\doxysubsubsection{\texorpdfstring{op\_mode}{op\_mode}}
+{\footnotesize\ttfamily \label{structbmp3__settings_a083f16f7e5ef228ada7957a14320a66b} 
+uint8\+\_\+t bmp3\+\_\+settings::\+op\+\_\+mode}
+
+Power mode which user wants to set \Hypertarget{structbmp3__settings_aa888cbb311564264dd408a7c957bf004}\index{bmp3\_settings@{bmp3\_settings}!press\_en@{press\_en}}
+\index{press\_en@{press\_en}!bmp3\_settings@{bmp3\_settings}}
+\doxysubsubsection{\texorpdfstring{press\_en}{press\_en}}
+{\footnotesize\ttfamily \label{structbmp3__settings_aa888cbb311564264dd408a7c957bf004} 
+uint8\+\_\+t bmp3\+\_\+settings::\+press\+\_\+en}
+
+Enable/\+\+Disable pressure sensor \Hypertarget{structbmp3__settings_a10e2a083d00b1ba60c6f96bfc0ffee23}\index{bmp3\_settings@{bmp3\_settings}!temp\_en@{temp\_en}}
+\index{temp\_en@{temp\_en}!bmp3\_settings@{bmp3\_settings}}
+\doxysubsubsection{\texorpdfstring{temp\_en}{temp\_en}}
+{\footnotesize\ttfamily \label{structbmp3__settings_a10e2a083d00b1ba60c6f96bfc0ffee23} 
+uint8\+\_\+t bmp3\+\_\+settings::\+temp\+\_\+en}
+
+Enable/\+\+Disable temperature sensor 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+VTal Data Reading/\+\+Core/\+\+Inc/\+\doxymbox{\hyperlink{bmp3__defs_8h}{bmp3\+\_\+defs.\+h}}\end{DoxyCompactItemize}
