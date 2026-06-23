@@ -33,7 +33,7 @@ Item {
                     TextField {
                         id: macSettingsInput
                         text: window.savedMacAddress // Loads the memory automatically
-                        placeholderText: "98:D3:..."
+                        placeholderText: "..."
                         color: window.textTheme
                         font.pixelSize: 16
                         Layout.fillWidth: true
@@ -83,7 +83,7 @@ Item {
                     width: parent.width
                     Text { text: window.tr("Units"); color: window.textTheme; font.pixelSize: 18; Layout.fillWidth: true }
                     ComboBox {
-                        model: ["Metric (km, °C)", "Imperial (mi, °F)"]
+                        model: ["Metric (m, °C)", "Imperial (mi, °F)"]
                         currentIndex: window.unitSystem === "Metric" ? 0 : 1
                         background: Rectangle { color: window.btnTheme; radius: 4 }
                         contentItem: Text { text: parent.currentText; color: window.textTheme; verticalAlignment: Text.AlignVCenter; padding: 10 }

@@ -2,10 +2,15 @@
 /**
   ******************************************************************************
   * @file           : main.c
-  * @brief          : Main program body
+  * @brief          : VTal Bicep Fitness Tracker Firmware
+  * @details        : Handles asynchronous I2C/DMA reads from MAX30102,
+  * LSM6DSOX, and BMP390.
+  * Implements time-domain R-R interval smoothing for bicep PPG
+  * and transmits unified telemetry over UART1 and UART2.
   ******************************************************************************
   */
 /* USER CODE END Header */
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
@@ -20,7 +25,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-// --- MAX30102 ---
+// MAX30102
 #define MAX30102_ADDR   (0x57 << 1)
 #define REG_MODE_CONFIG 0x09
 #define REG_SPO2_CONFIG 0x0A
@@ -28,28 +33,27 @@
 #define REG_LED2_PA     0x0D
 #define MAX_REG_DATA    0x07
 
-// --- BMP390 ---
-#define BMP390_ADDR     (0x77 << 1) //If fails to connect, try 0x76
-#define BMP_REG_PWR     0x1B        // Power control register
-#define BMP_REG_DATA    0x04        // Start of Pressure data
+// BMP390
+#define BMP390_ADDR     (0x77 << 1)
+#define BMP_REG_PWR     0x1B
+#define BMP_REG_DATA    0x04
 
-// --- LSM6DSOX ---
-#define LSM6DSOX_ADDR   (0x6A << 1) //If fails to connect, try 0x6B
-#define LSM_REG_CTRL1   0x10        // Accelerometer control register
-#define LSM_REG_DATA    0x28        // Start of Acceldata
+// LSM6DSOX
+#define LSM6DSOX_ADDR   (0x6A << 1)
+#define LSM_REG_CTRL1   0x10
+#define LSM_REG_DATA    0x28
 /* USER CODE END PD */
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
 DMA_HandleTypeDef hdma_i2c1_rx;
-UART_HandleTypeDef huart1; // Added for HC-05 Bluetooth
-UART_HandleTypeDef huart2; // Kept for PC USB debugging
+UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
 // DMA variables
 volatile uint8_t dma_transfer_complete = 0;
-uint8_t sensor_sequence_step = 0; // 0 = MAX30102, 1 = BMP390, 2 = LSM6DSOX
+uint8_t sensor_sequence_step = 0;
 volatile uint8_t use_dma_buffer = 0;
 
 uint8_t rx_max[6];
@@ -64,35 +68,33 @@ uint32_t last_step_time = 0;
 // MAX30102 variables
 float dc_baseline_red = 0;
 float dc_baseline_ir = 0;
-float alpha = 0.95f;
+float alpha = 0.85f;
 uint8_t filter_initialized = 0;
 uint8_t beat_state = 0;
 uint32_t beat_count = 0;
 uint32_t last_beat_time = 0;
 
-float beta = 0.90f;
+float beta = 0.85f;
 float smooth_red = 0.0f;
 float smooth_ir = 0.0f;
 float previous_smooth_ir = 0.0f;
 
-uint32_t beats_in_window = 0;
-uint32_t window_start_time = 0;
-uint8_t window_initialized = 0;
+float displayed_bpm = 0.0f;
+float avg_beat_interval = 0.0f;
 
-float displayed_bpm = 0.0;
-
-//BMP 390 variables
+// BMP390 variables
 float current_altitude = 0.0f;
 float current_temp = 0.0f;
 float initial_baseline_altitude = 0.0f;
 uint8_t altitude_calibrated = 0;
 uint8_t calibration_counter = 0;
 
+// Telemetry variables
 volatile uint8_t data_ready = 0;
-char uart_buf[100]; //UART buffer size
-
-// --- TIMING VARIABLE ---
+char uart_buf[100];
 uint32_t last_telemetry_time = 0;
+float distance_covered = 0.0f;
+const float STRIDE_LENGTH_M = 0.762f;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -100,11 +102,12 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_I2C1_Init(void);
-static void MX_USART1_UART_Init(void); // Prototype for Bluetooth
+static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 BMP3_INTF_RET_TYPE user_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr);
 BMP3_INTF_RET_TYPE user_i2c_write(uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr);
 void user_delay_us(uint32_t period, void *intf_ptr);
+
 /* USER CODE BEGIN 0 */
 /* USER CODE END 0 */
 
@@ -115,41 +118,36 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_I2C1_Init();
-  MX_USART1_UART_Init(); // Initialize HC-05 Bluetooth UART (9600 Baud)
-  MX_USART2_UART_Init(); // Initialize PC USB UART (115200 Baud)
+  MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
   uint8_t config_data;
-
   HAL_Delay(50);
 
-  // --- 1. WAKE UP MAX30102 ---
-  config_data = 0x03; // SpO2 Mode
+  // MAX30102 Init
+  config_data = 0x03;
   HAL_I2C_Mem_Write(&hi2c1, MAX30102_ADDR, REG_MODE_CONFIG, 1, &config_data, 1, 100);
   config_data = 0x27;
   HAL_I2C_Mem_Write(&hi2c1, MAX30102_ADDR, REG_SPO2_CONFIG, 1, &config_data, 1, 100);
-  config_data = 0x7F; //Red LED
+  config_data = 0x24; // Red ~7mA
   HAL_I2C_Mem_Write(&hi2c1, MAX30102_ADDR, REG_LED1_PA, 1, &config_data, 1, 100);
-  config_data = 0x7F; //IR Led
+  config_data = 0x24; // IR ~7mA
   HAL_I2C_Mem_Write(&hi2c1, MAX30102_ADDR, REG_LED2_PA, 1, &config_data, 1, 100);
 
-  // --- 2. WAKE UP BMP390 ---
-
+  // BMP390 Init
   struct bmp3_dev bmp;
-  struct bmp3_settings settings = {0}; // NEW: Settings is now separate!
+  struct bmp3_settings settings = {0};
   uint8_t bmp_addr = BMP390_ADDR;
 
-  // Link the wrappers to the API
   bmp.intf = BMP3_I2C_INTF;
   bmp.intf_ptr = &bmp_addr;
   bmp.read = user_i2c_read;
   bmp.write = user_i2c_write;
   bmp.delay_us = user_delay_us;
 
-  // Initialize the sensor
   int8_t rslt = bmp3_init(&bmp);
 
-  // Set the recommended settings
   settings.press_en = BMP3_ENABLE;
   settings.temp_en = BMP3_ENABLE;
   settings.odr_filter.press_os = BMP3_OVERSAMPLING_8X;
@@ -157,63 +155,48 @@ int main(void)
   settings.odr_filter.iir_filter = BMP3_IIR_FILTER_COEFF_3;
   settings.odr_filter.odr = BMP3_ODR_25_HZ;
 
-  // Apply settings
   uint16_t settings_sel = BMP3_SEL_PRESS_EN | BMP3_SEL_TEMP_EN | BMP3_SEL_PRESS_OS | BMP3_SEL_TEMP_OS | BMP3_SEL_ODR | BMP3_SEL_IIR_FILTER;
   rslt = bmp3_set_sensor_settings(settings_sel, &settings, &bmp);
 
-  // Set operation mode
   settings.op_mode = BMP3_MODE_NORMAL;
   rslt = bmp3_set_op_mode(&settings, &bmp);
 
-  // --- 3. WAKE UP LSM6DSOX ---
+  // LSM6DSOX Init
   config_data = 0x54;
   HAL_I2C_Mem_Write(&hi2c1, LSM6DSOX_ADDR, LSM_REG_CTRL1, 1, &config_data, 1, 100);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
-    /* USER CODE BEGIN WHILE */
+  /* USER CODE BEGIN WHILE */
   HAL_I2C_Mem_Read_DMA(&hi2c1, MAX30102_ADDR, MAX_REG_DATA, 1, rx_max, 6);
 
   while (1)
   {
-      // Only do work if the DMA has actually finished a transfer
       if (dma_transfer_complete == 1)
       {
-          // Reset the flag immediately
           dma_transfer_complete = 0;
-
-          // Master timestamp for all sensors
           uint32_t current_time = HAL_GetTick();
 
-          // --- STEP 0: MAX30102 FINISHED ---
+          // --- STEP 0: MAX30102 ---
           if (sensor_sequence_step == 0)
           {
         	  uint32_t red_led = ((rx_max[0] << 16) | (rx_max[1] << 8) | rx_max[2]) & 0x03FFFF;
-        	  uint32_t ir_led =  ((rx_max[3] << 16) | (rx_max[4] << 8) | rx_max[5]) & 0x03FFFF;
+        	  uint32_t ir_led  = ((rx_max[3] << 16) | (rx_max[4] << 8) | rx_max[5]) & 0x03FFFF;
 
-        	  // ==========================================
-        	  // --- PROXIMITY CHECK ---
-        	  // ==========================================
-        	  // If IR reflection is too low, nothing is touching the sensor
-        	  if (ir_led < 30000) {
-        		  // Reset all filters and zero out the display
+        	  // Proximity Check
+        	  if (ir_led < 80000) {
         		  filter_initialized = 0;
-        		  beats_in_window = 0;
-        		  displayed_bpm = 0.0;
+        		  displayed_bpm = 0.0f;
+        		  avg_beat_interval = 0.0f;
         		  beat_state = 0;
+        		  beat_count = 0;
         	  }
         	  else {
-        		  // ==========================================
-        		  // --- FINGER DETECTED: RUN ALGORITHM ---
-        		  // ==========================================
-
-        		  // DC Filter (Remove baseline)
+        		  // DC Filter
         		  if (filter_initialized == 0) {
         			  dc_baseline_red = (float)red_led;
         			  dc_baseline_ir = (float)ir_led;
         			  filter_initialized = 1;
-        			  window_start_time = current_time; // Reset the 10-second timer
         		  }
         		  dc_baseline_red = (alpha * dc_baseline_red) + ((1.0f - alpha) * (float)red_led);
         		  dc_baseline_ir  = (alpha * dc_baseline_ir)  + ((1.0f - alpha) * (float)ir_led);
@@ -221,59 +204,79 @@ int main(void)
         		  float ac_red = (float)red_led - dc_baseline_red;
         		  float ac_ir  = (float)ir_led  - dc_baseline_ir;
 
-        		  // Smoothen the data
+        		  // AC Smoothing
         		  smooth_red = (beta * smooth_red) + ((1.0f - beta) * ac_red);
         		  smooth_ir  = (beta * smooth_ir)  + ((1.0f - beta) * ac_ir);
 
         		  float ir_delta = smooth_ir - previous_smooth_ir;
         		  previous_smooth_ir = smooth_ir;
 
-        		  // WIDENED THRESHOLDS FOR HIGHER LED POWER
-        		  float UPPER_THRESHOLD_BEAT = 3.0f; // Was 0.25f
-        		  float LOWER_THRESHOLD_BEAT = -3.0f; // Was -0.25f
+        		  char debug_msg[60];
+        		  sprintf(debug_msg, "Raw IR: %lu | Delta: %.2f\r\n", ir_led, ir_delta);
+        		  HAL_UART_Transmit(&huart2, (uint8_t*)debug_msg, strlen(debug_msg), 10);
 
-        		  if (beat_state == 0 && ir_delta > UPPER_THRESHOLD_BEAT) {
-        			  beat_state = 1;
+                  float UPPER_THRESHOLD_BEAT = 4.0f;
+                  float LOWER_THRESHOLD_BEAT = -3.0f;
 
-        			  uint32_t beat_time_ms = current_time - last_beat_time;
+                  // Dynamic refractory period
+                  uint32_t current_refractory = 400;
+                  if (displayed_bpm > 30.0f) {
+                      current_refractory = (uint32_t)((60000.0f / displayed_bpm) * 0.6f);
+                      if (current_refractory < 350) current_refractory = 350;
+                      if (current_refractory > 800) current_refractory = 800;
+                  }
 
-        			  // To avoid artifacts (Heart rate between 30 and 240 BPM)
-        			  if (beat_time_ms > 250 && beat_time_ms < 2000) {
-        				  beats_in_window++;
-        			  }
-        			  last_beat_time = current_time;
-        		  }
-        		  else if (beat_state == 1 && ir_delta < LOWER_THRESHOLD_BEAT) {
-        			  beat_state = 0;
-        		  }
+                  // Peak detection
+                  if (beat_state == 0 && ir_delta > UPPER_THRESHOLD_BEAT && (current_time - last_beat_time) > current_refractory) {
+                      beat_state = 1;
+                      uint32_t beat_time_ms = current_time - last_beat_time;
 
-        		  if (current_time - window_start_time >= 10000) {
-        			  uint32_t final_bpm = beats_in_window * 6;
-        			  float raw_window_bpm = (float)final_bpm;
+                      // Validate beat interval (30-240 BPM limits)
+                      if (beat_time_ms > 250 && beat_time_ms < 2000) {
+                          beat_count++;
 
-        			  // Apply the Display Filter
-        			  if (displayed_bpm == 0) {
-        				  displayed_bpm = raw_window_bpm;
-        			  }
-        			  displayed_bpm = (0.7f * displayed_bpm) + (0.3f * raw_window_bpm);
+                          // Warm-up phase
+                          if (beat_count < 4) {
+                              if (avg_beat_interval == 0.0f) {
+                                  avg_beat_interval = (float)beat_time_ms;
+                              } else {
+                                  avg_beat_interval = (0.50f * avg_beat_interval) + (0.50f * (float)beat_time_ms);
+                              }
+                          }
+                          // Locked phase
+                          else {
+                              float diff = (float)beat_time_ms - avg_beat_interval;
 
-        			  // Send Verbose Heart Rate ONLY to PC Debug (huart2)
-        			  char beat_msg[60];
-        			  sprintf(beat_msg, "--- DISPLAY BPM: %.0f ---\r\n", displayed_bpm);
-        			  HAL_UART_Transmit(&huart2, (uint8_t*)beat_msg, strlen(beat_msg), 100);
+                              // Outlier clamping
+                              if (diff > 100.0f) {
+                                  beat_time_ms = (uint32_t)(avg_beat_interval + 25.0f);
+                              }
+                              else if (diff < -100.0f) {
+                                  beat_time_ms = (uint32_t)(avg_beat_interval - 25.0f);
+                              }
 
-        			  beats_in_window = 0;
-        			  window_start_time = current_time;
-        		  }
+                              // Interval smoothing
+                              avg_beat_interval = (0.95f * avg_beat_interval) + (0.05f * (float)beat_time_ms);
+                          }
+
+                          displayed_bpm = 60000.0f / avg_beat_interval;
+
+                          char beat_msg[60];
+                          sprintf(beat_msg, "Beat! Interval: %.0fms | DISPLAY BPM: %.0f\r\n", avg_beat_interval, displayed_bpm);
+                          HAL_UART_Transmit(&huart2, (uint8_t*)beat_msg, strlen(beat_msg), 10);
+                      }
+                      last_beat_time = current_time;
+                  }
+                  else if (beat_state == 1 && ir_delta < LOWER_THRESHOLD_BEAT) {
+                      beat_state = 0;
+                  }
         	  }
 
         	  sensor_sequence_step = 1;
-
-        	  // Trigger the BMP390 DMA read
         	  HAL_I2C_Mem_Read_DMA(&hi2c1, BMP390_ADDR, BMP_REG_DATA, 1, rx_bmp, 6);
           }
 
-          // --- STEP 1: BMP390 FINISHED ---
+          // --- STEP 1: BMP390 ---
           else if (sensor_sequence_step == 1)
           {
               struct bmp3_data comp_data;
@@ -282,17 +285,12 @@ int main(void)
               bmp3_get_sensor_data(BMP3_PRESS | BMP3_TEMP, &comp_data, &bmp);
               use_dma_buffer = 0;
 
-              // Save the true temperature
-              current_temp = (float)comp_data.temperature;
-
-              // Calculate absolute altitude based on standard sea-level pressure
+              current_temp = (float)comp_data.temperature - 5.0;
               float absolute_altitude = 44330.0f * (1.0f - pow((comp_data.pressure / 101325.0f), 0.190295f));
 
-              // Check current_temp > 0 to ensure not a blank reading
+              // IIR Stabilization
               if (altitude_calibrated == 0) {
                   calibration_counter++;
-
-                  // Wait for 25 samples for the IIR filter to stabilize
                   if (calibration_counter > 25) {
                       initial_baseline_altitude = absolute_altitude;
                       altitude_calibrated = 1;
@@ -306,34 +304,30 @@ int main(void)
               HAL_I2C_Mem_Read_DMA(&hi2c1, LSM6DSOX_ADDR, LSM_REG_DATA, 1, rx_lsm, 6);
           }
 
-          // --- STEP 2: LSM6DSOX FINISHED ---
+          // --- STEP 2: LSM6DSOX ---
           else if (sensor_sequence_step == 2)
           {
               int16_t accel_x = (int16_t)((rx_lsm[1] << 8) | rx_lsm[0]);
               int16_t accel_y = (int16_t)((rx_lsm[3] << 8) | rx_lsm[2]);
               int16_t accel_z = (int16_t)((rx_lsm[5] << 8) | rx_lsm[4]);
 
-              // Convert to g
               float g_x = accel_x * 0.488f / 1000.0f;
               float g_y = accel_y * 0.488f / 1000.0f;
               float g_z = accel_z * 0.488f / 1000.0f;
 
-              // Magnitude
               float dynamic_movement = sqrt(g_x * g_x + g_y * g_y + g_z * g_z) - 1.0f;
 
               // Cadence Peak Detector
-              float UPPER_THRESHOLD_STEP = 1.5f;
-              float LOWER_THRESHOLD_STEP = 0.5f;
+              float UPPER_THRESHOLD_STEP = 0.4f;
+              float LOWER_THRESHOLD_STEP = 0.15f;
 
               if (step_state == 0 && dynamic_movement > UPPER_THRESHOLD_STEP) {
                   step_state = 1;
                   step_count++;
 
                   uint32_t step_time_ms = current_time - last_step_time;
-
                   if (step_time_ms > 0) {
                       float steps_per_minute = 60000.0f / (float)step_time_ms;
-                      // Send Verbose Step Data ONLY to PC Debug (huart2)
                       char step_msg[60];
                       sprintf(step_msg, "STEP! Total: %lu | Cadence: %.1f SPM\r\n", step_count, steps_per_minute);
                       HAL_UART_Transmit(&huart2, (uint8_t*)step_msg, strlen(step_msg), 100);
@@ -344,33 +338,26 @@ int main(void)
                   step_state = 0;
               }
 
-              // ====================================================================
-              // --- 1 HZ TELEMETRY TRANSMISSION (BLUETOOTH & PC) ---
-              // ====================================================================
+              // --- 1 HZ Telemetry Transmission ---
               if (current_time - last_telemetry_time >= 1000) {
 
-                  // Clean, comma-separated string: BPM, Temp, Altitude, Steps \n
-                  sprintf(uart_buf, "%.0f,%.1f,%.1f,%lu\n",
-                          displayed_bpm, current_temp, current_altitude, step_count);
+            	  distance_covered = (float)step_count * STRIDE_LENGTH_M;
 
-                  // Send exact same raw frame to both PC and Bluetooth
-                  HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100); // PC
-                  HAL_UART_Transmit(&huart1, (uint8_t*)uart_buf, strlen(uart_buf), 100); // Bluetooth
+            	  sprintf(uart_buf, "%.0f,%.1f,%.1f,%lu,%.2f\n",
+            	          displayed_bpm, current_temp, current_altitude, step_count, distance_covered);
 
-                  last_telemetry_time = current_time;
+            	  HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100);
+            	  HAL_UART_Transmit(&huart1, (uint8_t*)uart_buf, strlen(uart_buf), 100);
+            	  last_telemetry_time = current_time;
               }
 
-              // Reset back to the first sensor
               sensor_sequence_step = 0;
-
               HAL_Delay(10);
-
-              //Start the cycle over
               HAL_I2C_Mem_Read_DMA(&hi2c1, MAX30102_ADDR, MAX_REG_DATA, 1, rx_max, 6);
           }
       }
   }
-    /* USER CODE END WHILE */
+  /* USER CODE END WHILE */
   /* USER CODE END 3 */
 }
 
@@ -383,21 +370,14 @@ void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Configure the main internal regulator output voltage
-  */
   if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
   {
     Error_Handler();
   }
 
-  /** Configure LSE Drive Capability
-  */
   HAL_PWR_EnableBkUpAccess();
   __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
 
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
@@ -415,8 +395,6 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -429,8 +407,6 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
-  /** Enable MSI Auto calibration
-  */
   HAL_RCCEx_EnableMSIPLLMode();
 }
 
@@ -454,16 +430,10 @@ static void MX_I2C1_Init(void)
   {
     Error_Handler();
   }
-
-  /** Configure Analogue filter
-  */
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
-
-  /** Configure Digital filter
-  */
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
   {
     Error_Handler();
@@ -471,13 +441,12 @@ static void MX_I2C1_Init(void)
 }
 
 /**
-  * @brief USART1 Initialization Function (ADDED FOR HC-05 BLUETOOTH)
+  * @brief USART1 Initialization Function (HC-05 Bluetooth)
   * @param None
   * @retval None
   */
 static void MX_USART1_UART_Init(void)
 {
-  // PA9 = TX (D1), PA10 = RX (D0)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
   __HAL_RCC_USART1_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -490,7 +459,7 @@ static void MX_USART1_UART_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 38400; // 38400 is the default for my module
+  huart1.Init.BaudRate = 38400;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -533,11 +502,7 @@ static void MX_USART2_UART_Init(void)
   */
 static void MX_DMA_Init(void)
 {
-  /* DMA controller clock enable */
   __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* DMA1_Channel7_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel7_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel7_IRQn);
 }
@@ -551,15 +516,12 @@ static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-  /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
-  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(BUSY_LED_GPIO_Port, BUSY_LED_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : BUSY_LED_Pin */
   GPIO_InitStruct.Pin = BUSY_LED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -578,7 +540,6 @@ void HAL_I2C_MemRxCpltCallback(I2C_HandleTypeDef *hi2c)
 
 // Bosch API I2C Read Wrapper
 BMP3_INTF_RET_TYPE user_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr) {
-
     if (use_dma_buffer == 1) {
         if (reg_addr == BMP_REG_DATA) {
             memcpy(reg_data, rx_bmp, len);
@@ -592,7 +553,6 @@ BMP3_INTF_RET_TYPE user_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t l
         return 0;
     }
 
-    // Normal blocking I2C for initialization
     uint8_t dev_addr = *(uint8_t*)intf_ptr;
     if (HAL_I2C_Mem_Read(&hi2c1, dev_addr, reg_addr, 1, reg_data, len, 100) == HAL_OK) return 0;
     return -1;
@@ -610,7 +570,6 @@ void user_delay_us(uint32_t period, void *intf_ptr) {
     uint32_t delay_ms = (period / 1000) + 1;
     HAL_Delay(delay_ms);
 }
-
 /* USER CODE END 4 */
 
 /**
@@ -619,13 +578,10 @@ void user_delay_us(uint32_t period, void *intf_ptr) {
   */
 void Error_Handler(void)
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
   {
   }
-  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
@@ -638,9 +594,5 @@ void Error_Handler(void)
   */
 void assert_failed(uint8_t *file, uint32_t line)
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

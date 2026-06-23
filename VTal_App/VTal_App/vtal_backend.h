@@ -29,13 +29,12 @@ public:
 
                 QList<QByteArray> parts = packet.split(',');
 
-                // Assuming new STM32 payload: BPM, Temp, Steps
-                if (parts.size() >= 3) {
+                // BPM, Temp, Altitude, Steps, Distance
+                if (parts.size() >= 5) {
                     m_bpm = parts[0].toInt();
                     m_temperature = parts[1].toFloat();
-                    m_steps = parts[2].toInt();
-
-                    // Future: m_distance = calculateDistance(m_steps);
+                    m_steps = parts[3].toInt();
+                    m_distance = parts[4].toFloat();
 
                     emit metricsUpdated();
                 }

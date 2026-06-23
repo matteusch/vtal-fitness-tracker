@@ -77,7 +77,7 @@ Item {
                             }
                             color: window.textTheme; font.pixelSize: 36; font.bold: true
                         }
-                        Text { text: window.unitSystem === "Metric" ? "km" : "mi"; color: "#FF9800"; font.pixelSize: 14; font.bold: true; anchors.baseline: parent.bottom; anchors.baselineOffset: -6 }
+                        Text { text: window.unitSystem === "Metric" ? "m" : "mi"; color: "#FF9800"; font.pixelSize: 14; font.bold: true; anchors.baseline: parent.bottom; anchors.baselineOffset: -6 }
                     }
                 }
             }
@@ -96,7 +96,7 @@ Item {
                                 if (typeof vtal.distance === "undefined") return "--"
                                 let d = vtal.distance - window.sessionDistanceStart
                                 if (d < 0) d = 0
-                                let cal = window.currentActivity === "Running" ? d * 65 : d * 40
+                                let cal = window.currentActivity === "Running" ? d * 0.065 : d * 0.04
                                 return cal.toFixed(0)
                             }
                             color: window.textTheme; font.pixelSize: 36; font.bold: true
