@@ -23,3 +23,10 @@ VTal is a wearable fitness tracker that utilises MAX30102, BMP390, and LSM6DSOX 
 * Qt6
 
 ## Pinout
+
+| **BMP390** | I2C | A4 (SDA), A5 (SCL) | 3.3V |
+| **LSM6DSOX** | I2C | A4 (SDA), A5 (SCL) | 3.3V |
+| **MAX30105** | I2C | A4 (SDA), A5 (SCL) | 5V |
+| **HC-05** | UART | D0 / PA10 (RX), D1 / PA9 (TX) | 5V |
+
+*Note: All components share a common ground (GND).*
