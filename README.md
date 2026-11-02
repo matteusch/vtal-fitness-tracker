@@ -6,11 +6,11 @@ VTal is a wearable fitness tracker that utilises MAX30102, BMP390, and LSM6DSOX 
 * **Environmental and Motion Tracking:** Integrated barometric pressure sensing and 6-axis IMU.
 * **Data Analysis:** Calorie and distance counter based on acquired biometric data.
 * **Wireless Telemetry:** Serial over Bluetooth data transmission to the host application.
-* **Custom Mobile App:** Data visualisation on the user's mobile phone.
+* **Custom Desktop App:** Data visualisation on the user's computer.
 
 ## Hardware Requirements
 * NUCLEO-L432KC Development Board
-* MAX30102 SP02 and Pulse Sensor
+* MAX30102 SpO2 and Pulse Sensor
 * BMP390 Pressure and Temperature Sensor
 * LSM6DSOX IMU
 * HC-05 Bluetooth Module
@@ -26,7 +26,7 @@ VTal is a wearable fitness tracker that utilises MAX30102, BMP390, and LSM6DSOX 
 
 * **BMP390** | I2C | A4 (SDA), A5 (SCL) | 3.3V |
 * **LSM6DSOX** | I2C | A4 (SDA), A5 (SCL) | 3.3V |
-* **MAX30105** | I2C | A4 (SDA), A5 (SCL) | 5V |
+* **MAX30102** | I2C | A4 (SDA), A5 (SCL) | 5V |
 * **HC-05** | UART | D0 / PA10 (RX), D1 / PA9 (TX) | 5V |
 
 *Note: All components share a common ground (GND).*
