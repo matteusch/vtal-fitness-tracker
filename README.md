@@ -8,6 +8,10 @@ VTal is a wearable fitness tracker that utilises MAX30102, BMP390, and LSM6DSOX 
 * **Wireless Telemetry:** Serial over Bluetooth data transmission to the host application.
 * **Custom Desktop App:** Data visualisation on the user's computer.
 
+![VTal app showing live heart rate, ambient temperature, step count and distance](docs/images/main_screen.jpg)
+
+![VTal app during an active training session, showing heart rate, distance, calories and duration](docs/images/training_choice.jpg)
+
 ## Hardware Requirements
 * NUCLEO-L432KC Development Board
 * MAX30102 SpO2 and Pulse Sensor
@@ -16,6 +20,8 @@ VTal is a wearable fitness tracker that utilises MAX30102, BMP390, and LSM6DSOX 
 * HC-05 Bluetooth Module
 * 5V Power Source 
 * Custom 3D Printed Enclosure
+
+![VTal device fully assembled, without the 3D printed enclosure](docs/images/hardware.jpg)
 
 ## Software Prerequisites
 * STM32CubeIDE
